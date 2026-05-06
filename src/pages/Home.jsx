@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
-import { getProperties } from "../services/property";
+// import { getProperties } from "../services/property"; // Backend temporär aus
 
 export default function Home() {
   const [properties, setProperties] = useState([]);
 
+  // Dummy-Daten nur für Test
   useEffect(() => {
-    getProperties().then((res) => {
-      setProperties(res.data.data.data);
-    });
+    const dummyProperties = [
+      { id: 1, title: "Test House", city: "Berlin", price_per_night: 50 },
+      { id: 2, title: "Beach Villa", city: "Barcelona", price_per_night: 120 },
+      { id: 3, title: "Mountain Cabin", city: "Zermatt", price_per_night: 80 },
+    ];
+    setProperties(dummyProperties);
+
+    // Wenn Backend testen willst, später wieder einkommentieren
+    // getProperties().then((res) => {
+    //   setProperties(res.data.data.data);
+    // });
   }, []);
 
   return (
