@@ -1,29 +1,45 @@
+// frontend_react/src/pages/Home.jsx
 import { useEffect, useState } from "react";
-// import { getProperties } from "../services/property"; // Backend temporär aus
+import { getProperties } from "../api/propertyApi";
 
 export default function Home() {
   const [properties, setProperties] = useState([]);
 
-  // Dummy-Daten nur für Test
   useEffect(() => {
-    const dummyProperties = [
-      { id: 1, title: "Test House", city: "Berlin", price_per_night: 50 },
-      { id: 2, title: "Beach Villa", city: "Barcelona", price_per_night: 120 },
-      { id: 3, title: "Mountain Cabin", city: "Zermatt", price_per_night: 80 },
-    ];
-    setProperties(dummyProperties);
-
-    // Wenn Backend testen willst, später wieder einkommentieren
-    // getProperties().then((res) => {
-    //   setProperties(res.data.data.data);
-    // });
+    // Axios Call zum Backend
+    getProperties()
+      .then((res) => {
+        console.log("Backend Antwort:", res.data); // nur zum Debuggen
+        // Daten setzen, falls vorhanden
+        if (res.data && res.data.data && res.data.data.data) {
+          setProperties(res.data.data.data);
+        } else {
+          // Fallback, falls Backend falsche Struktur liefert
+          setProperties([
+            { id: 1, title: "Test House", city: "Berlin", price_per_night: 50 },
+          ]);
+        }
+      })
+      .catch((err) => {
+        console.error("Fehler beim Laden der Properties:", err);
+        // Fallback Dummy-Daten
+        setProperties([
+          { id: 1, title: "Test House", city: "Berlin", price_per_night: 50 },
+        ]);
+      });
   }, []);
 
   return (
     <div className="container">
       <h1 style={{ marginBottom: "20px" }}>Properties</h1>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "15px" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "15px",
+        }}
+      >
         {properties.map((p) => (
           <div className="card" key={p.id}>
             <h3>{p.title}</h3>
