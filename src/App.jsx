@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PropertyDetail from "./pages/PropertyDetail";
 
+import MyBookings from "./pages/MyBookings";
+
 import Success from "./pages/Success";
 
 import { LanguageProvider } from "./context/LanguageContext";
