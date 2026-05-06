@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../api/client";
+import { getProperty } from "../services/property";
 import { createBooking } from "../services/booking";
 import { checkout } from "../services/payment";
 
@@ -11,16 +11,22 @@ export default function PropertyDetail() {
   const [checkOut, setCheckOut] = useState("");
   const [bookingId, setBookingId] = useState(null);
 
-  const getProperty = async () => {
-    const res = await api.get(`/properties/${id}`);
-    setProperty(res.data.data);
+  const fetchProperty = async () => {
+    try {
+      const res = await getProperty(id);
+      setProperty(res.data.data);
+    } catch (err) {
+      console.error(err);
+      alert("Property not found");
+    }
   };
 
   const handleBooking = async () => {
+    if (!checkIn || !checkOut) return alert("Select check-in and check-out dates!");
     try {
       const res = await createBooking({ property_id: id, check_in: checkIn, check_out: checkOut });
       setBookingId(res.data.data.id);
-      alert("Booking created! Now proceed to payment.");
+      alert("Booking created! Proceed to payment.");
     } catch (err) {
       console.error(err);
       alert(err.response?.data?.message || "Booking failed");
@@ -29,12 +35,17 @@ export default function PropertyDetail() {
 
   const handlePay = async () => {
     if (!bookingId) return alert("Please create a booking first!");
-    const res = await checkout(bookingId);
-    window.location.href = res.data.url; // Stripe Checkout
+    try {
+      const res = await checkout(bookingId);
+      window.location.href = res.data.url;
+    } catch (err) {
+      console.error(err);
+      alert("Payment failed");
+    }
   };
 
   useEffect(() => {
-    getProperty();
+    fetchProperty();
   }, [id]);
 
   if (!property) return <p>Loading...</p>;
