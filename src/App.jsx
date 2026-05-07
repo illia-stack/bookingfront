@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PropertyDetail from "./pages/PropertyDetail";
 import MyBookings from "./pages/MyBookings";
+import Cancel from "./pages/Cancel";
 import Success from "./pages/Success";
 
 import { LanguageProvider } from "./context/LanguageContext";
@@ -42,6 +43,7 @@ function App() {
           />
 
           {/* 💳 Stripe */}
+          <Route path="/cancel" element={<Cancel />} />
           <Route path="/success" element={<Success />} />
         </Routes>
 

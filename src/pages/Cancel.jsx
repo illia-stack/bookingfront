@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
-export default function Success() {
+export default function Cancel() {
 
   const { lang } = useLanguage();
 
@@ -14,12 +14,12 @@ export default function Success() {
   return (
     <div className="container">
 
-      <h1 style={{ color: "green" }}>
-        ✅ {translations[lang].paymentSuccessfulTitle}
+      <h1 style={{ color: "red" }}>
+        ❌ {translations[lang].paymentCancelledTitle}
       </h1>
 
       <p>
-        {translations[lang].paymentSuccessfulMessage}
+        {translations[lang].paymentCancelledMessage}
       </p>
 
       {bookingId && (
@@ -28,9 +28,13 @@ export default function Success() {
         </p>
       )}
 
+      <p>
+        {translations[lang].tryAgainLater}
+      </p>
+
       <Link to="/my-bookings">
         <button>
-          {translations[lang].viewMyBookings}
+          {translations[lang].backToBookings}
         </button>
       </Link>
 
