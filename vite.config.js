@@ -5,12 +5,15 @@ export default defineConfig({
   plugins: [react()],
 
   server: {
-    host: true,
+    host: "0.0.0.0",
     port: 5173,
   },
 
   preview: {
-    host: true,
-    port: 10000
-  }
+    host: "0.0.0.0",
+    port: process.env.PORT || 10000,
+    allowedHosts: [
+      "bookingfront-b9j1.onrender.com",
+    ],
+  },
 });
