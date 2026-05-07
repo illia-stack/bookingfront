@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { getProperty } from "../api/property";
 import { createBooking } from "../api/booking";
 
@@ -12,12 +13,18 @@ export default function PropertyDetail() {
   const { lang } = useLanguage();
 
   const [property, setProperty] = useState(null);
+
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
 
   const fetchProperty = async () => {
-    const res = await getProperty(id);
-    setProperty(res.data.data);
+    try {
+      const res = await getProperty(id);
+      setProperty(res.data.data);
+    } catch (err) {
+      console.error(err);
+      alert("Property not found");
+    }
   };
 
   useEffect(() => {
@@ -27,7 +34,8 @@ export default function PropertyDetail() {
   const handleBooking = async () => {
 
     if (!checkIn || !checkOut) {
-      return alert(translations[lang].selectDates);
+      alert(translations[lang].selectDates);
+      return;
     }
 
     try {
@@ -37,29 +45,47 @@ export default function PropertyDetail() {
         check_out: checkOut
       });
 
-      window.location.href = res.data.checkout_url;
+      // Backend gibt checkout_url zurück
+      const url = res.data.checkout_url;
+
+      if (!url) {
+        alert(translations[lang].bookingFailed);
+        return;
+      }
+
+      window.location.href = url;
 
     } catch (err) {
+      console.error(err);
       alert(err.response?.data?.message || translations[lang].bookingFailed);
     }
   };
 
-  if (!property) return <p>{translations[lang].loading}</p>;
+  if (!property) {
+    return <p>{translations[lang].loading}</p>;
+  }
 
   return (
     <div className="container">
 
+      {/* TITLE */}
       <h1 style={{ textAlign: "left" }}>
         {property.title}
       </h1>
 
+      {/* IMAGE */}
       <img
-        src={property.image_url}
-        style={{ width: "100%", borderRadius: "10px" }}
+        src={property.image_url || "https://via.placeholder.com/600"}
+        alt={property.title}
+        style={{ width: "100%", borderRadius: "10px", marginBottom: "10px" }}
       />
 
-      <p>{property.description}</p>
+      {/* DESCRIPTION */}
+      <p style={{ marginBottom: "10px" }}>
+        {property.description}
+      </p>
 
+      {/* INFO */}
       <p>📍 {property.city}</p>
 
       <p>
@@ -70,11 +96,42 @@ export default function PropertyDetail() {
         👥 {translations[lang].upTo} {property.max_guests} {translations[lang].guests}
       </p>
 
-      <h3>{translations[lang].bookProperty}</h3>
+      {/* BOOKING SECTION */}
+      <h3 style={{ marginTop: "20px" }}>
+        {translations[lang].bookProperty}
+      </h3>
 
-      <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} />
-      <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} />
+      <p style={{ color: "#666", marginBottom: "10px" }}>
+        {translations[lang].bookingHint}
+      </p>
 
+      {/* CHECK-IN */}
+      <div style={{ marginBottom: "12px" }}>
+        <label style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>
+          {translations[lang].checkInLabel}
+        </label>
+
+        <input
+          type="date"
+          value={checkIn}
+          onChange={(e) => setCheckIn(e.target.value)}
+        />
+      </div>
+
+      {/* CHECK-OUT */}
+      <div style={{ marginBottom: "12px" }}>
+        <label style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>
+          {translations[lang].checkOutLabel}
+        </label>
+
+        <input
+          type="date"
+          value={checkOut}
+          onChange={(e) => setCheckOut(e.target.value)}
+        />
+      </div>
+
+      {/* BUTTON */}
       <button onClick={handleBooking}>
         {translations[lang].createBooking}
       </button>

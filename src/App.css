@@ -83,10 +83,9 @@ button:hover {
 
 /* INPUTS */
 input, select {
-  padding: 10px;
-  border-radius: 8px;
+  padding: 6px;
+  border-radius: 6px;
   border: 1px solid #ddd;
-  width: 100%;
 }
 
 /* MOBILE */

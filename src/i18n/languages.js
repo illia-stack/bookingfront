@@ -1,10 +1,12 @@
 export const translations = {
+
   de: {
     home: "Startseite",
     register: "Registrieren",
     repeatPassword: "Passwort wiederholen",
     registrationSuccess: "Registrierung erfolgreich",
     registrationFailed: "Registrierung fehlgeschlagen",
+
     login: "Anmelden",
     myBookings: "Meine Buchungen",
     pay: "Bezahlen",
@@ -22,6 +24,11 @@ export const translations = {
     checkIn: "Anreise",
     checkOut: "Abreise",
 
+    // 🆕 Labels für Formular (wichtig getrennt von allgemeinen Begriffen)
+    checkInLabel: "Ankunftsdatum",
+    checkOutLabel: "Abreisedatum",
+    bookingHint: "Bitte wählen Sie Ihre Reisedaten aus:",
+
     bookingSuccess: "Buchung erstellt!",
     paymentSuccess: "Bezahlung erfolgreich",
 
@@ -33,7 +40,7 @@ export const translations = {
     guests: "Gäste",
     night: "Nacht",
 
-    bookProperty: "Unterkunft buchen",
+    bookProperty: "Unterkunft buchen"
   },
 
   en: {
@@ -42,6 +49,7 @@ export const translations = {
     repeatPassword: "Repeat Password",
     registrationSuccess: "Registration successful",
     registrationFailed: "Registration failed",
+
     login: "Login",
     myBookings: "My Bookings",
     pay: "Pay",
@@ -59,6 +67,11 @@ export const translations = {
     checkIn: "Check-in",
     checkOut: "Check-out",
 
+    // 🆕 Form labels
+    checkInLabel: "Check-in date",
+    checkOutLabel: "Check-out date",
+    bookingHint: "Please select your travel dates:",
+
     bookingSuccess: "Booking created!",
     paymentSuccess: "Payment successful",
 
@@ -70,7 +83,7 @@ export const translations = {
     guests: "guests",
     night: "night",
 
-    bookProperty: "Book this property",
+    bookProperty: "Book this property"
   },
 
   es: {
@@ -79,6 +92,7 @@ export const translations = {
     repeatPassword: "Repetir contraseña",
     registrationSuccess: "Registro exitoso",
     registrationFailed: "Registro fallido",
+
     login: "Iniciar sesión",
     myBookings: "Mis reservas",
     pay: "Pagar",
@@ -96,6 +110,11 @@ export const translations = {
     checkIn: "Entrada",
     checkOut: "Salida",
 
+    // 🆕 Form labels
+    checkInLabel: "Fecha de llegada",
+    checkOutLabel: "Fecha de salida",
+    bookingHint: "Por favor selecciona tus fechas de viaje:",
+
     bookingSuccess: "¡Reserva creada!",
     paymentSuccess: "Pago exitoso",
 
@@ -107,6 +126,7 @@ export const translations = {
     guests: "huéspedes",
     night: "noche",
 
-    bookProperty: "Reservar alojamiento",
+    bookProperty: "Reservar alojamiento"
   }
+
 };
