@@ -8,11 +8,11 @@ import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function PropertyDetail() {
-
   const { id } = useParams();
   const { lang } = useLanguage();
 
   const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -24,6 +24,8 @@ export default function PropertyDetail() {
     } catch (err) {
       console.error(err);
       alert("Property not found");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -32,20 +34,24 @@ export default function PropertyDetail() {
   }, [id]);
 
   const handleBooking = async () => {
-
     if (!checkIn || !checkOut) {
       alert(translations[lang].selectDates);
       return;
     }
 
     try {
-      const res = await createBooking({
-        property_id: id,
+      console.log("BOOKING PAYLOAD:", {
+        property_id: Number(id),
         check_in: checkIn,
         check_out: checkOut
       });
 
-      // Backend gibt checkout_url zurück
+      const res = await createBooking({
+        property_id: Number(id), // ✅ FIX: string → number
+        check_in: checkIn,
+        check_out: checkOut
+      });
+
       const url = res.data.checkout_url;
 
       if (!url) {
@@ -57,12 +63,19 @@ export default function PropertyDetail() {
 
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || translations[lang].bookingFailed);
+      alert(
+        err.response?.data?.message ||
+        translations[lang].bookingFailed
+      );
     }
   };
 
-  if (!property) {
+  if (loading) {
     return <p>{translations[lang].loading}</p>;
+  }
+
+  if (!property) {
+    return <p>Property not found</p>;
   }
 
   return (
@@ -81,35 +94,30 @@ export default function PropertyDetail() {
       />
 
       {/* DESCRIPTION */}
-      <p style={{ marginBottom: "10px" }}>
-        {property.description}
-      </p>
+      <p>{property.description}</p>
 
       {/* INFO */}
       <p>📍 {property.city}</p>
-
       <p>
         💰 {property.price_per_night} € / {translations[lang].night}
       </p>
-
       <p>
         👥 {translations[lang].upTo} {property.max_guests} {translations[lang].guests}
       </p>
 
-      {/* BOOKING SECTION */}
+      {/* BOOKING */}
       <h3 style={{ marginTop: "20px" }}>
         {translations[lang].bookProperty}
       </h3>
 
-      <p style={{ color: "#666", marginBottom: "10px" }}>
-        {translations[lang].bookingHint}
-      </p>
-
       {/* CHECK-IN */}
       <div style={{ marginBottom: "12px" }}>
-        <label style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>
+        <label>
           {translations[lang].checkInLabel}
         </label>
+        <p style={{ fontSize: "12px", color: "#666" }}>
+          {translations[lang].checkInHint}
+        </p>
 
         <input
           type="date"
@@ -120,9 +128,12 @@ export default function PropertyDetail() {
 
       {/* CHECK-OUT */}
       <div style={{ marginBottom: "12px" }}>
-        <label style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>
+        <label>
           {translations[lang].checkOutLabel}
         </label>
+        <p style={{ fontSize: "12px", color: "#666" }}>
+          {translations[lang].checkOutHint}
+        </p>
 
         <input
           type="date"

@@ -25,8 +25,10 @@ export const translations = {
     checkOut: "Abreise",
 
     // 🆕 Labels für Formular (wichtig getrennt von allgemeinen Begriffen)
-    checkInLabel: "Ankunftsdatum",
+    checkInLabel: "Anreisedatum",
     checkOutLabel: "Abreisedatum",
+    checkInHint: "Wählen Sie das Datum Ihrer Ankunft",
+    checkOutHint: "Wählen Sie das Datum Ihrer Abreise",
     bookingHint: "Bitte wählen Sie Ihre Reisedaten aus:",
 
     bookingSuccess: "Buchung erstellt!",
@@ -70,6 +72,8 @@ export const translations = {
     // 🆕 Form labels
     checkInLabel: "Check-in date",
     checkOutLabel: "Check-out date",
+    checkInHint: "Select your arrival date",
+    checkOutHint: "Select your departure date",
     bookingHint: "Please select your travel dates:",
 
     bookingSuccess: "Booking created!",
@@ -111,8 +115,10 @@ export const translations = {
     checkOut: "Salida",
 
     // 🆕 Form labels
-    checkInLabel: "Fecha de llegada",
+    checkInLabel: "Fecha de entrada",
     checkOutLabel: "Fecha de salida",
+    checkInHint: "Seleccione su fecha de llegada",
+    checkOutHint: "Seleccione su fecha de salida",
     bookingHint: "Por favor selecciona tus fechas de viaje:",
 
     bookingSuccess: "¡Reserva creada!",
