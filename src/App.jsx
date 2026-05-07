@@ -1,18 +1,22 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PropertyDetail from "./pages/PropertyDetail";
-
 import MyBookings from "./pages/MyBookings";
-
 import Success from "./pages/Success";
 
 import { LanguageProvider } from "./context/LanguageContext";
 
 function App() {
+
+  const ProtectedRoute = ({ children }) => {
+    const token = localStorage.getItem("token");
+    return token ? children : <Navigate to="/login" replace />;
+  };
+
   return (
     <LanguageProvider>
       <BrowserRouter>
@@ -25,12 +29,18 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/properties/:id" element={<PropertyDetail />} />
 
-          {/* 📅 User */}
-          <Route path="/my-bookings" element={<MyBookings />} />
+          {/* 📅 Protected */}
+          <Route
+            path="/my-bookings"
+            element={
+              <ProtectedRoute>
+                <MyBookings />
+              </ProtectedRoute>
+            }
+          />
 
-          {/* 💳 Stripe Pages */}
+          {/* 💳 Stripe */}
           <Route path="/success" element={<Success />} />
-
         </Routes>
 
       </BrowserRouter>

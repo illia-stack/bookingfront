@@ -8,7 +8,7 @@ export default function Navbar() {
   const { lang, setLang } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const toggleMobile = () => setMobileOpen(!mobileOpen);
+  const toggleMobile = () => setMobileOpen(prev => !prev);
 
   return (
     <nav className="navbar">

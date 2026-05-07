@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProperty } from "../services/property";
-import { createBooking } from "../services/booking";
-import { checkout } from "../services/payment";
+import { getProperty } from "../api/property";
+import { createBooking } from "../api/booking";
+import { checkout } from "../api/payment";
 
 export default function PropertyDetail() {
   const { id } = useParams();
