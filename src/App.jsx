@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PropertyDetail from "./pages/PropertyDetail";
 import MyBookings from "./pages/MyBookings";
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           {/* 🏠 Public */}
           <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/properties/:id" element={<PropertyDetail />} />
 

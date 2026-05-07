@@ -32,6 +32,7 @@ button {
   padding: 10px 14px;
   border-radius: 8px;
   cursor: pointer;
+  text-align: center;
 }
 
 button:hover {
@@ -47,6 +48,13 @@ button:hover {
 }
 
 /* INPUT */
+
+input,
+select,
+textarea {
+  text-align: center;
+}
+
 input {
   padding: 10px;
   border-radius: 8px;
