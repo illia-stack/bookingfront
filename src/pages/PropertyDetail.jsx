@@ -47,9 +47,10 @@ export default function PropertyDetail() {
       });
 
       const res = await createBooking({
-        property_id: Number(id), // ✅ FIX: string → number
+        property_id: Number(id),
         check_in: checkIn,
-        check_out: checkOut
+        check_out: checkOut,
+        locale: lang
       });
 
       const url = res.data.checkout_url;
