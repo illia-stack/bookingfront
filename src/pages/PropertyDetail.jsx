@@ -23,7 +23,7 @@ export default function PropertyDetail() {
       setProperty(res.data.data);
     } catch (err) {
       console.error(err);
-      alert("Property not found");
+      alert(translations[lang].propertyNotFound);
     } finally {
       setLoading(false);
     }
@@ -76,7 +76,7 @@ export default function PropertyDetail() {
   }
 
   if (!property) {
-    return <p>Property not found</p>;
+    return <p>{translations[lang].propertyNotFound}</p>;
   }
 
   return (

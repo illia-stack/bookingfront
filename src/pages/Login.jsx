@@ -16,7 +16,10 @@ export default function Login() {
       await login(email, password);
       window.location.href = "/";
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      alert(
+        err.response?.data?.message ||
+        translations[lang].loginFailed
+      );
     }
   };
 

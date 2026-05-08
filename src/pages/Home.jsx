@@ -10,13 +10,24 @@ export default function Home() {
   const { lang } = useLanguage();
 
   const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getProperties = async () => {
+
     try {
+
       const res = await api.get("/properties");
+
       setProperties(res.data.data.data || res.data.data);
+
     } catch (err) {
+
       console.error(err);
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
 
@@ -24,16 +35,33 @@ export default function Home() {
     getProperties();
   }, []);
 
+  // LOADING
+  if (loading) {
+    return (
+      <div className="container">
+        <p>{translations[lang].loading}</p>
+      </div>
+    );
+  }
+
+  // EMPTY
+  if (!loading && properties.length === 0) {
+    return (
+      <div className="container">
+        <p>{translations[lang].noProperties}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="container">
 
-      {properties.length === 0 ? (
-        <p>{translations[lang].loading}</p>
-      ) : (
-        properties.map((property) => (
-          <PropertyCard key={property.id} property={property} />
-        ))
-      )}
+      {properties.map((property) => (
+        <PropertyCard
+          key={property.id}
+          property={property}
+        />
+      ))}
 
     </div>
   );

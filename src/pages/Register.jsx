@@ -25,7 +25,10 @@ export default function Register() {
       alert(translations[lang].registrationSuccess);
       window.location.href = "/";
     } catch (err) {
-      alert(err.response?.data?.message || translations[lang].registrationFailed);
+      alert(
+        err.response?.data?.message ||
+        translations[lang].registrationFailed
+      );
     }
   };
 
@@ -34,7 +37,11 @@ export default function Register() {
 
       <h2>{translations[lang].register}</h2>
 
-      <input name="name" placeholder="Name" onChange={handleChange} />
+      <input
+        name="name"
+        placeholder="Name"
+        onChange={handleChange}
+      />
 
       <input
         name="email"

@@ -10,6 +10,7 @@ export const translations = {
 
     login: "Anmelden",
     logout: "Abmelden",
+    loginFailed: "Login fehlgeschlagen",
 
     myBookings: "Meine Buchungen",
 
@@ -50,6 +51,14 @@ export const translations = {
     night: "Nacht",
 
     bookProperty: "Unterkunft buchen",
+    propertyNotFound: "Unterkunft nicht gefunden",
+
+    // Zahlung
+    statusPending: "Ausstehend",
+    statusProcessing: "Wird verarbeitet",
+    statusPaid: "Bezahlt",
+    statusCancelled: "Storniert",
+    statusFailed: "Fehlgeschlagen",
 
     // 🆕 SUCCESS PAGE
     paymentSuccessfulTitle: "Bezahlung erfolgreich",
@@ -74,6 +83,7 @@ export const translations = {
 
     login: "Login",
     logout: "Logout",
+    loginFailed: "Login failed",
 
     myBookings: "My Bookings",
 
@@ -114,6 +124,14 @@ export const translations = {
     night: "night",
 
     bookProperty: "Book this property",
+    propertyNotFound: "Property not found",
+
+    //Zahlung
+    statusPending: "Pending",
+    statusProcessing: "Processing",
+    statusPaid: "Paid",
+    statusCancelled: "Cancelled",
+    statusFailed: "Failed",
 
     // 🆕 SUCCESS PAGE
     paymentSuccessfulTitle: "Payment Successful",
@@ -138,6 +156,7 @@ export const translations = {
 
     login: "Iniciar sesión",
     logout: "Cerrar sesión",
+    loginFailed: "Error de inicio de sesión",
 
     myBookings: "Mis reservas",
 
@@ -178,6 +197,14 @@ export const translations = {
     night: "noche",
 
     bookProperty: "Reservar alojamiento",
+    propertyNotFound: "Propiedad no encontrada",
+
+    // Zahlung
+    statusPending: "Pendiente",
+    statusProcessing: "Procesando",
+    statusPaid: "Pagado",
+    statusCancelled: "Cancelado",
+    statusFailed: "Fallido",
 
     // 🆕 SUCCESS PAGE
     paymentSuccessfulTitle: "Pago exitoso",
