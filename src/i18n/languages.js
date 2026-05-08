@@ -2,11 +2,13 @@ export const translations = {
 
   de: {
     home: "Startseite",
-
+    name: "Name",
     register: "Registrieren",
     repeatPassword: "Passwort wiederholen",
     registrationSuccess: "Registrierung erfolgreich",
     registrationFailed: "Registrierung fehlgeschlagen",
+
+    selectLanguage: "Sprache auswählen",
 
     login: "Anmelden",
     logout: "Abmelden",
@@ -75,11 +77,13 @@ export const translations = {
 
   en: {
     home: "Home",
-
+    name: "Name",
     register: "Register",
     repeatPassword: "Repeat Password",
     registrationSuccess: "Registration successful",
     registrationFailed: "Registration failed",
+
+    selectLanguage: "Select language", 
 
     login: "Login",
     logout: "Logout",
@@ -148,11 +152,13 @@ export const translations = {
 
   es: {
     home: "Inicio",
-
+    name: "Nombre",
     register: "Registrarse",
     repeatPassword: "Repetir contraseña",
     registrationSuccess: "Registro exitoso",
     registrationFailed: "Registro fallido",
+
+    selectLanguage: "Seleccionar idioma",
 
     login: "Iniciar sesión",
     logout: "Cerrar sesión",

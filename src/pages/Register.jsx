@@ -39,7 +39,7 @@ export default function Register() {
 
       <input
         name="name"
-        placeholder="Name"
+        placeholder={translations[lang].name}
         onChange={handleChange}
       />
 

@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+
+import {
+  Link,
+  useNavigate
+} from "react-router-dom";
+
+import { logout } from "../api/auth";
 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
-import { logout } from "../api/auth";
-
 export default function Navbar() {
 
   const { lang, setLang } = useLanguage();
+
   const navigate = useNavigate();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -16,17 +21,27 @@ export default function Navbar() {
   const token = localStorage.getItem("token");
 
   const handleLogout = async () => {
+
     try {
+
       await logout();
+
     } catch (err) {
+
       console.error(err);
+
     }
 
     localStorage.removeItem("token");
+
     navigate("/login");
+
+    setMobileOpen(false);
   };
 
-  const closeMobile = () => setMobileOpen(false);
+  const closeMobile = () => {
+    setMobileOpen(false);
+  };
 
   return (
     <nav className="navbar">
@@ -34,14 +49,20 @@ export default function Navbar() {
       <div className="nav-container">
 
         {/* LOGO */}
-        <Link to="/" className="logo">
+        <Link
+          to="/"
+          className="logo"
+          onClick={closeMobile}
+        >
           BookingApp
         </Link>
 
-        {/* DESKTOP LINKS */}
+        {/* DESKTOP */}
         <div className="nav-links desktop">
 
-          <Link to="/">{translations[lang].home}</Link>
+          <Link to="/">
+            {translations[lang].home}
+          </Link>
 
           {token ? (
             <>
@@ -49,19 +70,28 @@ export default function Navbar() {
                 {translations[lang].myBookings}
               </Link>
 
-              <button onClick={handleLogout} className="nav-btn">
-                Logout
+              <button
+                onClick={handleLogout}
+                className="nav-btn"
+              >
+                {translations[lang].logout}
               </button>
             </>
           ) : (
             <>
-              <Link to="/login">{translations[lang].login}</Link>
-              <Link to="/register">{translations[lang].register}</Link>
+              <Link to="/login">
+                {translations[lang].login}
+              </Link>
+
+              <Link to="/register">
+                {translations[lang].register}
+              </Link>
             </>
           )}
 
-          {/* LANGUAGE SELECT */}
+          {/* LANGUAGE */}
           <select
+            aria-label={translations[lang].selectLanguage}
             value={lang}
             onChange={(e) => setLang(e.target.value)}
             style={{
@@ -81,6 +111,7 @@ export default function Navbar() {
         <button
           className="mobile-btn"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
         >
           ☰
         </button>
@@ -91,34 +122,47 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="mobile-menu">
 
-          <Link to="/" onClick={closeMobile}>
+          <Link
+            to="/"
+            onClick={closeMobile}
+          >
             {translations[lang].home}
           </Link>
 
           {token ? (
             <>
-              <Link to="/my-bookings" onClick={closeMobile}>
+              <Link
+                to="/my-bookings"
+                onClick={closeMobile}
+              >
                 {translations[lang].myBookings}
               </Link>
 
-              <button onClick={() => { handleLogout(); closeMobile(); }}>
-                Logout
+              <button onClick={handleLogout}>
+                {translations[lang].logout}
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" onClick={closeMobile}>
+              <Link
+                to="/login"
+                onClick={closeMobile}
+              >
                 {translations[lang].login}
               </Link>
 
-              <Link to="/register" onClick={closeMobile}>
+              <Link
+                to="/register"
+                onClick={closeMobile}
+              >
                 {translations[lang].register}
               </Link>
             </>
           )}
 
-          {/* LANGUAGE MOBILE */}
+          {/* MOBILE LANGUAGE */}
           <select
+            aria-label={translations[lang].selectLanguage}
             value={lang}
             onChange={(e) => setLang(e.target.value)}
           >

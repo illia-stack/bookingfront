@@ -1,33 +1,63 @@
 import { useNavigate } from "react-router-dom";
+
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function PropertyCard({ property }) {
 
   const navigate = useNavigate();
+
   const { lang } = useLanguage();
 
   return (
     <div className="card">
 
+      {/* IMAGE */}
       <img
-        src={property.image_url || "https://via.placeholder.com/300"}
-        style={{ width: "100%", borderRadius: "10px" }}
+        src={
+          property.image_url ||
+          "https://via.placeholder.com/300"
+        }
+        alt={property.title}
+        loading="lazy"
+        style={{
+          width: "100%",
+          borderRadius: "10px"
+        }}
       />
 
-      <h3>{property.title}</h3>
+      {/* TITLE */}
+      <h3>
+        {property.title}
+      </h3>
 
-      <p>📍 {property.city}</p>
-
+      {/* CITY */}
       <p>
-        💰 {property.price_per_night} € / {translations[lang].night}
+        📍 {property.city}
       </p>
 
+      {/* PRICE */}
       <p>
-        👥 {translations[lang].upTo} {property.max_guests} {translations[lang].guests}
+        💰 {property.price_per_night} €
+        {" / "}
+        {translations[lang].night}
       </p>
 
-      <button onClick={() => navigate(`/properties/${property.id}`)}>
+      {/* GUESTS */}
+      <p>
+        👥 {translations[lang].upTo}
+        {" "}
+        {property.max_guests}
+        {" "}
+        {translations[lang].guests}
+      </p>
+
+      {/* BUTTON */}
+      <button
+        onClick={() =>
+          navigate(`/properties/${property.id}`)
+        }
+      >
         {translations[lang].viewDetails}
       </button>
 
