@@ -12,31 +12,43 @@ export default function Cancel() {
   const bookingId = searchParams.get("booking_id");
 
   return (
-    <div className="container">
+    <div className="page-center">
 
-      <h1 style={{ color: "red" }}>
-        ❌ {translations[lang].paymentCancelledTitle}
-      </h1>
+      <div className="status-card status-cancel">
 
-      <p>
-        {translations[lang].paymentCancelledMessage}
-      </p>
+        {/* ICON + TITLE */}
+        <div className="status-icon">❌</div>
 
-      {bookingId && (
-        <p>
-          {translations[lang].bookingId}: <strong>#{bookingId}</strong>
+        <h1>
+          {translations[lang].paymentCancelledTitle}
+        </h1>
+
+        {/* MESSAGE */}
+        <p className="muted">
+          {translations[lang].paymentCancelledMessage}
         </p>
-      )}
 
-      <p>
-        {translations[lang].tryAgainLater}
-      </p>
+        {/* BOOKING ID */}
+        {bookingId && (
+          <p className="booking-id">
+            {translations[lang].bookingId}:{" "}
+            <strong>#{bookingId}</strong>
+          </p>
+        )}
 
-      <Link to="/my-bookings">
-        <button>
-          {translations[lang].backToBookings}
-        </button>
-      </Link>
+        {/* INFO */}
+        <p className="hint">
+          {translations[lang].tryAgainLater}
+        </p>
+
+        {/* BUTTON */}
+        <Link to="/my-bookings">
+          <button className="primary-btn">
+            {translations[lang].backToBookings}
+          </button>
+        </Link>
+
+      </div>
 
     </div>
   );

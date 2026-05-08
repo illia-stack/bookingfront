@@ -1,19 +1,13 @@
 import { useState } from "react";
-
-import {
-  Link,
-  useNavigate
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { logout } from "../api/auth";
-
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function Navbar() {
 
   const { lang, setLang } = useLanguage();
-
   const navigate = useNavigate();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,25 +17,17 @@ export default function Navbar() {
   const handleLogout = async () => {
 
     try {
-
       await logout();
-
     } catch (err) {
-
       console.error(err);
-
     }
 
     localStorage.removeItem("token");
-
     navigate("/login");
-
     setMobileOpen(false);
   };
 
-  const closeMobile = () => {
-    setMobileOpen(false);
-  };
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <nav className="navbar">
@@ -57,48 +43,44 @@ export default function Navbar() {
           BookingApp
         </Link>
 
-        {/* DESKTOP */}
+        {/* DESKTOP NAV */}
         <div className="nav-links desktop">
 
-          <Link to="/">
+          <Link className="nav-link" to="/">
             {translations[lang].home}
           </Link>
 
           {token ? (
             <>
-              <Link to="/my-bookings">
+              <Link className="nav-link" to="/my-bookings">
                 {translations[lang].myBookings}
               </Link>
 
               <button
+                className="btn-secondary"
                 onClick={handleLogout}
-                className="nav-btn"
               >
                 {translations[lang].logout}
               </button>
             </>
           ) : (
             <>
-              <Link to="/login">
+              <Link className="btn-link" to="/login">
                 {translations[lang].login}
               </Link>
 
-              <Link to="/register">
+              <Link className="btn-primary-small" to="/register">
                 {translations[lang].register}
               </Link>
             </>
           )}
 
-          {/* LANGUAGE */}
+          {/* LANGUAGE SELECT */}
           <select
-            aria-label={translations[lang].selectLanguage}
+            className="lang-select"
             value={lang}
             onChange={(e) => setLang(e.target.value)}
-            style={{
-              width: "auto",
-              padding: "4px",
-              marginLeft: "10px"
-            }}
+            aria-label="Language"
           >
             <option value="de">DE</option>
             <option value="en">EN</option>
@@ -111,7 +93,7 @@ export default function Navbar() {
         <button
           className="mobile-btn"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
+          aria-label="Menu"
         >
           ☰
         </button>
@@ -122,19 +104,13 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="mobile-menu">
 
-          <Link
-            to="/"
-            onClick={closeMobile}
-          >
+          <Link to="/" onClick={closeMobile}>
             {translations[lang].home}
           </Link>
 
           {token ? (
             <>
-              <Link
-                to="/my-bookings"
-                onClick={closeMobile}
-              >
+              <Link to="/my-bookings" onClick={closeMobile}>
                 {translations[lang].myBookings}
               </Link>
 
@@ -144,25 +120,17 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                onClick={closeMobile}
-              >
+              <Link to="/login" onClick={closeMobile}>
                 {translations[lang].login}
               </Link>
 
-              <Link
-                to="/register"
-                onClick={closeMobile}
-              >
+              <Link to="/register" onClick={closeMobile}>
                 {translations[lang].register}
               </Link>
             </>
           )}
 
-          {/* MOBILE LANGUAGE */}
           <select
-            aria-label={translations[lang].selectLanguage}
             value={lang}
             onChange={(e) => setLang(e.target.value)}
           >

@@ -13,21 +13,13 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   const getProperties = async () => {
-
     try {
-
       const res = await api.get("/properties");
-
       setProperties(res.data.data.data || res.data.data);
-
     } catch (err) {
-
       console.error(err);
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
@@ -38,8 +30,8 @@ export default function Home() {
   // LOADING
   if (loading) {
     return (
-      <div className="container">
-        <p>{translations[lang].loading}</p>
+      <div className="loading-container">
+        <p className="loading-text">{translations[lang].loading}</p>
       </div>
     );
   }
@@ -47,22 +39,20 @@ export default function Home() {
   // EMPTY
   if (!loading && properties.length === 0) {
     return (
-      <div className="container">
+      <div className="loading-container">
         <p>{translations[lang].noProperties}</p>
       </div>
     );
   }
 
   return (
-    <div className="container">
-
+    <div className="grid">
       {properties.map((property) => (
         <PropertyCard
           key={property.id}
           property={property}
         />
       ))}
-
     </div>
   );
 }

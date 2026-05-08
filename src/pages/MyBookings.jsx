@@ -11,7 +11,7 @@ export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // STATUS ÜBERSETZUNG
+  // STATUS LABEL
   const statusLabel = (status) => {
 
     const key =
@@ -24,74 +24,94 @@ export default function MyBookings() {
 
     getMyBookings()
       .then((res) => {
-
         setBookings(res.data.data);
-
       })
       .catch((err) => {
-
         console.error(err);
-
       })
       .finally(() => {
-
         setLoading(false);
-
       });
 
   }, []);
 
-  // LOADING
+  /* LOADING */
   if (loading) {
     return (
-      <div className="container">
-        <p>{translations[lang].loading}</p>
+      <div className="page-center">
+        <p className="loading-text">
+          {translations[lang].loading}
+        </p>
       </div>
     );
   }
 
-  // EMPTY
+  /* EMPTY */
   if (!loading && bookings.length === 0) {
     return (
-      <div className="container">
-        <p>{translations[lang].noBookings}</p>
+      <div className="page-center">
+        <div className="empty-box">
+          <h2>
+            {translations[lang].noBookings}
+          </h2>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container">
+    <div className="bookings-page">
 
-      <h1>{translations[lang].myBookings}</h1>
+      <h1 className="page-title">
+        {translations[lang].myBookings}
+      </h1>
 
-      {bookings.map((b) => (
+      <div className="bookings-grid">
 
-        <div key={b.id} className="card">
+        {bookings.map((b) => (
 
-          <h3>{b.property.title}</h3>
+          <div key={b.id} className="booking-card">
 
-          <p>
-            📍 {b.property.city}
-          </p>
+            {/* TITLE */}
+            <h3>
+              {b.property.title}
+            </h3>
 
-          <p>
-            {translations[lang].checkIn}: {b.check_in}
-          </p>
+            {/* CITY */}
+            <p className="muted">
+              📍 {b.property.city}
+            </p>
 
-          <p>
-            {translations[lang].checkOut}: {b.check_out}
-          </p>
+            {/* DATES */}
+            <div className="dates">
 
-          <p>
-            💰 {b.total_price} €
-          </p>
+              <p>
+                {translations[lang].checkIn}:{" "}
+                <strong>{b.check_in}</strong>
+              </p>
 
-          <p>
-            {statusLabel(b.status)}
-          </p>
+              <p>
+                {translations[lang].checkOut}:{" "}
+                <strong>{b.check_out}</strong>
+              </p>
 
-        </div>
-      ))}
+            </div>
+
+            {/* PRICE */}
+            <p className="price">
+              💰 {b.total_price} €
+            </p>
+
+            {/* STATUS BADGE */}
+            <span className={`status status-${b.status}`}>
+              {statusLabel(b.status)}
+            </span>
+
+          </div>
+
+        ))}
+
+      </div>
 
     </div>
   );

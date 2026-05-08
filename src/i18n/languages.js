@@ -13,6 +13,7 @@ export const translations = {
     login: "Anmelden",
     logout: "Abmelden",
     loginFailed: "Login fehlgeschlagen",
+    loginWelcome: "Willkommen zurück bei BookingApp",
 
     myBookings: "Meine Buchungen",
 
@@ -54,6 +55,7 @@ export const translations = {
 
     bookProperty: "Unterkunft buchen",
     propertyNotFound: "Unterkunft nicht gefunden",
+    noProperties: "Keine Unterkünfte gefunden",
 
     // Zahlung
     statusPending: "Ausstehend",
@@ -88,6 +90,7 @@ export const translations = {
     login: "Login",
     logout: "Logout",
     loginFailed: "Login failed",
+    loginWelcome: "Welcome back to BookingApp",
 
     myBookings: "My Bookings",
 
@@ -129,6 +132,7 @@ export const translations = {
 
     bookProperty: "Book this property",
     propertyNotFound: "Property not found",
+    noProperties: "No properties found",
 
     //Zahlung
     statusPending: "Pending",
@@ -163,6 +167,7 @@ export const translations = {
     login: "Iniciar sesión",
     logout: "Cerrar sesión",
     loginFailed: "Error de inicio de sesión",
+    loginWelcome: "Bienvenido de nuevo a BookingApp",
 
     myBookings: "Mis reservas",
 
@@ -204,6 +209,7 @@ export const translations = {
 
     bookProperty: "Reservar alojamiento",
     propertyNotFound: "Propiedad no encontrada",
+    noProperties: "No se encontraron alojamientos",
 
     // Zahlung
     statusPending: "Pendiente",

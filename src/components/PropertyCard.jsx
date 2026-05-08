@@ -16,50 +16,52 @@ export default function PropertyCard({ property }) {
       <img
         src={
           property.image_url ||
-          "https://via.placeholder.com/300"
+          "https://via.placeholder.com/600x400"
         }
         alt={property.title}
         loading="lazy"
-        style={{
-          width: "100%",
-          borderRadius: "10px"
-        }}
       />
 
-      {/* TITLE */}
-      <h3>
-        {property.title}
-      </h3>
+      {/* CONTENT */}
+      <div className="card-content">
 
-      {/* CITY */}
-      <p>
-        📍 {property.city}
-      </p>
+        {/* TITLE */}
+        <h3>
+          {property.title}
+        </h3>
 
-      {/* PRICE */}
-      <p>
-        💰 {property.price_per_night} €
-        {" / "}
-        {translations[lang].night}
-      </p>
+        {/* CITY */}
+        <p>
+          📍 {property.city}
+        </p>
 
-      {/* GUESTS */}
-      <p>
-        👥 {translations[lang].upTo}
-        {" "}
-        {property.max_guests}
-        {" "}
-        {translations[lang].guests}
-      </p>
+        {/* PRICE */}
+        <p>
+          💰 {property.price_per_night} €
+          {" / "}
+          {translations[lang].night}
+        </p>
 
-      {/* BUTTON */}
-      <button
-        onClick={() =>
-          navigate(`/properties/${property.id}`)
-        }
-      >
-        {translations[lang].viewDetails}
-      </button>
+        {/* GUESTS */}
+        <p>
+          👥 {translations[lang].upTo}
+          {" "}
+          {property.max_guests}
+          {" "}
+          {translations[lang].guests}
+        </p>
+
+        {/* BUTTON */}
+        <button
+          className="btn-full"
+          onClick={() =>
+            navigate(`/properties/${property.id}`)
+          }
+        >
+          {translations[lang].viewDetails}
+        </button>
+
+      </div>
 
     </div>
   );

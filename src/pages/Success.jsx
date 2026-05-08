@@ -12,27 +12,37 @@ export default function Success() {
   const bookingId = searchParams.get("booking_id");
 
   return (
-    <div className="container">
+    <div className="page-center">
 
-      <h1 style={{ color: "green" }}>
-        ✅ {translations[lang].paymentSuccessfulTitle}
-      </h1>
+      <div className="status-card status-success">
 
-      <p>
-        {translations[lang].paymentSuccessfulMessage}
-      </p>
+        {/* ICON + TITLE */}
+        <div className="status-icon">✅</div>
 
-      {bookingId && (
-        <p>
-          {translations[lang].bookingId}: <strong>#{bookingId}</strong>
+        <h1>
+          {translations[lang].paymentSuccessfulTitle}
+        </h1>
+
+        {/* MESSAGE */}
+        <p className="muted">
+          {translations[lang].paymentSuccessfulMessage}
         </p>
-      )}
 
-      <Link to="/my-bookings">
-        <button>
-          {translations[lang].viewMyBookings}
-        </button>
-      </Link>
+        {/* BOOKING ID */}
+        {bookingId && (
+          <p className="booking-id">
+            {translations[lang].bookingId}: <strong>#{bookingId}</strong>
+          </p>
+        )}
+
+        {/* BUTTON */}
+        <Link to="/my-bookings">
+          <button className="primary-btn">
+            {translations[lang].viewMyBookings}
+          </button>
+        </Link>
+
+      </div>
 
     </div>
   );
