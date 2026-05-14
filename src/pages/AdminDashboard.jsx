@@ -30,18 +30,11 @@ export default function AdminDashboard() {
                 }
             );
 
-            const url = window.URL.createObjectURL(
-                new Blob([response.data], {
-                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                })
-            );
-
+            const url = window.URL.createObjectURL(response.data);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "booking-report.xlsx"; // neuer Dateiname
-            document.body.appendChild(a);
+            a.download = "booking-report.xlsx";
             a.click();
-            a.remove();
             window.URL.revokeObjectURL(url);
 
         } catch (error) {
