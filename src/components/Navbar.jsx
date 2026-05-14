@@ -12,6 +12,14 @@ export default function Navbar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const user =
+    JSON.parse(
+        localStorage.getItem("user")
+    );
+
+  const isAdmin =
+      user?.role === "admin";
+
   const token = localStorage.getItem("token");
 
   const handleLogout = async () => {
@@ -23,6 +31,8 @@ export default function Navbar() {
     }
 
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    
     navigate("/login");
     setMobileOpen(false);
   };
@@ -52,16 +62,27 @@ export default function Navbar() {
 
           {token ? (
             <>
+
               <Link className="nav-link" to="/my-bookings">
-                {translations[lang].myBookings}
+                  {translations[lang].myBookings}
               </Link>
 
+              {isAdmin && (
+                  <Link
+                      className="nav-link"
+                      to="/admin"
+                  >
+                      Admin Dashboard
+                  </Link>
+              )}
+
               <button
-                className="btn-secondary"
-                onClick={handleLogout}
+                  className="btn-secondary"
+                  onClick={handleLogout}
               >
-                {translations[lang].logout}
+                  {translations[lang].logout}
               </button>
+
             </>
           ) : (
             <>
@@ -108,27 +129,40 @@ export default function Navbar() {
             {translations[lang].home}
           </Link>
 
-          {token ? (
-            <>
+                {token ? (
+          <>
+
               <Link to="/my-bookings" onClick={closeMobile}>
-                {translations[lang].myBookings}
+                  {translations[lang].myBookings}
               </Link>
 
+              {isAdmin && (
+                  <Link
+                      to="/admin"
+                      onClick={closeMobile}
+                  >
+                      Admin Dashboard
+                  </Link>
+              )}
+
               <button onClick={handleLogout}>
-                {translations[lang].logout}
+                  {translations[lang].logout}
               </button>
-            </>
-          ) : (
-            <>
+
+          </>
+      ) : (
+          <>
+
               <Link to="/login" onClick={closeMobile}>
-                {translations[lang].login}
+                  {translations[lang].login}
               </Link>
 
               <Link to="/register" onClick={closeMobile}>
-                {translations[lang].register}
+                  {translations[lang].register}
               </Link>
-            </>
-          )}
+
+          </>
+      )}
 
           <select
             value={lang}

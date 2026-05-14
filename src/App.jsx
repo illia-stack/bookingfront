@@ -17,6 +17,9 @@ import MyBookings from "./pages/MyBookings";
 import Cancel from "./pages/Cancel";
 import Success from "./pages/Success";
 
+import AdminRoute from "./components/AdminRoute";
+import AdminDashboard from "./pages/AdminDashboard"; 
+
 import {
   LanguageProvider,
   useLanguage
@@ -58,6 +61,15 @@ function AppContent() {
         <Route
           path="/login"
           element={<Login />}
+        />
+
+        <Route
+            path="/admin"
+            element={
+                <AdminRoute>
+                    <AdminDashboard />
+                </AdminRoute>
+            }
         />
 
         <Route
