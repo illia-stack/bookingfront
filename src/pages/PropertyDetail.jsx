@@ -14,22 +14,24 @@ export default function PropertyDetail() {
 
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [bookingLoading, setBookingLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
 
   const fetchProperty = async () => {
-    setLoading(true);
-    setError("");
+
     try {
+
       const res = await getProperty(id);
       setProperty(res.data.data);
+
     } catch (err) {
+
       console.error(err);
-      setError(translations[lang].propertyNotFound);
+      alert(translations[lang].propertyNotFound);
+
     } finally {
+
       setLoading(false);
     }
   };
@@ -38,17 +40,15 @@ export default function PropertyDetail() {
     fetchProperty();
   }, [id]);
 
-  const handleBooking = async (e) => {
-    e.preventDefault();
+  const handleBooking = async () => {
+
     if (!checkIn || !checkOut) {
-      setError(translations[lang].selectDates);
+      alert(translations[lang].selectDates);
       return;
     }
 
-    setBookingLoading(true);
-    setError("");
-
     try {
+
       const res = await createBooking({
         property_id: Number(id),
         check_in: checkIn,
@@ -59,17 +59,20 @@ export default function PropertyDetail() {
       const url = res.data.checkout_url;
 
       if (!url) {
-        setError(translations[lang].bookingFailed);
+        alert(translations[lang].bookingFailed);
         return;
       }
 
       window.location.href = url;
 
     } catch (err) {
+
       console.error(err);
-      setError(err.response?.data?.message || translations[lang].bookingFailed);
-    } finally {
-      setBookingLoading(false);
+
+      alert(
+        err.response?.data?.message ||
+        translations[lang].bookingFailed
+      );
     }
   };
 
@@ -77,16 +80,18 @@ export default function PropertyDetail() {
   if (loading) {
     return (
       <div className="page-center">
-        <p className="loading-text">{translations[lang].loading}</p>
+        <p className="loading-text">
+          {translations[lang].loading}
+        </p>
       </div>
     );
   }
 
-  /* ERROR */
-  if (error && !property) {
+  /* NOT FOUND */
+  if (!property) {
     return (
       <div className="page-center">
-        <p className="error-text">{error}</p>
+        <p>{translations[lang].propertyNotFound}</p>
       </div>
     );
   }
@@ -98,66 +103,93 @@ export default function PropertyDetail() {
 
         {/* IMAGE */}
         <img
-          src={property.image_url || "https://via.placeholder.com/800x400"}
+          src={
+            property.image_url ||
+            "https://via.placeholder.com/800x400"
+          }
           alt={property.title}
           className="detail-image"
         />
 
         {/* TITLE */}
-        <h1 className="detail-title">{property.title}</h1>
+        <h1 className="detail-title">
+          {property.title}
+        </h1>
 
         {/* INFO */}
         <div className="detail-info">
+
           <p>📍 {property.city}</p>
-          <p>💰 {property.price_per_night} € / {translations[lang].night}</p>
-          <p>👥 {translations[lang].upTo} {property.max_guests} {translations[lang].guests}</p>
+
+          <p>
+            💰 {property.price_per_night} € / {translations[lang].night}
+          </p>
+
+          <p>
+            👥 {translations[lang].upTo}{" "}
+            {property.max_guests}{" "}
+            {translations[lang].guests}
+          </p>
+
         </div>
 
         {/* DESCRIPTION */}
-        <p className="detail-description">{property.description}</p>
+        <p className="detail-description">
+          {property.description}
+        </p>
 
         {/* BOOKING SECTION */}
         <div className="booking-box">
 
-          <h3>{translations[lang].bookProperty}</h3>
+          <h3>
+            {translations[lang].bookProperty}
+          </h3>
 
-          {/* ERROR */}
-          {error && <p className="error-text">{error}</p>}
+          {/* CHECK-IN */}
+          <div className="form-group">
 
-          <form onSubmit={handleBooking}>
+            <label>
+              {translations[lang].checkInLabel}
+            </label>
 
-            {/* CHECK-IN */}
-            <div className="form-group">
-              <label>{translations[lang].checkInLabel}</label>
-              <p className="hint">{translations[lang].checkInHint}</p>
-              <input
-                type="date"
-                value={checkIn}
-                onChange={(e) => setCheckIn(e.target.value)}
-              />
-            </div>
+            <p className="hint">
+              {translations[lang].checkInHint}
+            </p>
 
-            {/* CHECK-OUT */}
-            <div className="form-group">
-              <label>{translations[lang].checkOutLabel}</label>
-              <p className="hint">{translations[lang].checkOutHint}</p>
-              <input
-                type="date"
-                value={checkOut}
-                onChange={(e) => setCheckOut(e.target.value)}
-              />
-            </div>
+            <input
+              type="date"
+              value={checkIn}
+              onChange={(e) => setCheckIn(e.target.value)}
+            />
 
-            {/* BUTTON */}
-            <button
-              type="submit"
-              className="primary-btn full-btn"
-              disabled={bookingLoading}
-            >
-              {bookingLoading ? translations[lang].loading : translations[lang].createBooking}
-            </button>
+          </div>
 
-          </form>
+          {/* CHECK-OUT */}
+          <div className="form-group">
+
+            <label>
+              {translations[lang].checkOutLabel}
+            </label>
+
+            <p className="hint">
+              {translations[lang].checkOutHint}
+            </p>
+
+            <input
+              type="date"
+              value={checkOut}
+              onChange={(e) => setCheckOut(e.target.value)}
+            />
+
+          </div>
+
+          {/* BUTTON */}
+          <button
+            className="primary-btn full-btn"
+            onClick={handleBooking}
+          >
+            {translations[lang].createBooking}
+          </button>
 
         </div>
 

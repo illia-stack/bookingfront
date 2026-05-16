@@ -3,27 +3,24 @@ import { createContext, useContext, useState, useEffect } from "react";
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState("de"); // default Deutsch
+  const [lang, setLang] = useState("de");
 
-  // Funktion zum Sprachwechsel, speichert auch im localStorage
+  // zentrale Sprachwechsel-Funktion, speichert direkt im localStorage
   const changeLang = (newLang) => {
-    if (!newLang) return;
     setLang(newLang);
     localStorage.setItem("lang", newLang);
   };
 
   useEffect(() => {
     const savedLang = localStorage.getItem("lang");
-
-    if (savedLang && ["de", "en", "es"].includes(savedLang)) {
+    if (savedLang) {
       setLang(savedLang);
-    } else if (typeof navigator !== "undefined" && navigator.language) {
+    } else {
       const browserLang = navigator.language.slice(0, 2);
       if (["de", "en", "es"].includes(browserLang)) {
         setLang(browserLang);
       }
     }
-    // fallback bleibt "de"
   }, []);
 
   return (
@@ -33,11 +30,6 @@ export function LanguageProvider({ children }) {
   );
 }
 
-// Custom Hook für einfachere Nutzung im Frontend
 export function useLanguage() {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error("useLanguage must be used within a LanguageProvider");
-  }
-  return context;
+  return useContext(LanguageContext);
 }

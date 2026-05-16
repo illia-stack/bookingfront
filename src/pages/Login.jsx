@@ -12,18 +12,22 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-
   const handleLogin = async (e) => {
+
     e.preventDefault();
-    setLoading(true);
+
     try {
+
       await login(email, password);
-      navigate("/");
+
+      window.location.href = "/";
+
     } catch (err) {
-      setError(err.response?.data?.message || translations[lang].loginFailed);
-    } finally {
-      setLoading(false);
+
+      alert(
+        err.response?.data?.message ||
+        translations[lang].loginFailed
+      );
     }
   };
 

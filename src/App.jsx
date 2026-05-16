@@ -25,7 +25,14 @@ import {
   useLanguage
 } from "./context/LanguageContext";
 
-
+import './styles/base.css';
+import './styles/typography.css';
+import './styles/buttons.css';
+import './styles/forms.css';
+import './styles/navbar.css';
+import './styles/cards.css';
+import './styles/pages.css';
+import './styles/utilities.css';
 
 function AppContent() {
 

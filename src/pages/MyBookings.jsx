@@ -11,45 +11,49 @@ export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // STATUS LABEL HELPER
+  // STATUS LABEL
   const statusLabel = (status) => {
-    if (!status) return "";
-    const key = `status${status.charAt(0).toUpperCase()}${status.slice(1)}`;
+
+    const key =
+      `status${status.charAt(0).toUpperCase()}${status.slice(1)}`;
+
     return translations[lang][key] || status;
   };
 
   useEffect(() => {
-    let mounted = true;
 
     getMyBookings()
       .then((res) => {
-        if (mounted) setBookings(res.data.data || []);
+        setBookings(res.data.data);
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {
-        if (mounted) setLoading(false);
+        setLoading(false);
       });
 
-    return () => { mounted = false; };
   }, []);
 
-  /* LOADING STATE */
+  /* LOADING */
   if (loading) {
     return (
       <div className="page-center">
-        <p className="loading-text">{translations[lang].loading}</p>
+        <p className="loading-text">
+          {translations[lang].loading}
+        </p>
       </div>
     );
   }
 
-  /* EMPTY STATE */
-  if (!bookings.length) {
+  /* EMPTY */
+  if (!loading && bookings.length === 0) {
     return (
       <div className="page-center">
         <div className="empty-box">
-          <h2>{translations[lang].noBookings}</h2>
+          <h2>
+            {translations[lang].noBookings}
+          </h2>
         </div>
       </div>
     );
@@ -57,35 +61,58 @@ export default function MyBookings() {
 
   return (
     <div className="bookings-page">
-      <h1 className="page-title">{translations[lang].myBookings}</h1>
+
+      <h1 className="page-title">
+        {translations[lang].myBookings}
+      </h1>
 
       <div className="bookings-grid">
-        {bookings.map((booking) => (
-          <div key={booking.id} className="booking-card">
 
-            {/* PROPERTY TITLE */}
-            <h3>{booking.property?.title || "-"}</h3>
+        {bookings.map((b) => (
+
+          <div key={b.id} className="booking-card">
+
+            {/* TITLE */}
+            <h3>
+              {b.property.title}
+            </h3>
 
             {/* CITY */}
-            <p className="muted">📍 {booking.property?.city || "-"}</p>
+            <p className="muted">
+              📍 {b.property.city}
+            </p>
 
             {/* DATES */}
             <div className="dates">
-              <p>{translations[lang].checkIn}: <strong>{booking.check_in}</strong></p>
-              <p>{translations[lang].checkOut}: <strong>{booking.check_out}</strong></p>
+
+              <p>
+                {translations[lang].checkIn}:{" "}
+                <strong>{b.check_in}</strong>
+              </p>
+
+              <p>
+                {translations[lang].checkOut}:{" "}
+                <strong>{b.check_out}</strong>
+              </p>
+
             </div>
 
             {/* PRICE */}
-            <p className="price">💰 {booking.total_price} €</p>
+            <p className="price">
+              💰 {b.total_price} €
+            </p>
 
             {/* STATUS BADGE */}
-            <span className={`status status-${booking.status}`}>
-              {statusLabel(booking.status)}
+            <span className={`status status-${b.status}`}>
+              {statusLabel(b.status)}
             </span>
 
           </div>
+
         ))}
+
       </div>
+
     </div>
   );
 }
