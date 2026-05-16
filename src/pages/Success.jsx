@@ -1,19 +1,25 @@
 import { Link, useSearchParams } from "react-router-dom";
-
+import { useEffect } from "react"; // ✅ useEffect importieren
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function Success() {
 
-  const { lang } = useLanguage();
+  const { lang, changeLang } = useLanguage(); // ✅ changeLang hier holen
 
   const [searchParams] = useSearchParams();
 
   const bookingId = searchParams.get("booking_id");
+  const urlLang = searchParams.get("lang"); // Sprache aus URL
+
+  useEffect(() => {
+    if (urlLang && urlLang !== lang) {
+      changeLang(urlLang); // Sprache aus URL setzen
+    }
+  }, [urlLang, lang, changeLang]);
 
   return (
     <div className="page-center">
-
       <div className="status-card status-success">
 
         {/* ICON + TITLE */}
@@ -43,7 +49,6 @@ export default function Success() {
         </Link>
 
       </div>
-
     </div>
   );
 }

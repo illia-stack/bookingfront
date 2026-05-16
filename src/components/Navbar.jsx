@@ -7,7 +7,7 @@ import { translations } from "../i18n/languages";
 
 export default function Navbar() {
 
-  const { lang, setLang } = useLanguage();
+  const { lang, changeLang } = useLanguage();  
   const navigate = useNavigate();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -100,7 +100,7 @@ export default function Navbar() {
           <select
             className="lang-select"
             value={lang}
-            onChange={(e) => setLang(e.target.value)}
+            onChange={(e) => changeLang(e.target.value)}
             aria-label="Language"
           >
             <option value="de">DE</option>
@@ -165,8 +165,10 @@ export default function Navbar() {
       )}
 
           <select
+            className="lang-select"
             value={lang}
-            onChange={(e) => setLang(e.target.value)}
+            onChange={(e) => changeLang(e.target.value)}
+            aria-label="Language"
           >
             <option value="de">DE</option>
             <option value="en">EN</option>

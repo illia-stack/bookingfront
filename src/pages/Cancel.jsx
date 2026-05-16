@@ -1,15 +1,22 @@
 import { Link, useSearchParams } from "react-router-dom";
-
+import { useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function Cancel() {
 
-  const { lang } = useLanguage();
+  const { lang, changeLang } = useLanguage(); // ✅ changeLang hinzufügen
 
   const [searchParams] = useSearchParams();
 
   const bookingId = searchParams.get("booking_id");
+  const urlLang = searchParams.get("lang"); // Sprache aus URL
+
+  useEffect(() => {
+    if (urlLang && urlLang !== lang) {
+      changeLang(urlLang); // Sprache aus URL setzen
+    }
+  }, [urlLang, lang, changeLang]);
 
   return (
     <div className="page-center">
@@ -31,8 +38,7 @@ export default function Cancel() {
         {/* BOOKING ID */}
         {bookingId && (
           <p className="booking-id">
-            {translations[lang].bookingId}:{" "}
-            <strong>#{bookingId}</strong>
+            {translations[lang].bookingId}: <strong>#{bookingId}</strong>
           </p>
         )}
 
