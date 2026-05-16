@@ -27,6 +27,11 @@ body {
   flex-direction: column;
   gap: 24px;
 }
+@media (max-width: 400px) {
+  .container {
+    padding: 12px;
+  }
+}
 
 /* GRID */
 .grid {
@@ -38,7 +43,7 @@ body {
 }
 .properties-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 320px)); 
   gap: 20px;
   justify-content: center;
   justify-items: center;

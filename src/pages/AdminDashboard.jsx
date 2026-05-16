@@ -43,33 +43,35 @@ export default function AdminDashboard() {
     };
 
     return (
-        <div>
-            <h1>Admin Dashboard</h1>
+        <div className="container">
+            <h1 className="center">Admin Dashboard</h1>
 
-            <button onClick={exportBookings}>
+            <button className="primary-btn btn-full" onClick={exportBookings}>
                 Export Bookings (Excel)
             </button>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map(user => (
-                        <tr key={user.id}>
-                            <td>{user.id}</td>
-                            <td>{user.name}</td>
-                            <td>{user.email}</td>
-                            <td>{user.role}</td>
+            <div className="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {users.map(user => (
+                            <tr key={user.id}>
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>{user.role}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

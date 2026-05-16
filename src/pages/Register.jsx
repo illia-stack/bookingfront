@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { register } from "../api/auth";
 
 import { useLanguage } from "../context/LanguageContext";
@@ -8,6 +8,7 @@ import { translations } from "../i18n/languages";
 export default function Register() {
 
   const { lang } = useLanguage();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     name: "",
@@ -17,38 +18,26 @@ export default function Register() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(""); // Fehler-State hinzufügen
 
   const handleChange = (e) => {
-
     setForm({
       ...form,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleRegister = async () => {
-
+  const handleRegister = async (e) => {
+    e.preventDefault(); // Form-Submit Standard verhindern
     setLoading(true);
+    setError(""); // vorherigen Fehler zurücksetzen
 
     try {
-
       await register(form);
-
-      alert(
-        translations[lang].registrationSuccess
-      );
-
-      window.location.href = "/";
-
+      navigate("/"); // Zurück zur Startseite
     } catch (err) {
-
-      alert(
-        err.response?.data?.message ||
-        translations[lang].registrationFailed
-      );
-
+      setError(err.response?.data?.message || translations[lang].registrationFailed);
     } finally {
-
       setLoading(false);
     }
   };
@@ -61,50 +50,61 @@ export default function Register() {
         {translations[lang].register}
       </h2>
 
-      {/* NAME */}
-      <input
-        name="name"
-        placeholder={translations[lang].name}
-        onChange={handleChange}
-      />
+      {/* ERROR MESSAGE */}
+      {error && <p className="error-text">{error}</p>}
 
-      {/* EMAIL */}
-      <input
-        name="email"
-        type="email"
-        placeholder={translations[lang].email}
-        onChange={handleChange}
-      />
+      {/* FORM */}
+      <form onSubmit={handleRegister}>
 
-      {/* PASSWORD */}
-      <input
-        name="password"
-        type="password"
-        placeholder={translations[lang].password}
-        onChange={handleChange}
-      />
+        {/* NAME */}
+        <input
+          name="name"
+          placeholder={translations[lang].name}
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
 
-      {/* REPEAT PASSWORD */}
-      <input
-        name="password_confirmation"
-        type="password"
-        placeholder={
-          translations[lang].repeatPassword
-        }
-        onChange={handleChange}
-      />
+        {/* EMAIL */}
+        <input
+          name="email"
+          type="email"
+          placeholder={translations[lang].email}
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
 
-      {/* BUTTON */}
-      <button
-        className="btn-full"
-        onClick={handleRegister}
-        disabled={loading}
-      >
-        {loading
-          ? translations[lang].loading
-          : translations[lang].register}
-      </button>
+        {/* PASSWORD */}
+        <input
+          name="password"
+          type="password"
+          placeholder={translations[lang].password}
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
 
+        {/* REPEAT PASSWORD */}
+        <input
+          name="password_confirmation"
+          type="password"
+          placeholder={translations[lang].repeatPassword}
+          value={form.password_confirmation}
+          onChange={handleChange}
+          required
+        />
+
+        {/* BUTTON */}
+        <button
+          className="btn-full"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? translations[lang].loading : translations[lang].register}
+        </button>
+
+      </form>
     </div>
   );
 }

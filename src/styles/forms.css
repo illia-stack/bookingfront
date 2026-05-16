@@ -13,6 +13,8 @@ textarea {
   justify-content: center; /* horizontal zentrieren */
   text-align: center;
 }
+
+
 /* Speziell für Datum */
 input[type="date"] {
   appearance: none;        /* entfernt Standardstyling */
@@ -29,6 +31,14 @@ textarea:focus {
   border-color: #2563eb;
 }
 
+@media (max-width: 400px) {
+  input {
+    font-size: 14px;
+    height: 44px;
+  }
+}
+
+
 .form-container {
   width: 100%;
   max-width: 420px;
@@ -40,6 +50,20 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+@media (max-width: 400px) {
+  .form-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 40px auto;
+    background: white;
+    padding: 32px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 .form-group {

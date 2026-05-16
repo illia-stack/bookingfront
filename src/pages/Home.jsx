@@ -24,7 +24,11 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getProperties();
+    let mounted = true;
+    getProperties().then(() => {
+      if (!mounted) return;
+    });
+    return () => { mounted = false; };
   }, []);
 
   // LOADING
@@ -46,13 +50,15 @@ export default function Home() {
   }
 
   return (
-    <div className="properties-grid">
-      {properties.map((property) => (
-        <PropertyCard
-          key={property.id}
-          property={property}
-        />
-      ))}
+    <div className="container">
+      <div className="properties-grid">
+        {properties.map((property) => (
+          <PropertyCard
+            key={property.id}
+            property={property}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,25 @@
 /* CARD */
 .card {
+width: 100%;
+max-width: 320px;
+background: white;
+border-radius: 18px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+display: flex;
+flex-direction: column;
+}
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+@media(max-width: 400px){
+  .card {
+  width: 100%;
+  max-width: 320px;
   background: white;
   border-radius: 18px;
   overflow: hidden;
@@ -7,7 +27,15 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
+  }
+  .card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 }
+
 
 .card:hover {
   transform: translateY(-4px);
@@ -20,12 +48,12 @@
   object-fit: cover;
 }
 
-.card-content {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+img {
+  max-width: 100%;
+  display: block;
 }
+
+
 
 /* BOOKING CARD */
 .booking-card {

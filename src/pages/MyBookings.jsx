@@ -11,49 +11,45 @@ export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // STATUS LABEL
+  // STATUS LABEL HELPER
   const statusLabel = (status) => {
-
-    const key =
-      `status${status.charAt(0).toUpperCase()}${status.slice(1)}`;
-
+    if (!status) return "";
+    const key = `status${status.charAt(0).toUpperCase()}${status.slice(1)}`;
     return translations[lang][key] || status;
   };
 
   useEffect(() => {
+    let mounted = true;
 
     getMyBookings()
       .then((res) => {
-        setBookings(res.data.data);
+        if (mounted) setBookings(res.data.data || []);
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {
-        setLoading(false);
+        if (mounted) setLoading(false);
       });
 
+    return () => { mounted = false; };
   }, []);
 
-  /* LOADING */
+  /* LOADING STATE */
   if (loading) {
     return (
       <div className="page-center">
-        <p className="loading-text">
-          {translations[lang].loading}
-        </p>
+        <p className="loading-text">{translations[lang].loading}</p>
       </div>
     );
   }
 
-  /* EMPTY */
-  if (!loading && bookings.length === 0) {
+  /* EMPTY STATE */
+  if (!bookings.length) {
     return (
       <div className="page-center">
         <div className="empty-box">
-          <h2>
-            {translations[lang].noBookings}
-          </h2>
+          <h2>{translations[lang].noBookings}</h2>
         </div>
       </div>
     );
@@ -61,58 +57,35 @@ export default function MyBookings() {
 
   return (
     <div className="bookings-page">
-
-      <h1 className="page-title">
-        {translations[lang].myBookings}
-      </h1>
+      <h1 className="page-title">{translations[lang].myBookings}</h1>
 
       <div className="bookings-grid">
+        {bookings.map((booking) => (
+          <div key={booking.id} className="booking-card">
 
-        {bookings.map((b) => (
-
-          <div key={b.id} className="booking-card">
-
-            {/* TITLE */}
-            <h3>
-              {b.property.title}
-            </h3>
+            {/* PROPERTY TITLE */}
+            <h3>{booking.property?.title || "-"}</h3>
 
             {/* CITY */}
-            <p className="muted">
-              📍 {b.property.city}
-            </p>
+            <p className="muted">📍 {booking.property?.city || "-"}</p>
 
             {/* DATES */}
             <div className="dates">
-
-              <p>
-                {translations[lang].checkIn}:{" "}
-                <strong>{b.check_in}</strong>
-              </p>
-
-              <p>
-                {translations[lang].checkOut}:{" "}
-                <strong>{b.check_out}</strong>
-              </p>
-
+              <p>{translations[lang].checkIn}: <strong>{booking.check_in}</strong></p>
+              <p>{translations[lang].checkOut}: <strong>{booking.check_out}</strong></p>
             </div>
 
             {/* PRICE */}
-            <p className="price">
-              💰 {b.total_price} €
-            </p>
+            <p className="price">💰 {booking.total_price} €</p>
 
             {/* STATUS BADGE */}
-            <span className={`status status-${b.status}`}>
-              {statusLabel(b.status)}
+            <span className={`status status-${booking.status}`}>
+              {statusLabel(booking.status)}
             </span>
 
           </div>
-
         ))}
-
       </div>
-
     </div>
   );
 }
