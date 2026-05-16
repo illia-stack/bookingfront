@@ -11,15 +11,12 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); // <-- hier Error-State hinzufügen
-
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(""); // Fehler vorher zurücksetzen
     try {
       await login(email, password);
       navigate("/");
@@ -32,6 +29,7 @@ export default function Login() {
 
   return (
     <div className="auth-page">
+
       <div className="auth-card">
 
         {/* TITLE */}
@@ -45,11 +43,18 @@ export default function Login() {
         </p>
 
         {/* FORM */}
-        <form onSubmit={handleLogin} className="auth-form">
+        <form
+          onSubmit={handleLogin}
+          className="auth-form"
+        >
 
           {/* EMAIL */}
           <div className="form-group">
-            <label>{translations[lang].email}</label>
+
+            <label>
+              {translations[lang].email}
+            </label>
+
             <input
               type="email"
               placeholder={translations[lang].email}
@@ -57,11 +62,16 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+
           </div>
 
           {/* PASSWORD */}
           <div className="form-group">
-            <label>{translations[lang].password}</label>
+
+            <label>
+              {translations[lang].password}
+            </label>
+
             <input
               type="password"
               placeholder={translations[lang].password}
@@ -69,19 +79,21 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+
           </div>
 
-          {/* ERROR MESSAGE */}
-          {error && <p className="error-text">{error}</p>}
-
           {/* BUTTON */}
-          <button type="submit" className="primary-btn" disabled={loading}>
-            {loading ? translations[lang].loading : translations[lang].login}
+          <button
+            type="submit"
+            className="primary-btn"
+          >
+            {translations[lang].login}
           </button>
 
         </form>
 
       </div>
+
     </div>
   );
 }
