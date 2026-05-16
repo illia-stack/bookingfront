@@ -30,33 +30,30 @@
 .nav-links.desktop {
   display: flex; /* Desktop sichtbar */
   align-items: center;
+  gap: 0;
 }
 
-.nav-links.desktop .nav-link,
-.nav-links.desktop .btn-link,
-.nav-links.desktop .btn-primary-small,
-.nav-links.desktop .btn-secondary {
+.nav-links.desktop > * {
   padding: 0 12px;
+  position: relative;
   text-decoration: none;
   color: #111827;
   font-weight: 600;
-  border-right: 1px solid #ccc; /* Trennstrich */
   background: none;
   border: none;
   cursor: pointer;
 }
 
-.nav-links.desktop .nav-link:last-child,
-.nav-links.desktop .btn-link:last-child,
-.nav-links.desktop .btn-primary-small:last-child,
-.nav-links.desktop .btn-secondary:last-child {
-  border-right: none; /* kein Strich beim letzten Item */
+.nav-links.desktop > *:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  border-right: 1px solid #ccc; /* Trennstrich */
 }
 
-.nav-links.desktop .nav-link:hover,
-.nav-links.desktop .btn-link:hover,
-.nav-links.desktop .btn-primary-small:hover,
-.nav-links.desktop .btn-secondary:hover {
+.nav-links.desktop > *:hover {
   color: #2563eb;
 }
 
