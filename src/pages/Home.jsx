@@ -46,7 +46,7 @@ export default function Home() {
   }
 
   return (
-    <div className="grid">
+    <div className="properties-grid">
       {properties.map((property) => (
         <PropertyCard
           key={property.id}

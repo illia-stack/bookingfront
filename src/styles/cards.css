@@ -46,4 +46,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+  justify-content: center; /* horizontales Zentrieren */
+  justify-items: center;   /* Elemente innerhalb der Spalten zentrieren */
 }

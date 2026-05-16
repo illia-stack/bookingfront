@@ -80,7 +80,8 @@
 
 .detail-page {
   display: flex;
-  justify-content: center;
+  justify-content: center; /* horizontal zentrieren */
+  align-items: flex-start;
   padding: 20px;
 }
 
