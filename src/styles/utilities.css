@@ -1,0 +1,16 @@
+/* Kleine Helferklassen */
+.muted {
+  color: #777;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.dates {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.price {
+  font-weight: bold;
+  margin: 10px 0;
+}
