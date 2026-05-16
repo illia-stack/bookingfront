@@ -1,13 +1,26 @@
 input,
 select,
 textarea {
-  width: 100%;
-  padding: 14px;
+  height: 48px;           /* gleiche Höhe wie andere Inputs */
+  padding: 0 14px;        /* horizontales Padding */
   border-radius: 12px;
   border: 1px solid #d1d5db;
   font-size: 15px;
-  transition: border 0.2s ease;
+  font-weight: 400;
+
+  display: flex;           /* Flexbox */
+  align-items: center;     /* vertikal zentrieren */
+  justify-content: center; /* horizontal zentrieren */
+  text-align: center;
 }
+/* Speziell für Datum */
+input[type="date"] {
+  appearance: none;        /* entfernt Standardstyling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
 
 input:focus,
 select:focus,

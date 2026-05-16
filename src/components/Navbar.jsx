@@ -50,7 +50,7 @@ export default function Navbar() {
           className="logo"
           onClick={closeMobile}
         >
-          BookingApp
+          {translations[lang].logo}
         </Link>
 
         {/* DESKTOP NAV */}

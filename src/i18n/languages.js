@@ -1,6 +1,7 @@
 export const translations = {
 
   de: {
+    logo: "Online-Buchungsportal - nur fürs Portfolio",
     home: "Startseite",
     name: "Name",
     register: "Registrieren",
@@ -78,6 +79,7 @@ export const translations = {
   },
 
   en: {
+    logo: "Online booking website: for the portfolio only",
     home: "Home",
     name: "Name",
     register: "Register",
@@ -155,6 +157,7 @@ export const translations = {
   },
 
   es: {
+    logo: "Sitio web de reservas online: solo para el portafolio", 
     home: "Inicio",
     name: "Nombre",
     register: "Registrarse",
