@@ -108,6 +108,7 @@ export default function PropertyDetail() {
             "https://via.placeholder.com/800x400"
           }
           alt={property.title}
+          loading="lazy"
           className="detail-image"
         />
 
