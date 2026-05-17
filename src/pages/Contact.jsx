@@ -1,11 +1,10 @@
 import { useState } from "react";
-import api from "../api/client";  // Axios Client
+import api from "../api/client"; // Axios Client
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function Contact() {
   const { lang } = useLanguage();
-  const t = translations[lang]?.contact || translations["en"].contact;
 
   const [form, setForm] = useState({
     name: "",
@@ -15,7 +14,7 @@ export default function Contact() {
   });
 
   const [status, setStatus] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,11 +22,11 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setSubmitLoading(true);
     setStatus(null);
 
     try {
-      const res = await api.post("/contact", form);  // <-- Backend Endpoint
+      const res = await api.post("/contact", form);
 
       if (res.data.success) {
         setStatus("success");
@@ -40,19 +39,19 @@ export default function Contact() {
       setStatus("error");
     }
 
-    setLoading(false);
+    setSubmitLoading(false);
   };
 
   return (
-    <div className="contact-page">
+    <div className="container">
       <div className="contact-card">
-        <h1 className="contact-title">{t.contact}</h1>
+        <h1 className="contact-title">{translations[lang].contact}</h1>
 
         <form onSubmit={handleSubmit} className="contact-form">
           <input
             type="text"
             name="name"
-            placeholder={t.name}
+            placeholder={translations[lang].name}
             value={form.name}
             onChange={handleChange}
             required
@@ -61,7 +60,7 @@ export default function Contact() {
           <input
             type="email"
             name="email"
-            placeholder={t.email}
+            placeholder={translations[lang].email}
             value={form.email}
             onChange={handleChange}
             required
@@ -70,27 +69,31 @@ export default function Contact() {
           <input
             type="text"
             name="subject"
-            placeholder={t.subject}
+            placeholder={translations[lang].subject}
             value={form.subject}
             onChange={handleChange}
           />
 
           <textarea
             name="message"
-            placeholder={t.message}
+            placeholder={translations[lang].message}
             value={form.message}
             onChange={handleChange}
             rows="5"
             required
           />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "..." : t.send}
+          <button type="submit" disabled={submitLoading}>
+            {submitLoading ? "..." : translations[lang].send}
           </button>
         </form>
 
-        {status === "success" && <p className="success-text">{t.sendSuccess}</p>}
-        {status === "error" && <p className="error-text">{t.sendError}</p>}
+        {status === "success" && (
+          <p className="success-text">{translations[lang].sendSuccess}</p>
+        )}
+        {status === "error" && (
+          <p className="error-text">{translations[lang].sendError}</p>
+        )}
       </div>
     </div>
   );
