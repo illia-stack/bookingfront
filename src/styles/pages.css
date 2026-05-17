@@ -300,6 +300,10 @@ th, td {
 }
 
 .contact-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertikal zentrieren */
+  align-items: center;      /* horizontal zentrieren */
   background-color: #fff;
   border-radius: 12px;
   padding: 2.5rem 2rem;
@@ -324,7 +328,10 @@ th, td {
 .contact-form {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  justify-content: center;   /* vertikal im Container */
+  align-items: center;       /* horizontal zentrieren */
+  gap: 1rem;                 /* Abstand zwischen Feldern */
+  width: 100%;
 }
 
 .contact-form label {
