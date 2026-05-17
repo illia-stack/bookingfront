@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Contact from "./pages/Contact";
 import PropertyDetail from "./pages/PropertyDetail";
 import MyBookings from "./pages/MyBookings";
 import Cancel from "./pages/Cancel";
@@ -71,6 +72,8 @@ function AppContent() {
           path="/login"
           element={<Login />}
         />
+
+        <Route path="/contact" element={<Contact />} />
 
         <Route
             path="/admin"

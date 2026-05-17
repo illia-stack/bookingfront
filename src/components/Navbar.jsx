@@ -60,6 +60,10 @@ export default function Navbar() {
             {translations[lang].home}
           </Link>
 
+          <Link className="nav-link" to="/contact">
+            {translations[lang].contact}
+          </Link>
+
           {token ? (
             <>
 
@@ -127,6 +131,10 @@ export default function Navbar() {
 
           <Link to="/" onClick={closeMobile}>
             {translations[lang].home}
+          </Link>
+
+          <Link to="/contact" onClick={closeMobile}>
+            {translations[lang].contact}
           </Link>
 
                 {token ? (

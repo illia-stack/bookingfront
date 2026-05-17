@@ -75,7 +75,18 @@ export const translations = {
     paymentCancelledTitle: "Bezahlung abgebrochen",
     paymentCancelledMessage: "Die Zahlung wurde abgebrochen.",
     tryAgainLater: "Sie können die Zahlung später erneut versuchen.",
-    backToBookings: "Zurück zu meinen Buchungen"
+    backToBookings: "Zurück zu meinen Buchungen",
+
+
+    // CONTACT PAGE
+    contact: "Kontakt",
+    name: "Ihr Name",
+    email: "Ihre E-Mail",
+    subject: "Betreff",
+    message: "Nachricht",
+    send: "Senden",
+    sendSuccess: "Ihre Nachricht wurde erfolgreich gesendet!",
+    sendError: "Fehler beim Senden. Bitte versuchen Sie es erneut."
   },
 
   en: {
@@ -153,7 +164,19 @@ export const translations = {
     paymentCancelledTitle: "Payment Cancelled",
     paymentCancelledMessage: "Your payment was cancelled.",
     tryAgainLater: "You can try again later.",
-    backToBookings: "Back to My Bookings"
+    backToBookings: "Back to My Bookings",
+
+
+    //KONTAKT:
+    
+    contact: "Contact Us",
+    name: "Your Name",
+    email: "Your Email",
+    subject: "Subject",
+    message: "Message",
+    send: "Send",
+    sendSuccess: "Your message was sent successfully!",
+    sendError: "Something went wrong. Please try again."
   },
 
   es: {
@@ -231,7 +254,18 @@ export const translations = {
     paymentCancelledTitle: "Pago cancelado",
     paymentCancelledMessage: "El pago fue cancelado.",
     tryAgainLater: "Puede intentarlo nuevamente más tarde.",
-    backToBookings: "Volver a mis reservas"
+    backToBookings: "Volver a mis reservas",
+
+
+    //CONTACT PAGE
+    contact: "Contáctanos",
+    name: "Tu nombre",
+    email: "Tu correo electrónico",
+    subject: "Asunto",
+    message: "Mensaje",
+    send: "Enviar",
+    sendSuccess: "¡Tu mensaje ha sido enviado correctamente!",
+    sendError: "Algo salió mal. Por favor, inténtalo de nuevo."
   }
 
 };
