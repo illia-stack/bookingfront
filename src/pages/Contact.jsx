@@ -43,58 +43,62 @@ export default function Contact() {
   };
 
   return (
-    <div className="container">
-      <div className="contact-card">
-        <h1 className="contact-title">{translations[lang].contact}</h1>
+    <div className="contact-page">
+      <div className="container">
+        <div className="contact-card">
+          <h1 className="contact-title">{translations[lang].contact}</h1>
 
-        <form onSubmit={handleSubmit} className="contact-form">
-          <input
-            type="text"
-            name="name"
-            placeholder={translations[lang].name}
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
+          <form onSubmit={handleSubmit} className="contact-form">
+            <input
+              type="text"
+              name="name"
+              placeholder={translations[lang].name}
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="email"
-            name="email"
-            placeholder={translations[lang].email}
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="email"
+              name="email"
+              placeholder={translations[lang].email}
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="text"
-            name="subject"
-            placeholder={translations[lang].subject}
-            value={form.subject}
-            onChange={handleChange}
-          />
+            <input
+              type="text"
+              name="subject"
+              placeholder={translations[lang].subject}
+              value={form.subject}
+              onChange={handleChange}
+            />
 
-          <textarea
-            name="message"
-            placeholder={translations[lang].message}
-            value={form.message}
-            onChange={handleChange}
-            rows="5"
-            required
-          />
+            <textarea
+              name="message"
+              placeholder={translations[lang].message}
+              value={form.message}
+              onChange={handleChange}
+              rows="5"
+              required
+            />
 
-          <button type="submit" disabled={submitLoading}>
-            {submitLoading ? "..." : translations[lang].send}
-          </button>
-        </form>
+            <button type="submit" disabled={submitLoading}>
+              {submitLoading ? "..." : translations[lang].send}
+            </button>
+          </form>
 
-        {status === "success" && (
-          <p className="success-text">{translations[lang].sendSuccess}</p>
-        )}
-        {status === "error" && (
-          <p className="error-text">{translations[lang].sendError}</p>
-        )}
+          {status === "success" && (
+            <p className="success-text">{translations[lang].sendSuccess}</p>
+          )}
+          {status === "error" && (
+            <p className="error-text">{translations[lang].sendError}</p>
+          )}
+        </div>
       </div>
     </div>
   );
+
+
 }

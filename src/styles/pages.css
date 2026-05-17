@@ -343,7 +343,8 @@ th, td {
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s ease;
-  text-align: center; /* <-- hier hinzufügen */
+  text-align: center;
+  display: block; /* <-- hier hinzufügen */
 }
 
 .contact-form input:focus,
@@ -351,6 +352,14 @@ th, td {
   border-color: #007BFF;
   outline: none;
 }
+
+.contact-form textarea {
+  height: auto;
+  min-height: 120px;      /* Höhe nach Wunsch */
+  padding: 1rem;
+  line-height: 1.4;
+}
+
 
 .contact-form button {
   padding: 0.8rem;
@@ -383,10 +392,17 @@ th, td {
   color: #dc3545;
 }
 
+
+
 /* Responsive */
 @media (max-width: 768px) {
+  .contact-page {
+    padding: 1rem;
+  }
+
   .contact-card {
-    padding: 2rem 1.5rem;
+    width: 90%;
+    max-width: 400px;
   }
 
   .contact-title {
