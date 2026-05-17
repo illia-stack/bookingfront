@@ -357,13 +357,22 @@ th, td {
 }
 
 .contact-form textarea {
-  min-height: 120px;           /* gewünschte Höhe */
-  padding: 12px;               /* Abstand innen */
-  line-height: 1.4;            /* Zeilenhöhe für besseren Textfluss */
+  min-height: 120px;
+  padding: 12px;
+  line-height: 1.4;
   display: grid;
-  place-items: center;         /* vertikal + horizontal zentriert */
-  text-align: center;          /* optional horizontal */
-  resize: vertical;            /* Nutzer kann Höhe anpassen */
+  place-items: center;      /* vertikal & horizontal mittig */
+  text-align: center;       /* horizontal mittig */
+  resize: vertical;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.contact-form textarea::placeholder {
+  text-align: center;       /* Placeholder mittig */
+  color: #999;
 }
 
 /* Fokuszustand */
