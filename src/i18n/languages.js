@@ -3,7 +3,6 @@ export const translations = {
   de: {
     logo: "Online-Buchungsportal - nur fürs Portfolio",
     home: "Startseite",
-    name: "Name",
     register: "Registrieren",
     repeatPassword: "Passwort wiederholen",
     registrationSuccess: "Registrierung erfolgreich",
@@ -20,8 +19,6 @@ export const translations = {
 
     pay: "Bezahlen",
     payNow: "Jetzt bezahlen",
-
-    email: "E-Mail",
     password: "Passwort",
 
     viewDetails: "Details ansehen",
@@ -92,7 +89,6 @@ export const translations = {
   en: {
     logo: "Online booking website: for the portfolio only",
     home: "Home",
-    name: "Name",
     register: "Register",
     repeatPassword: "Repeat Password",
     registrationSuccess: "Registration successful",
@@ -109,8 +105,6 @@ export const translations = {
 
     pay: "Pay",
     payNow: "Pay Now",
-
-    email: "Email",
     password: "Password",
 
     viewDetails: "View Details",
@@ -182,7 +176,6 @@ export const translations = {
   es: {
     logo: "Sitio web de reservas online: solo para el portafolio", 
     home: "Inicio",
-    name: "Nombre",
     register: "Registrarse",
     repeatPassword: "Repetir contraseña",
     registrationSuccess: "Registro exitoso",
@@ -199,8 +192,6 @@ export const translations = {
 
     pay: "Pagar",
     payNow: "Pagar ahora",
-
-    email: "Correo",
     password: "Contraseña",
 
     viewDetails: "Ver detalles",
