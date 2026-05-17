@@ -287,7 +287,7 @@ th, td {
 
 
 /* --------------------------
-   Contact Page Styles
+   Contact Page Styles - Optimized
 ---------------------------*/
 
 .contact-page {
@@ -295,15 +295,15 @@ th, td {
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  min-height: calc(100vh - 80px); /* Navbar abziehen */
+  min-height: calc(100vh - 80px);
   background-color: #f5f6fa;
 }
 
 .contact-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* vertikal zentrieren */
-  align-items: center;      /* horizontal zentrieren */
+  justify-content: center;  /* vertikal zentriert */
+  align-items: center;      /* horizontal zentriert */
   background-color: #fff;
   border-radius: 12px;
   padding: 2.5rem 2rem;
@@ -328,46 +328,52 @@ th, td {
 .contact-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;   /* vertikal im Container */
-  align-items: center;       /* horizontal zentrieren */
-  gap: 1rem;                 /* Abstand zwischen Feldern */
+  gap: 1rem;
   width: 100%;
 }
 
 .contact-form label {
-  text-align: left;
   font-weight: 500;
   margin-bottom: 0.5rem;
   color: #555;
+  text-align: left;
 }
 
+/* Inputs und Textareas */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 0.8rem 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ddd;
+  padding: 0 12px;
+  height: 48px;
+  border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.2s ease;
-  text-align: center;
-  display: block; /* <-- hier hinzufügen */
+  text-align: center; /* optional horizontal zentriert */
+  box-sizing: border-box;
+
+  /* Vertikale Zentrierung für einzeilige Inputs */
+  display: flex;
+  align-items: center;
 }
 
+.contact-form textarea {
+  min-height: 120px;           /* gewünschte Höhe */
+  padding: 12px;               /* Abstand innen */
+  line-height: 1.4;            /* Zeilenhöhe für besseren Textfluss */
+  display: grid;
+  place-items: center;         /* vertikal + horizontal zentriert */
+  text-align: center;          /* optional horizontal */
+  resize: vertical;            /* Nutzer kann Höhe anpassen */
+}
+
+/* Fokuszustand */
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: #007BFF;
   outline: none;
 }
 
-.contact-form textarea {
-  height: auto;
-  min-height: 120px;      /* Höhe nach Wunsch */
-  padding: 1rem;
-  line-height: 1.4;
-}
-
-
+/* Button */
 .contact-form button {
   padding: 0.8rem;
   font-size: 1rem;
@@ -384,6 +390,7 @@ th, td {
   background-color: #0056b3;
 }
 
+/* Success & Error Text */
 .success-text,
 .error-text {
   margin-top: 1rem;
@@ -399,8 +406,6 @@ th, td {
   color: #dc3545;
 }
 
-
-
 /* Responsive */
 @media (max-width: 768px) {
   .contact-page {
@@ -414,6 +419,5 @@ th, td {
 
   .contact-title {
     font-size: 1.5rem;
-    text-align: center;
   }
 }
