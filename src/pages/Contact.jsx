@@ -44,7 +44,6 @@ export default function Contact() {
 
   return (
     <div className="contact-page">
-      <div className="container">
         <div className="contact-card">
           <h1 className="contact-title">{translations[lang].contact}</h1>
 
@@ -96,7 +95,6 @@ export default function Contact() {
             <p className="error-text">{translations[lang].sendError}</p>
           )}
         </div>
-      </div>
     </div>
   );
 
