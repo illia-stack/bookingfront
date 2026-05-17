@@ -339,39 +339,49 @@ th, td {
   text-align: left;
 }
 
-/* Inputs und Textareas */
-.contact-form input,
-.contact-form textarea {
+/* --------------------------
+   Inputs und Textareas
+---------------------------*/
+
+/* Einzeilige Inputs */
+.contact-form input {
   width: 100%;
-  padding: 0 12px;
   height: 48px;
+  padding: 0;               /* Padding entfernen, sonst verschiebt es die Mitte */
+  font-size: 1rem;
+  text-align: center;       /* horizontal zentriert */
+  line-height: 48px;        /* vertikal zentriert */
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 1rem;
-  text-align: center; /* optional horizontal zentriert */
   box-sizing: border-box;
-
-  /* Vertikale Zentrierung für einzeilige Inputs */
-  display: flex;
-  align-items: center;
 }
 
+.contact-form input::placeholder {
+  text-align: center;       /* horizontal zentriert */
+  color: #999;
+}
+
+/* Mehrzeilige Textareas */
 .contact-form textarea {
+  width: 100%;
   min-height: 120px;
-  padding: 12px;
+  padding: 12px;            /* innen etwas Platz lassen */
+  font-size: 1rem;
+  text-align: center;       /* horizontal zentriert */
   line-height: 1.4;
-  display: grid;
-  place-items: center;      /* vertikal & horizontal mittig */
-  text-align: center;       /* horizontal mittig */
-  resize: vertical;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 1rem;
   box-sizing: border-box;
+
+  /* Vertikale Zentrierung des Platzhalters */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  resize: vertical;
 }
 
 .contact-form textarea::placeholder {
-  text-align: center;       /* Placeholder mittig */
+  text-align: center;       /* horizontal zentriert */
   color: #999;
 }
 
@@ -382,7 +392,9 @@ th, td {
   outline: none;
 }
 
-/* Button */
+/* --------------------------
+   Button
+---------------------------*/
 .contact-form button {
   padding: 0.8rem;
   font-size: 1rem;
@@ -398,7 +410,6 @@ th, td {
 .contact-form button:hover {
   background-color: #0056b3;
 }
-
 /* Success & Error Text */
 .success-text,
 .error-text {
