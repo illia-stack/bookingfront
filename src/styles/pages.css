@@ -339,6 +339,8 @@ th, td {
   text-align: left;
 }
 
+
+
 /* --------------------------
    Inputs und Textareas
 ---------------------------*/
@@ -391,6 +393,41 @@ th, td {
   border-color: #007BFF;
   outline: none;
 }
+
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 120px;
+}
+
+.textarea-wrapper textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  resize: vertical;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.textarea-wrapper .textarea-placeholder {
+  position: absolute;
+  top: 50%;          /* vertikale Mitte */
+  left: 50%;         /* horizontale Mitte */
+  transform: translate(-50%, -50%);
+  color: #999;
+  pointer-events: none; /* Klick geht durch zum Textarea */
+  font-size: 1rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+
+
 
 /* --------------------------
    Button

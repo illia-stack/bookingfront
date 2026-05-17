@@ -74,14 +74,24 @@ export default function Contact() {
               onChange={handleChange}
             />
 
-            <textarea
-              name="message"
-              placeholder={translations[lang].message}
-              value={form.message}
-              onChange={handleChange}
-              rows="5"
-              required
-            />
+
+             {/* Textarea mit Wrapper für zentrierten Placeholder */}
+            <div className="textarea-wrapper">
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                rows="5"
+                required
+              />
+              {/* Der span ersetzt den Platzhalter */}
+              {form.message === "" && (
+                <span className="textarea-placeholder">
+                  {translations[lang].message}
+                </span>
+              )}
+            </div>
+
 
             <button type="submit" disabled={submitLoading}>
               {submitLoading ? "..." : translations[lang].send}
