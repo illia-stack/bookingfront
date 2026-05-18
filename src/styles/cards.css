@@ -77,3 +77,19 @@ img {
   justify-content: center; /* horizontales Zentrieren */
   justify-items: center;   /* Elemente innerhalb der Spalten zentrieren */
 }
+
+
+
+/* Navigation */
+
+.filter-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#city-select {
+  padding: 5px 10px;
+  font-size: 16px;
+}

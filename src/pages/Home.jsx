@@ -12,6 +12,8 @@ export default function Home() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [selectedCity, setSelectedCity] = useState("");
+
   const getProperties = async () => {
     try {
       const res = await api.get("/properties");
@@ -30,6 +32,8 @@ export default function Home() {
     });
     return () => { mounted = false; };
   }, []);
+
+  const cities = [...new Set(properties.map(p => p.city))];
 
   // LOADING
   if (loading) {
@@ -50,14 +54,34 @@ export default function Home() {
   }
 
   return (
-    <div className="container">
-      <div className="properties-grid">
-        {properties.map((property) => (
-          <PropertyCard
-            key={property.id}
-            property={property}
-          />
-        ))}
+    <div>
+      {/* DROPDOWN FILTER */}
+      <div className="filter-container">
+        <label htmlFor="city-select">Stadt auswählen:</label>
+        <select
+          id="city-select"
+          value={selectedCity}
+          onChange={(e) => setSelectedCity(e.target.value)}
+        >
+          <option value="">Alle Städte</option>
+          {cities.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* PROPERTY LIST */}
+      <div className="container">
+        <div className="properties-grid">
+          {properties
+            .filter(property => !selectedCity || property.city === selectedCity)
+            .map(property => (
+              <PropertyCard key={property.id} property={property} />
+            ))
+          }
+        </div>
       </div>
     </div>
   );
