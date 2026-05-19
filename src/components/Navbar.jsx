@@ -90,11 +90,11 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link className="btn-link" to="/login">
+              <Link className="nav-link" to="/login">
                 {translations[lang].login}
               </Link>
 
-              <Link className="btn-link" to="/register">
+              <Link className="nav-link" to="/register">
                 {translations[lang].register}
               </Link>
             </>
