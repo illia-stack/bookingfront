@@ -146,42 +146,45 @@ export default function PropertyDetail() {
             {translations[lang].bookProperty}
           </h3>
 
-          {/* CHECK-IN */}
-          <div className="form-group">
 
-            <label>
-              {translations[lang].checkInLabel}
-            </label>
+          <div className="booking-dates">
+            {/* CHECK-IN */}
+            <div className="form-group">
 
-            <p className="hint">
-              {translations[lang].checkInHint}
-            </p>
+              <label>
+                {translations[lang].checkInLabel}
+              </label>
 
-            <input
-              type="date"
-              value={checkIn}
-              onChange={(e) => setCheckIn(e.target.value)}
-            />
+              <p className="hint">
+                {translations[lang].checkInHint}
+              </p>
 
-          </div>
+              <input
+                type="date"
+                value={checkIn}
+                onChange={(e) => setCheckIn(e.target.value)}
+              />
 
-          {/* CHECK-OUT */}
-          <div className="form-group">
+            </div>
 
-            <label>
-              {translations[lang].checkOutLabel}
-            </label>
+            {/* CHECK-OUT */}
+            <div className="form-group">
 
-            <p className="hint">
-              {translations[lang].checkOutHint}
-            </p>
+              <label>
+                {translations[lang].checkOutLabel}
+              </label>
 
-            <input
-              type="date"
-              value={checkOut}
-              onChange={(e) => setCheckOut(e.target.value)}
-            />
+              <p className="hint">
+                {translations[lang].checkOutHint}
+              </p>
 
+              <input
+                type="date"
+                value={checkOut}
+                onChange={(e) => setCheckOut(e.target.value)}
+              />
+
+            </div>
           </div>
 
           {/* BUTTON */}

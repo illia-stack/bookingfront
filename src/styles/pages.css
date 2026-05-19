@@ -259,6 +259,41 @@
   font-weight: 500;
 }
 
+/* Wrapper für beide Felder */
+.booking-dates {
+  display: flex;
+  gap: 24px; /* Abstand zwischen An- und Abreisedatum */
+  flex-wrap: wrap; /* Mobile: Felder untereinander */
+  margin-bottom: 20px;
+}
+
+/* Einzelnes Feld */
+.booking-dates .form-group {
+  flex: 1; /* Beide Felder gleich breit */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Inputs anpassen */
+.booking-dates .form-group input[type="date"] {
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  width: 100%;
+}
+
+/* Mobile: Felder untereinander mit Abstand */
+@media (max-width: 768px) {
+  .booking-dates {
+    flex-direction: column;
+    gap: 16px; /* etwas kleiner Abstand auf Handy */
+  }
+}
+
+
+
 /* STATUS */
 .status {
   display: inline-block;
