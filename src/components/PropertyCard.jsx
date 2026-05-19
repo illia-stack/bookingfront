@@ -13,11 +13,8 @@ export default function PropertyCard({ property }) {
     <div className="card">
 
       {/* IMAGE */}
-      <img
-        src={
-          property.image_url ||
-          "https://via.placeholder.com/600x400"
-        }
+      <img 
+        src={property.image_url}
         alt={property.title}
         loading="lazy"
       />
