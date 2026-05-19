@@ -42,6 +42,10 @@
   background: none;
   border: none;
   cursor: pointer;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  white-space: nowrap;
 }
 
 .nav-links.desktop > *:not(:last-child)::after {
