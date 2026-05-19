@@ -56,20 +56,22 @@ export default function Home() {
   return (
     <div>
       {/* DROPDOWN FILTER */}
-      <div className="filter-container">
-        <label htmlFor="city-select">Stadt auswählen:</label>
-        <select
-          id="city-select"
-          value={selectedCity}
-          onChange={(e) => setSelectedCity(e.target.value)}
-        >
-          <option value="">Alle Städte</option>
-          {cities.map((city) => (
-            <option key={city} value={city}>
-              {city}
-            </option>
-          ))}
-        </select>
+      <div className="filter-wrapper">
+        <div className="filter-container">
+          <label htmlFor="city-select">{translations[lang].selectCity}</label>
+          <select
+            id="city-select"
+            value={selectedCity}
+            onChange={(e) => setSelectedCity(e.target.value)}
+          >
+            <option value="">{translations[lang].allCities}</option>
+            {cities.map((city) => (
+              <option key={city} value={city}>
+                {city}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* PROPERTY LIST */}

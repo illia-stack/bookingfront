@@ -9,6 +9,8 @@ export const translations = {
     registrationFailed: "Registrierung fehlgeschlagen",
 
     selectLanguage: "Sprache auswählen",
+    selectCity: "Stadt auswählen",
+    allCities: "Alle",
 
     login: "Anmelden",
     logout: "Abmelden",
@@ -94,7 +96,9 @@ export const translations = {
     registrationSuccess: "Registration successful",
     registrationFailed: "Registration failed",
 
-    selectLanguage: "Select language", 
+    selectLanguage: "Select language",
+    selectCity: "Select city",
+    allCities: "All", 
 
     login: "Login",
     logout: "Logout",
@@ -182,6 +186,8 @@ export const translations = {
     registrationFailed: "Registro fallido",
 
     selectLanguage: "Seleccionar idioma",
+    selectCity: "Seleccionar ciudad",
+    allCities: "Todas",
 
     login: "Iniciar sesión",
     logout: "Cerrar sesión",

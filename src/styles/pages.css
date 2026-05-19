@@ -43,7 +43,80 @@
   }
 }
 
-/* AUTH PAGE */
+
+
+/*////// HOME PAGE ///////*/
+
+/* FILTER WRAPPER - zentriert alles */
+.filter-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* FILTER BOX */
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: white;
+  padding: 12px 18px;
+  border-radius: 14px;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+
+  flex-wrap: wrap; /* wichtig für mobile */
+  justify-content: center;
+}
+
+/* LABEL */
+.filter-container label {
+  font-weight: 600;
+  color: #374151;
+}
+
+/* SELECT STYLE */
+.filter-container select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 14px;
+
+  outline: none;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* HOVER / FOCUS */
+.filter-container select:focus {
+  border-color: #3b82f6;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+@media (max-width: 600px) {
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+    width: 90%;
+  }
+
+  .filter-container select {
+    width: 100%;
+  }
+
+  .filter-container label {
+    text-align: center;
+  }
+} 
+
+
+
+
+/* //////  AUTH PAGE  /////// */
 .auth-page {
   min-height: calc(100vh - 90px);
   display: flex;
