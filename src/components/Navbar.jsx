@@ -94,7 +94,7 @@ export default function Navbar() {
                 {translations[lang].login}
               </Link>
 
-              <Link className="btn-primary-small" to="/register">
+              <Link className="btn-link" to="/register">
                 {translations[lang].register}
               </Link>
             </>
