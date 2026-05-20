@@ -26,8 +26,9 @@ export default function Register() {
     });
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
 
+    e.preventDefault();
     setLoading(true);
 
     try {
