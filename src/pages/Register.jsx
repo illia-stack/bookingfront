@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { register } from "../api/auth";
 
 import { useLanguage } from "../context/LanguageContext";
@@ -19,7 +18,6 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-
     setForm({
       ...form,
       [e.target.name]: e.target.value
@@ -27,29 +25,23 @@ export default function Register() {
   };
 
   const handleRegister = async (e) => {
-
     e.preventDefault();
     setLoading(true);
 
     try {
-
       await register(form);
 
-      alert(
-        translations[lang].registrationSuccess
-      );
+      alert(translations[lang].registrationSuccess);
 
       window.location.href = "/";
+      window.location.reload();
 
     } catch (err) {
-
       alert(
         err.response?.data?.message ||
         translations[lang].registrationFailed
       );
-
     } finally {
-
       setLoading(false);
     }
   };
@@ -57,19 +49,16 @@ export default function Register() {
   return (
     <div className="form-container">
 
-      {/* TITLE */}
       <h2 className="center">
         {translations[lang].register}
       </h2>
 
-      {/* NAME */}
       <input
         name="name"
         placeholder={translations[lang].name}
         onChange={handleChange}
       />
 
-      {/* EMAIL */}
       <input
         name="email"
         type="email"
@@ -77,7 +66,6 @@ export default function Register() {
         onChange={handleChange}
       />
 
-      {/* PASSWORD */}
       <input
         name="password"
         type="password"
@@ -85,17 +73,13 @@ export default function Register() {
         onChange={handleChange}
       />
 
-      {/* REPEAT PASSWORD */}
       <input
         name="password_confirmation"
         type="password"
-        placeholder={
-          translations[lang].repeatPassword
-        }
+        placeholder={translations[lang].repeatPassword}
         onChange={handleChange}
       />
 
-      {/* BUTTON */}
       <button
         className="btn-full"
         onClick={handleRegister}

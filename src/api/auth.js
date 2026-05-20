@@ -1,34 +1,22 @@
 import api from "./client";
 
-/*
-|--------------------------------------------------------------------------
-| CSRF (MUSS VOR LOGIN/REGISTER GEHEN)
-|--------------------------------------------------------------------------
-*/
-export const csrf = () => api.get("/sanctum/csrf-cookie");
+// CSRF COOKIE (Pflicht für Sanctum)
+const csrf = () => api.get("/sanctum/csrf-cookie");
 
-/*
-|--------------------------------------------------------------------------
-| REGISTER
-|--------------------------------------------------------------------------
-*/
+// REGISTER
 export const register = async (data) => {
   await csrf();
 
-  const res = await api.post("/api/auth/register", data);
+  const res = await api.post("/auth/register", data);
 
   return res.data;
 };
 
-/*
-|--------------------------------------------------------------------------
-| LOGIN
-|--------------------------------------------------------------------------
-*/
+// LOGIN
 export const login = async (email, password) => {
   await csrf();
 
-  const res = await api.post("/api/auth/login", {
+  const res = await api.post("/auth/login", {
     email,
     password,
   });
@@ -36,22 +24,14 @@ export const login = async (email, password) => {
   return res.data;
 };
 
-/*
-|--------------------------------------------------------------------------
-| LOGOUT
-|--------------------------------------------------------------------------
-*/
+// LOGOUT
 export const logout = async () => {
-  const res = await api.post("/api/auth/logout");
+  const res = await api.post("/logout");
   return res.data;
 };
 
-/*
-|--------------------------------------------------------------------------
-| GET CURRENT USER (VERY IMPORTANT)
-|--------------------------------------------------------------------------
-*/
+// CURRENT USER
 export const getUser = async () => {
-  const res = await api.get("/api/user");
+  const res = await api.get("/user");
   return res.data;
 };

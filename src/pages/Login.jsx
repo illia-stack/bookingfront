@@ -12,18 +12,18 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleLogin = async (e) => {
 
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-
       await login(email, password);
 
-      window.location.href = "/";
+      // 🔥 KEIN localStorage mehr
+      navigate("/");
+      window.location.reload();
 
     } catch (err) {
-
       alert(
         err.response?.data?.message ||
         translations[lang].loginFailed
@@ -36,23 +36,16 @@ export default function Login() {
 
       <div className="auth-card">
 
-        {/* TITLE */}
         <h1 className="auth-title">
           {translations[lang].login}
         </h1>
 
-        {/* SUBTITLE */}
         <p className="auth-subtitle">
           {translations[lang].loginWelcome}
         </p>
 
-        {/* FORM */}
-        <form
-          onSubmit={handleLogin}
-          className="auth-form"
-        >
+        <form onSubmit={handleLogin} className="auth-form">
 
-          {/* EMAIL */}
           <div className="form-group">
 
             <label>
@@ -69,7 +62,6 @@ export default function Login() {
 
           </div>
 
-          {/* PASSWORD */}
           <div className="form-group">
 
             <label>
@@ -86,11 +78,7 @@ export default function Login() {
 
           </div>
 
-          {/* BUTTON */}
-          <button
-            type="submit"
-            className="primary-btn"
-          >
+          <button type="submit" className="primary-btn">
             {translations[lang].login}
           </button>
 
