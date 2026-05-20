@@ -1,40 +1,39 @@
 import axios from "axios";
 
-// Axios-Instanz für Backend
+// 1️⃣ Axios-Instanz für Backend
 const api = axios.create({
-  baseURL: "https://bookingback.onrender.com", // Backend-Domain
-  withCredentials: true,                       // wichtig für Cookies
+  baseURL: "https://bookingback.onrender.com", // Backend
+  withCredentials: true,                       // Cookies erlauben
   headers: {
     "Accept": "application/json",
     "Content-Type": "application/json",
   },
-  xsrfCookieName: "XSRF-TOKEN",   // Cookie, das Sanctum für CSRF setzt
-  xsrfHeaderName: "X-XSRF-TOKEN", // Header, den Laravel prüft
+  xsrfCookieName: "XSRF-TOKEN",   // Cookie von Sanctum
+  xsrfHeaderName: "X-XSRF-TOKEN", // Header für Laravel CSRF
 });
 
-// 1️⃣ CSRF Cookie holen
-const csrf = () => {
-  // GET auf /sanctum/csrf-cookie -> Browser setzt XSRF-TOKEN Cookie
+// 2️⃣ CSRF Cookie holen
+const csrf = async () => {
   return api.get("/sanctum/csrf-cookie");
 };
 
-// 2️⃣ REGISTER
+// 3️⃣ REGISTER
 export const register = async (data) => {
-  await csrf(); // zuerst CSRF holen
+  await csrf(); // unbedingt vorher
   const res = await api.post("/auth/register", data);
   return res.data;
 };
 
-// 3️⃣ LOGIN
+// 4️⃣ LOGIN
 export const login = async (email, password) => {
-  await csrf(); // unbedingt vorher CSRF holen
+  await csrf(); // unbedingt vorher CSRF Token holen
   const res = await api.post("/auth/login", { email, password });
   return res.data;
 };
 
-// 4️⃣ LOGOUT
+// 5️⃣ LOGOUT
 export const logout = async () => {
-  await csrf(); // optional, aber sicher
+  await csrf(); // optional, aber sauber
   const res = await api.post("/auth/logout", {});
   return res.data;
 };
