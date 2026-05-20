@@ -1,23 +1,57 @@
 import api from "./client";
 
+/*
+|--------------------------------------------------------------------------
+| CSRF (MUSS VOR LOGIN/REGISTER GEHEN)
+|--------------------------------------------------------------------------
+*/
+export const csrf = () => api.get("/sanctum/csrf-cookie");
 
+/*
+|--------------------------------------------------------------------------
+| REGISTER
+|--------------------------------------------------------------------------
+*/
+export const register = async (data) => {
+  await csrf();
 
-export const register = async ({ name, email, password, password_confirmation }) => {
-  const res = await api.post("/auth/register", { name, email, password, password_confirmation });
-  return res.data; // Cookie wird gesetzt, kein LocalStorage nötig
-};
+  const res = await api.post("/api/auth/register", data);
 
-
-
-export const login = async (email, password) => {
-  const res = await api.post("/auth/login", { email, password });
-  // Cookie wird automatisch vom Browser gespeichert
   return res.data;
 };
 
+/*
+|--------------------------------------------------------------------------
+| LOGIN
+|--------------------------------------------------------------------------
+*/
+export const login = async (email, password) => {
+  await csrf();
 
+  const res = await api.post("/api/auth/login", {
+    email,
+    password,
+  });
 
+  return res.data;
+};
 
+/*
+|--------------------------------------------------------------------------
+| LOGOUT
+|--------------------------------------------------------------------------
+*/
 export const logout = async () => {
-  await api.post("/auth/logout");
+  const res = await api.post("/api/auth/logout");
+  return res.data;
+};
+
+/*
+|--------------------------------------------------------------------------
+| GET CURRENT USER (VERY IMPORTANT)
+|--------------------------------------------------------------------------
+*/
+export const getUser = async () => {
+  const res = await api.get("/api/user");
+  return res.data;
 };
