@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PropertyCard from "../components/PropertyCard";
-import api from "../api/client";
+import api from "../api/api";
 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
