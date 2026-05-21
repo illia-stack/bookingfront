@@ -1,49 +1,36 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getUsers, exportBookings } from "../api/api";
 
 export default function AdminDashboard() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get("https://bookingback.onrender.com/api/admin/users", {
-            withCredentials: true
-        })
+        getUsers()
         .then(res => setUsers(res.data))
         .catch(err => {
             console.error("Failed to load users:", err);
         });
     }, []);
 
-    const exportBookings = async () => {
-        try {
-            const response = await axios.get(
-                "https://bookingback.onrender.com/api/admin/export-bookings",
-                {
-                    withCredentials: true,
-                    responseType: "blob"
-                }
-            );
-
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "booking-report.xlsx";
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-
-            window.URL.revokeObjectURL(url);
-
-        } catch (error) {
-            console.error("Export failed:", error);
-        }
+    const handleExport = async () => {
+    try {
+        const res = await exportBookings();
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "booking-report.xlsx";
+        a.click();
+        window.URL.revokeObjectURL(url);
+    } catch (err) {
+        console.error(err);
+    }
     };
 
     return (
         <div className="container">
             <h1 className="center">Admin Dashboard</h1>
 
-            <button className="primary-btn btn-full" onClick={exportBookings}>
+            <button className="primary-btn btn-full" onClick={handleExport}>
                 Export Bookings (Excel)
             </button>
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { register } from "../api/auth";
+import { register } from "../api/api";
 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
@@ -29,12 +29,11 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await register(form);
+      const res = await register(form);
 
       alert(translations[lang].registrationSuccess);
 
       window.location.href = "/";
-      window.location.reload();
 
     } catch (err) {
       alert(

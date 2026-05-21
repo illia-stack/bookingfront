@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../api/auth";
-import { logout } from "../api/auth";
+import api, { logout, getCurrentUser } from "../api/api";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
@@ -15,7 +14,7 @@ export default function Navbar() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await api.get("/auth/user"); // neue Route auf Backend
+        const res = await getCurrentUser(); // neue Route auf Backend
         setUser(res.data.user);
       } catch (err) {
         setUser(null);
