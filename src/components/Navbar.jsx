@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import api from "../api/auth";
 import { logout } from "../api/auth";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
@@ -9,32 +9,31 @@ export default function Navbar() {
 
   const { lang, changeLang } = useLanguage();  
   const navigate = useNavigate();
-
+  const [user, setUser] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const user =
-    JSON.parse(
-        localStorage.getItem("user")
-    );
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await api.get("/auth/user"); // neue Route auf Backend
+        setUser(res.data.user);
+      } catch (err) {
+        setUser(null);
+      }
+    };
+    fetchUser();
+  }, []);
 
-  const isAdmin =
-      user?.role === "admin";
-
-  const token = localStorage.getItem("token");
+  const isAdmin = user?.role === "admin";
 
   const handleLogout = async () => {
-
-    try {
-      await logout();
-    } catch (err) {
-      console.error(err);
-    }
-
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    
-    navigate("/login");
-    setMobileOpen(false);
+  try {
+    await logout();
+    setUser(null); // State zurücksetzen
+  } catch (err) {
+    console.error(err);
+  }
+  navigate("/login");
   };
 
   const closeMobile = () => setMobileOpen(false);
@@ -64,7 +63,7 @@ export default function Navbar() {
             {translations[lang].contact}
           </Link>
 
-          {token ? (
+          {user ? (
             <>
 
               <Link className="nav-link" to="/my-bookings">
@@ -137,7 +136,7 @@ export default function Navbar() {
             {translations[lang].contact}
           </Link>
 
-                {token ? (
+                {user  ? (
           <>
 
               <Link to="/my-bookings" onClick={closeMobile}>
