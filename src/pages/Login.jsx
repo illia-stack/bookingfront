@@ -54,6 +54,7 @@ export default function Login() {
 
             <input
               type="email"
+              name="email"
               placeholder={translations[lang].email}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -70,6 +71,7 @@ export default function Login() {
 
             <input
               type="password"
+              name="password"
               placeholder={translations[lang].password}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
