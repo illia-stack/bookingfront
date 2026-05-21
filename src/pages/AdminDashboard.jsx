@@ -5,36 +5,33 @@ export default function AdminDashboard() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-
         axios.get("https://bookingback.onrender.com/api/admin/users", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            withCredentials: true
         })
         .then(res => setUsers(res.data))
-        .catch(err => console.error(err));
+        .catch(err => {
+            console.error("Failed to load users:", err);
+        });
     }, []);
 
     const exportBookings = async () => {
         try {
-            const token = localStorage.getItem("token");
-
             const response = await axios.get(
                 "https://bookingback.onrender.com/api/admin/export-bookings",
                 {
-                    responseType: "blob", // sehr wichtig für Excel
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    withCredentials: true,
+                    responseType: "blob"
                 }
             );
 
-            const url = window.URL.createObjectURL(response.data);
+            const url = window.URL.createObjectURL(new Blob([response.data]));
             const a = document.createElement("a");
             a.href = url;
             a.download = "booking-report.xlsx";
+            document.body.appendChild(a);
             a.click();
+            a.remove();
+
             window.URL.revokeObjectURL(url);
 
         } catch (error) {
@@ -60,6 +57,7 @@ export default function AdminDashboard() {
                             <th>Role</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         {users.map(user => (
                             <tr key={user.id}>

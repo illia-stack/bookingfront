@@ -2,37 +2,32 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://bookingback.onrender.com",
-  withCredentials: true, 
+  withCredentials: true,
   headers: {
-    "Accept": "application/json",
+    Accept: "application/json",
     "Content-Type": "application/json",
     "Cache-Control": "no-cache",
   },
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
 });
 
 export const csrf = async () => {
-  await api.get("/sanctum/csrf-cookie", {
-    headers: { "Cache-Control": "no-cache" },
-  });
+  return api.get("/sanctum/csrf-cookie");
 };
 
-export const register = async (data) => {
-  await csrf(); 
-  const res = await api.post("/auth/register", data); 
-  return res.data;
-};
+api.interceptors.request.use((config) => {
+  console.log("REQ:", config.url, config.withCredentials);
+  return config;
+});
+
+export const register = (data) =>
+  csrf().then(() => api.post("/auth/register", data));
 
 export const login = async (email, password) => {
   await csrf();
-  const res = await api.post("/auth/login", { email, password });
-  return res.data;
+  return api.post("/auth/login", { email, password });
 };
 
-export const logout = async () => {
-  const res = await api.post("/auth/logout", {});
-  return res.data;
-};
+export const logout = () =>
+  api.post("/auth/logout");
 
 export default api;
