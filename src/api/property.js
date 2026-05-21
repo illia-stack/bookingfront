@@ -1,4 +1,4 @@
-import api from "./client";
+import api from "./api";
 
 export const getProperties = (page = 1) => {
   return api.get("/properties", {

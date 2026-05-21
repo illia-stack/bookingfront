@@ -1,4 +1,4 @@
-import api from "./client";
+import api from "./api";
 
 export const createBooking = (data) => {
   return api.post("/bookings", data);

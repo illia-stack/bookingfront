@@ -1,4 +1,4 @@
-import api from "./client";
+import api from "./api";
 
 export const checkout = (bookingId) => {
   return api.post("/checkout", {
