@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from "../api/client"; // Axios Client
+import api from "../api/api"; // Axios Client
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
