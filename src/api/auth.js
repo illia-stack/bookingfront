@@ -2,25 +2,25 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://bookingback.onrender.com",
-  withCredentials: true, // Cookies erlauben
+  withCredentials: true, 
   headers: {
     "Accept": "application/json",
     "Content-Type": "application/json",
+    "Cache-Control": "no-cache",
   },
   xsrfCookieName: "XSRF-TOKEN",
   xsrfHeaderName: "X-XSRF-TOKEN",
 });
 
 export const csrf = async () => {
-  // ⚡ GET Cookie + keine Cache
   await api.get("/sanctum/csrf-cookie", {
     headers: { "Cache-Control": "no-cache" },
   });
 };
 
 export const register = async (data) => {
-  await csrf(); // CSRF Token holen
-  const res = await api.post("/auth/register", data); // Cookie Auth wird automatisch gesendet
+  await csrf(); 
+  const res = await api.post("/auth/register", data); 
   return res.data;
 };
 
