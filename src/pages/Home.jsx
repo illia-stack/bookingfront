@@ -11,7 +11,6 @@ export default function Home() {
 
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [selectedCity, setSelectedCity] = useState("");
 
   const getProperties = async () => {
@@ -26,11 +25,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    let mounted = true;
-    getProperties().then(() => {
-      if (!mounted) return;
-    });
-    return () => { mounted = false; };
+    getProperties();
   }, []);
 
   const cities = [...new Set(properties.map(p => p.city))];
@@ -39,7 +34,9 @@ export default function Home() {
   if (loading) {
     return (
       <div className="loading-container">
-        <p className="loading-text">{translations[lang].loading}</p>
+        <p className="loading-text">
+          {translations[lang].loading}
+        </p>
       </div>
     );
   }
@@ -55,36 +52,49 @@ export default function Home() {
 
   return (
     <div>
-      {/* DROPDOWN FILTER */}
+
+      {/* FILTER */}
       <div className="filter-wrapper">
         <div className="filter-container">
-          <label htmlFor="city-select">{translations[lang].selectCity}</label>
+
+          <label htmlFor="city-select">
+            {translations[lang].selectCity}
+          </label>
+
           <select
             id="city-select"
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
           >
-            <option value="">{translations[lang].allCities}</option>
+            <option value="">
+              {translations[lang].allCities}
+            </option>
+
             {cities.map((city) => (
               <option key={city} value={city}>
                 {city}
               </option>
             ))}
           </select>
+
         </div>
       </div>
 
-      {/* PROPERTY LIST */}
+      {/* LIST */}
       <div className="container">
         <div className="properties-grid">
           {properties
-            .filter(property => !selectedCity || property.city === selectedCity)
+            .filter(p => !selectedCity || p.city === selectedCity)
             .map(property => (
-              <PropertyCard key={property.id} property={property} />
+              <PropertyCard
+                key={property.id}
+                property={property}
+              />
             ))
           }
         </div>
       </div>
+
     </div>
   );
 }

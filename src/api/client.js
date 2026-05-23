@@ -2,16 +2,22 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://bookingback.onrender.com/api",
-
-  withCredentials: true,
-
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
-
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
   },
+});
+
+// TOKEN automatisch mitsenden
+api.interceptors.request.use((config) => {
+
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
 });
 
 export default api;

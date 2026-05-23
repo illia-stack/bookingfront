@@ -14,6 +14,8 @@ export default function PropertyDetail() {
 
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [booking, setBooking] = useState(false);
+
 
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -42,10 +44,21 @@ export default function PropertyDetail() {
 
   const handleBooking = async () => {
 
+    if (booking) return;
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Bitte zuerst einloggen");
+      return;
+    }
+
     if (!checkIn || !checkOut) {
       alert(translations[lang].selectDates);
       return;
     }
+
+    setBooking(true);
 
     try {
 
@@ -73,9 +86,12 @@ export default function PropertyDetail() {
         err.response?.data?.message ||
         translations[lang].bookingFailed
       );
-    }
-  };
 
+    } finally {
+      setBooking(false);
+    }
+  }; 
+  
   /* LOADING */
   if (loading) {
     return (
@@ -191,8 +207,11 @@ export default function PropertyDetail() {
           <button
             className="primary-btn full-btn"
             onClick={handleBooking}
+            disabled={booking}   // 🔥 HIER
           >
-            {translations[lang].createBooking}
+            {booking
+              ? "Processing..."
+              : translations[lang].createBooking}
           </button>
 
         </div>

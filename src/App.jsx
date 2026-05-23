@@ -3,13 +3,13 @@ import { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
-  Route,
-  Navigate
+  Route
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Contact from "./pages/Contact";
@@ -26,14 +26,6 @@ import {
   useLanguage
 } from "./context/LanguageContext";
 
-import './styles/base.css';
-import './styles/typography.css';
-import './styles/buttons.css';
-import './styles/forms.css';
-import './styles/navbar.css';
-import './styles/cards.css';
-import './styles/pages.css';
-import './styles/utilities.css';
 
 function AppContent() {
 
@@ -43,15 +35,6 @@ function AppContent() {
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
-
-  const ProtectedRoute = ({ children }) => {
-
-    const token = localStorage.getItem("token");
-
-    return token
-      ? children
-      : <Navigate to="/login" replace />;
-  };
 
   return (
     <BrowserRouter>

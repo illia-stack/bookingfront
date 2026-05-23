@@ -10,17 +10,24 @@ export default function MyBookings() {
 
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // STATUS LABEL
   const statusLabel = (status) => {
-
     const key =
       `status${status.charAt(0).toUpperCase()}${status.slice(1)}`;
 
-    return translations[lang][key] || status;
+    return translations[lang]?.[key] || status;
   };
 
   useEffect(() => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setLoading(false);
+      setBookings([]);
+      return;
+    }
 
     getMyBookings()
       .then((res) => {
@@ -28,6 +35,8 @@ export default function MyBookings() {
       })
       .catch((err) => {
         console.error(err);
+        setError("Failed to load bookings");
+        setBookings([]);
       })
       .finally(() => {
         setLoading(false);
@@ -35,7 +44,6 @@ export default function MyBookings() {
 
   }, []);
 
-  /* LOADING */
   if (loading) {
     return (
       <div className="page-center">
@@ -46,14 +54,19 @@ export default function MyBookings() {
     );
   }
 
-  /* EMPTY */
-  if (!loading && bookings.length === 0) {
+  if (error) {
+    return (
+      <div className="page-center">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (bookings.length === 0) {
     return (
       <div className="page-center">
         <div className="empty-box">
-          <h2>
-            {translations[lang].noBookings}
-          </h2>
+          <h2>{translations[lang].noBookings}</h2>
         </div>
       </div>
     );
@@ -72,37 +85,34 @@ export default function MyBookings() {
 
           <div key={b.id} className="booking-card">
 
-            {/* TITLE */}
-            <h3>
-              {b.property.title}
-            </h3>
+            <h3>{b.property?.title}</h3>
 
-            {/* CITY */}
             <p className="muted">
-              📍 {b.property.city}
+              📍 {b.property?.city}
             </p>
 
-            {/* DATES */}
             <div className="dates">
 
               <p>
                 {translations[lang].checkIn}:{" "}
-                <strong>{b.check_in}</strong>
+                <strong>
+                  {new Date(b.check_in).toLocaleDateString()}
+                </strong>
               </p>
 
               <p>
                 {translations[lang].checkOut}:{" "}
-                <strong>{b.check_out}</strong>
+                <strong>
+                  {new Date(b.check_out).toLocaleDateString()}
+                </strong>
               </p>
 
             </div>
 
-            {/* PRICE */}
             <p className="price">
               💰 {b.total_price} €
             </p>
 
-            {/* STATUS BADGE */}
             <span className={`status status-${b.status}`}>
               {statusLabel(b.status)}
             </span>

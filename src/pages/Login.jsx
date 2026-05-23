@@ -17,11 +17,12 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      await login(email, password);
+      const res = await login(email, password);
 
-      // 🔥 KEIN localStorage mehr
+      // 🔥 TOKEN SPEICHERN (WICHTIG)
+      localStorage.setItem("token", res.token);
+
       navigate("/");
-      window.location.reload();
 
     } catch (err) {
       alert(
@@ -54,8 +55,6 @@ export default function Login() {
 
             <input
               type="email"
-              name="email"
-              placeholder={translations[lang].email}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -71,8 +70,6 @@ export default function Login() {
 
             <input
               type="password"
-              name="password"
-              placeholder={translations[lang].password}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
