@@ -70,3 +70,16 @@ body.dark .mobile-menu {
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* DARK MODE SELECT */
+body.dark .lang-select {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+/* Dropdown Optionen */
+body.dark .lang-select option {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
