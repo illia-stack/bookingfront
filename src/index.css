@@ -29,8 +29,18 @@ body.dark {
 }
 
 /* Navbar */
+/* DARK MODE NAVBAR */
 body.dark .navbar {
   background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark .nav-link {
+  color: #ffffff;
+}
+
+body.dark .logo {
+  color: #ffffff;
 }
 
 /* Cards */
@@ -43,6 +53,15 @@ body.dark .card {
 body.dark .btn-full {
   background-color: #333;
   color: white;
+}
+
+body.dark .btn-secondary {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark .mobile-menu {
+  background-color: #1e1e1e;
 }
 
 .theme-toggle {
