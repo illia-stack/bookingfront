@@ -218,7 +218,8 @@
 .detail-card {
   width: 100%;
   max-width: 900px;
-  background: white;
+  background: var(--card-bg);   /* 🔥 statt white */
+  color: var(--text);
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0,0,0,0.08);
