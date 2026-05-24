@@ -21,6 +21,8 @@ import Success from "./pages/Success";
 import AdminRoute from "./components/AdminRoute";
 import AdminDashboard from "./pages/AdminDashboard"; 
 
+import { ThemeProvider } from "./context/ThemeContext";
+
 import {
   LanguageProvider,
   useLanguage
@@ -120,7 +122,9 @@ function App() {
 
   return (
     <LanguageProvider>
-      <AppContent />
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
     </LanguageProvider>
   );
 }

@@ -16,3 +16,38 @@ body {
   margin: 0;
   min-width: 320px;
 }
+
+body.light {
+  background-color: #ffffff;
+  color: #111;
+}
+
+/* DARK */
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+/* Navbar */
+body.dark .navbar {
+  background-color: #1e1e1e;
+}
+
+/* Cards */
+body.dark .card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+}
+
+/* Buttons */
+body.dark .btn-full {
+  background-color: #333;
+  color: white;
+}
+
+.theme-toggle {
+  margin-left: 10px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}

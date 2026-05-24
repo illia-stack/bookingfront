@@ -4,11 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../api/auth";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Navbar() {
 
   const { lang, changeLang } = useLanguage();  
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -112,6 +114,13 @@ export default function Navbar() {
             <option value="es">ES</option>
           </select>
 
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
+
         </div>
 
         {/* MOBILE BUTTON */}
@@ -182,6 +191,13 @@ export default function Navbar() {
             <option value="en">EN</option>
             <option value="es">ES</option>
           </select>
+
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
 
         </div>
       )}
