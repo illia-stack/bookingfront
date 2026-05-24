@@ -61,7 +61,7 @@
   padding: 0 12px;
   position: relative;
   text-decoration: none;
-  color: #111827;
+  color: var(--text);
   font-weight: 600;
   background: none;
   border: none;
