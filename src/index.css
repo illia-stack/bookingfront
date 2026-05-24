@@ -6,10 +6,18 @@
   color: #111827;
   background: #f3f4f6;
 
+  --bg: #ffffff;
+  --text: #111827;
+  --text-muted: #6b7280;
+  --card-bg: #ffffff;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 body {
@@ -24,8 +32,11 @@ body.light {
 
 /* DARK */
 body.dark {
-  background-color: #121212;
-  color: #f5f5f5;
+  --bg: #121212;
+  --text: #f5f5f5;
+  --text-muted: #9ca3af;
+  --card-bg: #1e1e1e;
+  --border: #333;
 }
 
 /* Navbar */
@@ -84,10 +95,6 @@ body.dark .lang-select option {
   color: #ffffff;
 }
 
-/* DARK MODE CARD TEXT */
-body.dark .card {
-  color: #f5f5f5;
-}
 
 body.dark .muted {
   color: #bbb;

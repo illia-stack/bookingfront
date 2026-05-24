@@ -1,28 +1,13 @@
-/* HEADINGS */
-h1 {
-  font-size: 2.4rem;
-  font-weight: 700;
-  text-align: center;
-  color: #111827;
+h1, h2, h3 {
+  color: var(--text);
 }
 
-h2 {
-  font-size: 1.8rem;
-  text-align: center;
+p {
+  color: var(--text-muted);
 }
+
 @media (max-width: 400px) {
   h2 {
     font-size: 1.5rem;
   }
-}
-
-h3 {
-  font-size: 1.3rem;
-  color: #111827;
-}
-
-/* TEXT */
-p {
-  color: #4b5563;
-  line-height: 1.6;
 }

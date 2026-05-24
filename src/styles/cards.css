@@ -2,7 +2,9 @@
 .card {
 width: 100%;
 max-width: 320px;
-background: white;
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
 border-radius: 18px;
 overflow: hidden;
 box-shadow: 0 10px 30px rgba(0,0,0,0.06);
