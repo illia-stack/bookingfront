@@ -41,10 +41,7 @@ body.dark {
 
 /* Navbar */
 /* DARK MODE NAVBAR */
-body.dark .navbar {
-  background-color: #1e1e1e;
-  color: #ffffff;
-}
+
 
 body.dark .nav-link {
   color: #ffffff;
