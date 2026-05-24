@@ -80,30 +80,26 @@
 
 /* SELECT STYLE */
 .filter-container select {
-  padding: 10px 14px;
-  border-radius: 10px;
-  appearance: none;
   background: var(--card-bg);
   color: var(--text);
   border: 1px solid var(--border);
-  font-size: 14px;
 
-  outline: none;
-  cursor: pointer;
-
-  transition: all 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-.filter-container select option {
+/* GANZ WICHTIG */
+.filter-container select:focus,
+.filter-container select:active {
   background: var(--card-bg);
   color: var(--text);
 }
 
-/* HOVER / FOCUS */
-.filter-container select:focus {
+/* OPTIONEN */
+.filter-container select option {
   background: var(--card-bg);
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+  color: var(--text);
 }
 @media (max-width: 600px) {
   .filter-container {

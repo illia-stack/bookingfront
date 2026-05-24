@@ -7,8 +7,8 @@
 
 /* BODY */
 body {
-  background: #f3f4f6;
-  color: #111827;
+  background: var(--bg);
+  color: var(--text);
   font-family: Inter, Arial, sans-serif;
 }
 
