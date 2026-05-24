@@ -44,7 +44,8 @@ button:hover {
 }
 
 .btn-secondary {
-  background: #f3f4f6;
+  background: var(--border);
+  color: var(--text);
   border: none;
   padding: 6px 12px;
   border-radius: 10px;

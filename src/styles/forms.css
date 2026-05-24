@@ -1,10 +1,12 @@
 input,
 select,
 textarea {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
   height: 48px;           /* gleiche Höhe wie andere Inputs */
   padding: 0 14px;        /* horizontales Padding */
   border-radius: 12px;
-  border: 1px solid #d1d5db;
   font-size: 15px;
   font-weight: 400;
 
