@@ -94,6 +94,11 @@
   transition: all 0.2s ease;
 }
 
+.filter-container select option {
+  background: var(--card-bg);
+  color: var(--text);
+}
+
 /* HOVER / FOCUS */
 .filter-container select:focus {
   background: white;

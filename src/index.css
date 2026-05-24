@@ -88,10 +88,17 @@ body.dark .lang-select option {
   color: #ffffff;
 }
 
+
+body.dark .filter-container select option {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
 /* DARK MODE CARD TEXT */
 body.dark .card {
   color: #f5f5f5;
 }
+
 
 body.dark .muted {
   color: #bbb;
