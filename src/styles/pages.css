@@ -559,10 +559,10 @@ th, td {
   border-radius: 8px;
   box-sizing: border-box;
   resize: vertical;
-  background: var(--card-bg);          /* 🔥 statt transparent */
+  background: transparent;
   color: var(--text);                 /* 🔥 */
   position: relative;
-  z-index: 1;
+  z-index: 0;
 }
 
 .textarea-wrapper .textarea-placeholder {
@@ -571,12 +571,12 @@ th, td {
   left: 50%;         /* horizontale Mitte */
   transform: translate(-50%, -50%);
   color: var(--text-muted);
-  opacity: 0.8;
+  opacity: 1;
   pointer-events: none; /* Klick geht durch zum Textarea */
   font-size: 1rem;
   text-align: center;
   white-space: nowrap;
-  z-index: 2;              /* 🔥 WICHTIG */
+  z-index: 1;              /* 🔥 WICHTIG */
   pointer-events: none;
 }
 
