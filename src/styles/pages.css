@@ -271,7 +271,7 @@ select option {
 /* BOOKING BOX */
 .booking-box {
   padding: 25px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border);
   text-align: center;
   background: var(--card-bg);
   color: var(--text);
@@ -307,7 +307,7 @@ select option {
   padding: 12px;
   font-size: 14px;
   border-radius: 10px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   width: 100%;
 }
 input[type="date"] {
@@ -570,7 +570,8 @@ th, td {
   top: 50%;          /* vertikale Mitte */
   left: 50%;         /* horizontale Mitte */
   transform: translate(-50%, -50%);
-  color: var(--text);
+  color: var(--text-muted);
+  opacity: 0.8;
   pointer-events: none; /* Klick geht durch zum Textarea */
   font-size: 1rem;
   text-align: center;

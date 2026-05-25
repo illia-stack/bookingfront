@@ -79,7 +79,8 @@ textarea:focus {
 
 .form-group label {
   font-weight: 600;
-  color: #222;
+  color: var(--text);
+  opacity: 0.9;
 }
 
 .form-group input {
