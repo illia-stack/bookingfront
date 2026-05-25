@@ -49,6 +49,18 @@
 /*////// HOME PAGE ///////*/
 
 /* FILTER WRAPPER - zentriert alles */
+select {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  appearance: none;
+  -webkit-appearance: none; 
+}
+
+select option {
+  background: var(--card-bg);   /* 🔥 */
+  color: var(--text);           /* 🔥 */
+} 
 .filter-wrapper {
   width: 100%;
   display: flex;
@@ -298,6 +310,15 @@
   border: 1px solid #e5e7eb;
   width: 100%;
 }
+input[type="date"] {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);   /* 🔥 macht Icon weiß im Dark Mode */
+}
+
 
 /* Mobile: Felder untereinander mit Abstand */
 @media (max-width: 768px) {

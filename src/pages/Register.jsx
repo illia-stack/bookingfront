@@ -55,57 +55,57 @@ export default function Register() {
 
   return (
     <div className="auth-page">
+      <div className="auth-card">
+          {/* TITLE */}
+          <h2 className="auth-title">
+            {translations[lang].register}
+          </h2>
+            <div className="auth-form">
+                  {/* NAME */}
+                  <input
+                    name="name"
+                    placeholder={translations[lang].name}
+                    onChange={handleChange}
+                  />
 
-      {/* TITLE */}
-      <h2 className="auth-title">
-        {translations[lang].register}
-      </h2>
-        <div className="auth-form">
-              {/* NAME */}
-              <input
-                name="name"
-                placeholder={translations[lang].name}
-                onChange={handleChange}
-              />
+                  {/* EMAIL */}
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder={translations[lang].email}
+                    onChange={handleChange}
+                  />
 
-              {/* EMAIL */}
-              <input
-                name="email"
-                type="email"
-                placeholder={translations[lang].email}
-                onChange={handleChange}
-              />
+                  {/* PASSWORD */}
+                  <input
+                    name="password"
+                    type="password"
+                    placeholder={translations[lang].password}
+                    onChange={handleChange}
+                  />
 
-              {/* PASSWORD */}
-              <input
-                name="password"
-                type="password"
-                placeholder={translations[lang].password}
-                onChange={handleChange}
-              />
+                  {/* REPEAT PASSWORD */}
+                  <input
+                    name="password_confirmation"
+                    type="password"
+                    placeholder={
+                      translations[lang].repeatPassword
+                    }
+                    onChange={handleChange}
+                  />
 
-              {/* REPEAT PASSWORD */}
-              <input
-                name="password_confirmation"
-                type="password"
-                placeholder={
-                  translations[lang].repeatPassword
-                }
-                onChange={handleChange}
-              />
-
-              {/* BUTTON */}
-              <button
-                className="btn-full"
-                onClick={handleRegister}
-                disabled={loading}
-              >
-                {loading
-                  ? translations[lang].loading
-                  : translations[lang].register}
-              </button>
-        </div>
-
+                  {/* BUTTON */}
+                  <button
+                    className="btn-full"
+                    onClick={handleRegister}
+                    disabled={loading}
+                  >
+                    {loading
+                      ? translations[lang].loading
+                      : translations[lang].register}
+                  </button>
+            </div>
+       </div>             
     </div>
   );
 }
