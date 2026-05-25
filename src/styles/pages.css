@@ -576,6 +576,8 @@ th, td {
   font-size: 1rem;
   text-align: center;
   white-space: nowrap;
+  z-index: 2;              /* 🔥 WICHTIG */
+  pointer-events: none;
 }
 
 
