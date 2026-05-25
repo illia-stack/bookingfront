@@ -20,6 +20,91 @@
   align-items: center;
 }
 
+@media (max-width: 768px) {
+
+  .navbar {
+    display: flex;
+    flex-direction: column;   /* 🔥 untereinander */
+    align-items: center;
+    text-align: center;      /* 🔥 alles zentriert */
+    gap: 10px;
+    padding: 10px;
+  }
+  .nav-container {
+    flex-direction: row;   /* bleibt oben */
+    justify-content: space-between;
+  }
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;          /* 🔥 falls viele Links */
+    gap: 10px;
+    width: 100%;
+    flex-direction: column; /* 🔥 Links untereinander */
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    padding: 6px 10px;
+    text-align: center;
+  }
+  .navbar a,
+  .navbar button,
+  .navbar select {
+    display: inline-block;
+  }
+}
+@media (max-width: 768px) {
+
+  .theme-toggle,
+  .lang-select {
+    padding: 4px 8px;     /* 🔥 kleiner */
+    font-size: 13px;
+    margin: 0;            /* 🔥 kein unnötiger Abstand */
+  }
+
+  .nav-actions {
+    display: flex;
+    gap: 6px;             /* 🔥 enger zusammen */
+    justify-content: center;
+  }
+
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;           /* 🔥 gleiche Höhe */
+  padding: 0 14px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: var(--text);
+  text-decoration: none;
+
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+
+/* Hover */
+.nav-item:hover {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;   /* 🔥 enger */
+  margin-left: 10px;
+}
+
+
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
@@ -100,7 +185,7 @@
 
 /* MOBILE MENU */
 .mobile-menu {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 20px;
@@ -124,9 +209,5 @@
 
   .mobile-btn {
     display: block; /* Hamburger sichtbar */
-  }
-
-  .mobile-menu {
-    display: flex; /* Mobile-Menü wird über JSX gesteuert */
   }
 }

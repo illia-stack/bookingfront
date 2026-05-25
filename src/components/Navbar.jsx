@@ -137,68 +137,73 @@ export default function Navbar() {
       {/* MOBILE MENU */}
       {mobileOpen && (
         <div className="mobile-menu">
+          <div className="nav-links">
 
-          <Link to="/" onClick={closeMobile}>
-            {translations[lang].home}
-          </Link>
+                <Link to="/" className="nav-item" onClick={closeMobile}>
+                  {translations[lang].home}
+                </Link>
 
-          <Link to="/contact" onClick={closeMobile}>
-            {translations[lang].contact}
-          </Link>
+                <Link to="/contact" className="nav-item" onClick={closeMobile}>
+                  {translations[lang].contact}
+                </Link>
 
-                {token ? (
-          <>
+                      {token ? (
+                <>
 
-              <Link to="/my-bookings" onClick={closeMobile}>
-                  {translations[lang].myBookings}
-              </Link>
+                    <Link to="/my-bookings" className="nav-item" onClick={closeMobile}>
+                        {translations[lang].myBookings}
+                    </Link>
 
-              {isAdmin && (
-                  <Link
-                      to="/admin"
-                      onClick={closeMobile}
-                  >
-                      Admin Dashboard
-                  </Link>
-              )}
+                    {isAdmin && (
+                        <Link
+                            to="/admin"
+                            className="nav-item"
+                            onClick={closeMobile}
+                        >
+                            Admin Dashboard
+                        </Link>
+                    )}
 
-              <button onClick={handleLogout}>
-                  {translations[lang].logout}
-              </button>
+                    <button className="nav-item" onClick={handleLogout}>
+                        {translations[lang].logout}
+                    </button>
+              
+                </>
+            ) : (
+                <>
 
-          </>
-      ) : (
-          <>
+                    <Link to="/login" className="nav-item" onClick={closeMobile}>
+                        {translations[lang].login}
+                    </Link>
 
-              <Link to="/login" onClick={closeMobile}>
-                  {translations[lang].login}
-              </Link>
+                    <Link to="/register" className="nav-item" onClick={closeMobile}>
+                        {translations[lang].register}
+                    </Link>
+                
+            </>
+          )}
+          </div>
 
-              <Link to="/register" onClick={closeMobile}>
-                  {translations[lang].register}
-              </Link>
 
-          </>
-      )}
+          <div className="nav-actions">
+            <select
+              className="lang-select"
+              value={lang}
+              onChange={(e) => changeLang(e.target.value)}
+              aria-label="Language"
+            >
+              <option value="de">DE</option>
+              <option value="en">EN</option>
+              <option value="es">ES</option>
+            </select>
 
-          <select
-            className="lang-select"
-            value={lang}
-            onChange={(e) => changeLang(e.target.value)}
-            aria-label="Language"
-          >
-            <option value="de">DE</option>
-            <option value="en">EN</option>
-            <option value="es">ES</option>
-          </select>
-
-          <button
-            className="theme-toggle"
-            onClick={toggleTheme}
-          >
-            {theme === "light" ? "🌙" : "☀️"}
-          </button>
-
+            <button
+              className="theme-toggle"
+              onClick={toggleTheme}
+            >
+              {theme === "light" ? "🌙" : "☀️"}
+            </button>
+          </div>
         </div>
       )}
 
