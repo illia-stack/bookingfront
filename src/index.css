@@ -37,6 +37,8 @@ body.dark {
   --text-muted: #9ca3af;
   --card-bg: #1e1e1e;
   --border: #333;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 /* Navbar */

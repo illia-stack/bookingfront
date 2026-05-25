@@ -60,50 +60,51 @@ export default function Register() {
       <h2 className="auth-title">
         {translations[lang].register}
       </h2>
+        <div className="auth-form">
+              {/* NAME */}
+              <input
+                name="name"
+                placeholder={translations[lang].name}
+                onChange={handleChange}
+              />
 
-      {/* NAME */}
-      <input
-        name="name"
-        placeholder={translations[lang].name}
-        onChange={handleChange}
-      />
+              {/* EMAIL */}
+              <input
+                name="email"
+                type="email"
+                placeholder={translations[lang].email}
+                onChange={handleChange}
+              />
 
-      {/* EMAIL */}
-      <input
-        name="email"
-        type="email"
-        placeholder={translations[lang].email}
-        onChange={handleChange}
-      />
+              {/* PASSWORD */}
+              <input
+                name="password"
+                type="password"
+                placeholder={translations[lang].password}
+                onChange={handleChange}
+              />
 
-      {/* PASSWORD */}
-      <input
-        name="password"
-        type="password"
-        placeholder={translations[lang].password}
-        onChange={handleChange}
-      />
+              {/* REPEAT PASSWORD */}
+              <input
+                name="password_confirmation"
+                type="password"
+                placeholder={
+                  translations[lang].repeatPassword
+                }
+                onChange={handleChange}
+              />
 
-      {/* REPEAT PASSWORD */}
-      <input
-        name="password_confirmation"
-        type="password"
-        placeholder={
-          translations[lang].repeatPassword
-        }
-        onChange={handleChange}
-      />
-
-      {/* BUTTON */}
-      <button
-        className="btn-full"
-        onClick={handleRegister}
-        disabled={loading}
-      >
-        {loading
-          ? translations[lang].loading
-          : translations[lang].register}
-      </button>
+              {/* BUTTON */}
+              <button
+                className="btn-full"
+                onClick={handleRegister}
+                disabled={loading}
+              >
+                {loading
+                  ? translations[lang].loading
+                  : translations[lang].register}
+              </button>
+        </div>
 
     </div>
   );

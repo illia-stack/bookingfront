@@ -259,9 +259,10 @@
 /* BOOKING BOX */
 .booking-box {
   padding: 25px;
-  background: #f9f9ff;
   border-top: 1px solid #eee;
   text-align: center;
+  background: var(--card-bg);
+  color: var(--text);
 }
 
 .booking-box h3 {
@@ -533,11 +534,12 @@ th, td {
   min-height: 120px;
   padding: 12px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);     /* 🔥 */
   border-radius: 8px;
   box-sizing: border-box;
   resize: vertical;
-  background: transparent;
+  background: var(--card-bg);          /* 🔥 statt transparent */
+  color: var(--text);                 /* 🔥 */
   position: relative;
   z-index: 1;
 }
@@ -547,7 +549,7 @@ th, td {
   top: 50%;          /* vertikale Mitte */
   left: 50%;         /* horizontale Mitte */
   transform: translate(-50%, -50%);
-  color: #999;
+  color: var(--text);
   pointer-events: none; /* Klick geht durch zum Textarea */
   font-size: 1rem;
   text-align: center;
