@@ -54,10 +54,10 @@ export default function Register() {
   };
 
   return (
-    <div className="form-container">
+    <div className="auth-page">
 
       {/* TITLE */}
-      <h2 className="center">
+      <h2 className="auth-title">
         {translations[lang].register}
       </h2>
 

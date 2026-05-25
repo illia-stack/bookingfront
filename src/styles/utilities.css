@@ -1,8 +1,8 @@
 /* Kleine Helferklassen */
 .muted {
-  color: #777;
   margin-top: 10px;
   margin-bottom: 10px;
+  color: var(--text-muted);
 }
 
 .dates {

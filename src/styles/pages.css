@@ -251,7 +251,7 @@
 
 .detail-description {
   padding: 20px;
-  color: #555;
+  color: var(--text-muted);
   line-height: 1.6;
   text-align: center;
 }
@@ -347,13 +347,14 @@
 }
 
 .status-card {
-  background: white;
   padding: 35px;
   border-radius: 18px;
   text-align: center;
   box-shadow: 0 15px 40px rgba(0,0,0,0.08);
   max-width: 420px;
   width: 100%;
+  background: var(--card-bg);   /* 🔥 statt white */
+  color: var(--text);
 }
 @media (max-width: 400px) {
   .status-card h1 {
