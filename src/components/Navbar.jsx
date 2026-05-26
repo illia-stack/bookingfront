@@ -14,15 +14,18 @@ export default function Navbar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const user =
-    JSON.parse(
-        localStorage.getItem("user")
-    );
+  let user = null;
+
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch (e) {
+    console.error("Invalid user in localStorage");
+  }
 
   const isAdmin =
       user?.role === "admin";
 
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   const handleLogout = async () => {
 
@@ -34,6 +37,8 @@ export default function Navbar() {
 
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
+    setToken(null);
     
     navigate("/login");
     setMobileOpen(false);
@@ -128,6 +133,7 @@ export default function Navbar() {
           className="mobile-btn"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Menu"
+          aria-expanded={mobileOpen}
         >
           ☰
         </button>
