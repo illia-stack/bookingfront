@@ -97,10 +97,17 @@ export default function PropertyDetail() {
       window.location.href = url;
 
     } catch (err) {
-        console.error(err);
+        console.error("BOOKING ERROR:", err);
 
         const status = err.response?.status;
-        const message = err.message || "";
+
+        const message =
+          err?.message ||
+          err?.error ||
+          err?.data?.message ||
+          err?.data?.error ||
+          "";
+
         const msg = message.toLowerCase();
 
         if (status === 401) {
@@ -118,8 +125,6 @@ export default function PropertyDetail() {
         } else {
           alert(translations[lang].bookingFailed);
         }
-      }finally {
-          setBookingLoading(false);
       }
 
   };
