@@ -11,6 +11,7 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+    const navigate = useNavigate();
     const handleLogin = async (e) => {
 
     e.preventDefault();
@@ -18,7 +19,7 @@ export default function Login() {
     try {
 
       await login(email, password);
-      const navigate = useNavigate();
+      
       navigate("/");
 
     } catch (err) {

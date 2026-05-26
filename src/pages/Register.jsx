@@ -25,7 +25,7 @@ export default function Register() {
       [e.target.name]: e.target.value
     });
   };
-
+  const navigate = useNavigate();
   const handleRegister = async () => {
 
     setLoading(true);
@@ -37,7 +37,7 @@ export default function Register() {
       alert(
         translations[lang].registrationSuccess
       );
-      const navigate = useNavigate();
+      
       navigate("/");
 
     } catch (err) {
