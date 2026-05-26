@@ -11,46 +11,73 @@ export default function PropertyDetail() {
 
   const { id } = useParams();
   const { lang } = useLanguage();
-
-  const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const [property, setProperty] = useState(null);
 
+  
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-
-  const fetchProperty = async () => {
-
-    try {
-
-      const res = await getProperty(id);
-      setProperty(res.data.data);
-
-    } catch (err) {
-
-      console.error(err);
-      alert(translations[lang].propertyNotFound);
-
-    } finally {
-
-      setLoading(false);
-    }
-  };
-
+ 
+  
   useEffect(() => {
-    fetchProperty();
-  }, [id]);
+    setLoading(true);
+    const fetchProperty = async () => {
 
+      try {
+
+        const res = await getProperty(id);
+        setProperty(res?.data?.data || null);
+
+      } catch (err) {
+
+        console.error(err);
+        alert(translations[lang].propertyNotFound);
+
+      } finally {
+
+        setLoading(false);
+      }
+    };
+
+    fetchProperty();
+  }, [id, lang]);
+
+  
   const handleBooking = async () => {
 
+    if (bookingLoading) return;
+    
     if (!checkIn || !checkOut) {
       alert(translations[lang].selectDates);
       return;
     }
-    if (new Date(checkOut) <= new Date(checkIn)) {
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const inDate = new Date(checkIn);
+    const outDate = new Date(checkOut);
+
+    if (isNaN(inDate) || isNaN(outDate)) {
       alert(translations[lang].invalidDates);
       return;
     }
-    try {
+
+    if (inDate < today) {
+      alert(translations[lang].invalidDates);
+      return;
+    }
+
+    if (outDate <= inDate) {
+      alert(translations[lang].invalidDates);
+      return;
+    }
+
+    
+    setBookingLoading(true);
+
+       try {
 
       const res = await createBooking({
         property_id: Number(id),
@@ -76,7 +103,11 @@ export default function PropertyDetail() {
         err.response?.data?.message ||
         translations[lang].bookingFailed
       );
-    }
+    }finally {
+      setBookingLoading(false);
+    };
+
+
   };
 
   /* LOADING */
@@ -193,9 +224,11 @@ export default function PropertyDetail() {
           {/* BUTTON */}
           <button
             className="primary-btn full-btn"
+            disabled={bookingLoading}
             onClick={handleBooking}
-          >
-            {translations[lang].createBooking}
+          >{bookingLoading
+            ? translations[lang].loading
+            : translations[lang].createBooking}
           </button>
 
         </div>

@@ -9,6 +9,8 @@ export default function PropertyCard({ property }) {
 
   const { lang } = useLanguage();
 
+  if (!property) return null;
+
   return (
     <div className="card">
 
@@ -51,9 +53,10 @@ export default function PropertyCard({ property }) {
         {/* BUTTON */}
         <button
           className="btn-full"
-          onClick={() =>
-            navigate(`/properties/${property.id}`)
-          }
+          onClick={() => {
+            if (!property?.id) return;
+            navigate(`/properties/${property.id}`);
+          }}
         >
           {translations[lang].viewDetails}
         </button>
