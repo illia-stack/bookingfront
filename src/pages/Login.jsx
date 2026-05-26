@@ -20,7 +20,7 @@ export default function Login() {
 
       await login(email, password);
 
-      window.location.href = "/";
+      navigate("/");
 
     } catch (err) {
 
