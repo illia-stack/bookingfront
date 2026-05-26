@@ -18,6 +18,7 @@ export const translations = {
     loginWelcome: "Willkommen zurück bei BookingApp",
 
     myBookings: "Meine Buchungen",
+    errorLoadingBookings: "Fehler beim Laden der Buchungen",
 
     pay: "Bezahlen",
     payNow: "Jetzt bezahlen",
@@ -107,6 +108,7 @@ export const translations = {
     loginWelcome: "Welcome back to BookingApp",
 
     myBookings: "My Bookings",
+    errorLoadingBookings: "Error loading bookings",
 
     pay: "Pay",
     payNow: "Pay Now",
@@ -197,6 +199,7 @@ export const translations = {
     loginWelcome: "Bienvenido de nuevo a BookingApp",
 
     myBookings: "Mis reservas",
+    errorLoadingBookings: "Error cargando reservas",
 
     pay: "Pagar",
     payNow: "Pagar ahora",

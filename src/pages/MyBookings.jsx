@@ -10,30 +10,44 @@ export default function MyBookings() {
 
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // STATUS LABEL
   const statusLabel = (status) => {
-
+    if (!status) return "";
     const key =
       `status${status.charAt(0).toUpperCase()}${status.slice(1)}`;
-
     return translations[lang][key] || status;
   };
 
+  const loadBookings = async () => {
+    try {
+      const res = await getMyBookings();
+      const data = res?.data?.data || [];
+      setBookings(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error(err);
+      setError("errorLoadingBookings");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-
-    getMyBookings()
-      .then((res) => {
-        setBookings(res.data.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-
+    loadBookings();
   }, []);
+
+  const formatPrice = (price) =>
+  new Intl.NumberFormat(lang, {
+    style: "currency",
+    currency: "EUR",
+  }).format(price);
+
+  const formatDate = (date) => {
+    if (!date) return "-";
+    const d = new Date(date);
+    return isNaN(d) ? "-" : d.toLocaleDateString(lang);
+  };
 
   /* LOADING */
   if (loading) {
@@ -42,6 +56,16 @@ export default function MyBookings() {
         <p className="loading-text">
           {translations[lang].loading}
         </p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="page-center">
+        <div className="empty-box">
+          <h2>{translations[lang]?.[error] || "Error"}</h2>
+        </div>
       </div>
     );
   }
@@ -70,7 +94,7 @@ export default function MyBookings() {
 
         {bookings.map((b) => (
 
-          <div key={b.id} className="booking-card">
+          <div key={`${b.id}-${b.check_in}`} className="booking-card">
 
             {/* TITLE */}
             <h3>
@@ -87,19 +111,19 @@ export default function MyBookings() {
 
               <p>
                 {translations[lang].checkIn}:{" "}
-                <strong>{b.check_in}</strong>
+                <strong>{formatDate(b.check_in)}</strong>
               </p>
 
               <p>
                 {translations[lang].checkOut}:{" "}
-                <strong>{b.check_out}</strong>
+                <strong>{formatDate(b.check_out)}</strong>
               </p>
 
             </div>
 
             {/* PRICE */}
             <p className="price">
-              💰 {b.total_price} €
+              {formatPrice(b.total_price)}
             </p>
 
             {/* STATUS BADGE */}
