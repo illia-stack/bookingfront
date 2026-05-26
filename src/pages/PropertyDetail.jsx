@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { getProperty } from "../api/property";
 import { createBooking } from "../api/booking";
@@ -11,6 +11,7 @@ export default function PropertyDetail() {
 
   const { id } = useParams();
   const { lang } = useLanguage();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [bookingLoading, setBookingLoading] = useState(false);
   const [property, setProperty] = useState(null);
@@ -86,7 +87,7 @@ export default function PropertyDetail() {
         locale: lang
       });
 
-      const url = res.data.checkout_url;
+      const url = res.data?.checkout_url || res.data?.data?.checkout_url;
 
       if (!url) {
         alert(translations[lang].bookingFailed);
@@ -96,23 +97,30 @@ export default function PropertyDetail() {
       window.location.href = url;
 
     } catch (err) {
-      console.error(err);
+        console.error(err);
 
-      const message = err.message || "";
+        const status = err.response?.status;
+        const message = err.message || "";
+        const msg = message.toLowerCase();
 
-    if (
-      message.toLowerCase().includes("not available") ||
-      message.toLowerCase().includes("already booked") ||
-      err.code === "BOOKING_CONFLICT"
-    ) {
-      alert(translations[lang].alreadyBooked);
-    } else {
-      alert(translations[lang].bookingFailed);
-    }
-    }finally {
-      setBookingLoading(false);
-    };
+        if (status === 401) {
+          alert(translations[lang].loginRequired);
+          navigate("/login");
+          return;
+        }
 
+        if (
+          msg.includes("not available") ||
+          msg.includes("already booked") ||
+          err.code === "BOOKING_CONFLICT"
+        ) {
+          alert(translations[lang].alreadyBooked);
+        } else {
+          alert(translations[lang].bookingFailed);
+        }
+      }finally {
+          setBookingLoading(false);
+      }
 
   };
 
