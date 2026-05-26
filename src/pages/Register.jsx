@@ -30,22 +30,15 @@ export default function Register() {
 
 
   const handleRegister = async () => {
-    console.log("START REGISTER");
-
-    setLoading(true); // 👈 wieder rein
+    
+    setLoading(true); 
 
     try {
-      console.log("FORM:", form);
-
       const res = await register(form);
 
-      console.log("SUCCESS:", res);
-
-      alert("SUCCESS");
       navigate("/");
 
     } catch (err) {
-      console.error("ERROR:", err);
       alert("ERROR");
     } finally {
       setLoading(false); // 👈 wichtig
