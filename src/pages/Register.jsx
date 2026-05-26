@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { register } from "../api/auth";
-
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
@@ -37,8 +37,8 @@ export default function Register() {
       alert(
         translations[lang].registrationSuccess
       );
-
-      window.location.href = "/";
+      const navigate = useNavigate();
+      navigate("/");
 
     } catch (err) {
 
