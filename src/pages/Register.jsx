@@ -27,30 +27,28 @@ export default function Register() {
     });
   };
   const navigate = useNavigate();
-  const handleRegister = async () => {
 
-    setLoading(true);
+
+  const handleRegister = async () => {
+    console.log("START REGISTER");
+
+    setLoading(true); // 👈 wieder rein
 
     try {
+      console.log("FORM:", form);
 
-      await register(form);
+      const res = await register(form);
 
-      alert(
-        translations[lang].registrationSuccess
-      );
-      
+      console.log("SUCCESS:", res);
+
+      alert("SUCCESS");
       navigate("/");
 
     } catch (err) {
-
-      alert(
-        err.response?.data?.message ||
-        translations[lang].registrationFailed
-      );
-
+      console.error("ERROR:", err);
+      alert("ERROR");
     } finally {
-
-      setLoading(false);
+      setLoading(false); // 👈 wichtig
     }
   };
 
@@ -68,6 +66,7 @@ export default function Register() {
                   {/* NAME */}
                   <input
                     name="name"
+                    value={form.name}
                     placeholder={translations[lang].name}
                     onChange={handleChange}
                   />
@@ -76,6 +75,7 @@ export default function Register() {
                   <input
                     name="email"
                     type="email"
+                    value={form.email}
                     placeholder={translations[lang].email}
                     onChange={handleChange}
                   />
@@ -84,6 +84,7 @@ export default function Register() {
                   <input
                     name="password"
                     type="password"
+                    value={form.password}
                     placeholder={translations[lang].password}
                     onChange={handleChange}
                   />
@@ -91,6 +92,7 @@ export default function Register() {
                   {/* REPEAT PASSWORD */}
                   <input
                     name="password_confirmation"
+                    value={form.password_confirmation}
                     type="password"
                     placeholder={
                       translations[lang].repeatPassword
