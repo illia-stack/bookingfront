@@ -28,24 +28,24 @@ export function AuthProvider({ children }) {
   }, []);
 
   // 🔐 LOGIN
-  const login = async (email, password) => {
-    try {
-    const res = await apiLogin(email, password);
+    const login = async (email, password) => {
+        const res = await apiLogin(email, password);
 
-    const newUser = res.data.user;
-    const newToken = res.data.token;
+        if (!res.data?.token) {
+                throw new Error("Login failed - no token");
+            }
 
-    localStorage.setItem("user", JSON.stringify(newUser));
-    localStorage.setItem("token", newToken);
+            const newUser = res.data.user;
+            const newToken = res.data.token;
 
-    setUser(newUser);
-    setToken(newToken);
-    } catch (err) {
-        throw err; // damit UI es handeln kann
+            localStorage.setItem("user", JSON.stringify(newUser));
+            localStorage.setItem("token", newToken);
+
+            setUser(newUser);
+            setToken(newToken);
+
+            return res;
     };
-
-    return res;
-  };
 
   // 📝 REGISTER
   const register = async (form) => {

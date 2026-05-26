@@ -61,7 +61,10 @@ export default function Register() {
           <h2 className="auth-title">
             {translations[lang].register}
           </h2>
-            <div className="auth-form">
+            <form className="auth-form" onSubmit={(e) => {
+              e.preventDefault();
+              handleRegister();
+            }}>
                   {/* NAME */}
                   <input
                     name="name"
@@ -97,15 +100,15 @@ export default function Register() {
 
                   {/* BUTTON */}
                   <button
+                    type="submit"
                     className="btn-full"
-                    onSubmit={handleRegister}
                     disabled={loading}
                   >
                     {loading
                       ? translations[lang].loading
                       : translations[lang].register}
                   </button>
-            </div>
+            </form>
        </div>             
     </div>
   );
