@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-import { register } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function Register() {
 
+  const { register } = useAuth();
   const { lang } = useLanguage();
 
   const [form, setForm] = useState({
@@ -97,7 +98,7 @@ export default function Register() {
                   {/* BUTTON */}
                   <button
                     className="btn-full"
-                    onClick={handleRegister}
+                    onSubmit={handleRegister}
                     disabled={loading}
                   >
                     {loading

@@ -1,31 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import { logout } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 import { useTheme } from "../context/ThemeContext";
 
 export default function Navbar() {
 
+  const { isAdmin, isAuthenticated, logout } = useAuth();
   const { lang, changeLang } = useLanguage();  
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
 
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);  
 
-  let user = null;
-
-  try {
-    user = JSON.parse(localStorage.getItem("user"));
-  } catch (e) {
-    console.error("Invalid user in localStorage");
-  }
-
-  const isAdmin =
-      user?.role === "admin";
-
-  const [token, setToken] = useState(localStorage.getItem("token"));
+ 
 
   const handleLogout = async () => {
 
@@ -35,12 +24,9 @@ export default function Navbar() {
       console.error(err);
     }
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    setToken(null);
     
-    navigate("/login");
+    
+    navigate("/");
     setMobileOpen(false);
   };
 
@@ -71,7 +57,7 @@ export default function Navbar() {
             {translations[lang].contact}
           </Link>
 
-          {token ? (
+          {isAuthenticated ? (
             <>
 
               <Link className="nav-link" to="/my-bookings">
@@ -111,7 +97,10 @@ export default function Navbar() {
           <select
             className="lang-select"
             value={lang}
-            onChange={(e) => changeLang(e.target.value)}
+            onChange={(e) => {
+              changeLang(e.target.value);
+              closeMobile();
+            }}
             aria-label="Language"
           >
             <option value="de">DE</option>
@@ -153,7 +142,7 @@ export default function Navbar() {
                   {translations[lang].contact}
                 </Link>
 
-                      {token ? (
+                      {isAuthenticated ? (
                 <>
 
                     <Link to="/my-bookings" className="nav-item" onClick={closeMobile}>

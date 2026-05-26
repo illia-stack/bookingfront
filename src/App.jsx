@@ -10,6 +10,8 @@ import {
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Contact from "./pages/Contact";
@@ -37,14 +39,6 @@ function AppContent() {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const ProtectedRoute = ({ children }) => {
-
-    const token = localStorage.getItem("token");
-
-    return token
-      ? children
-      : <Navigate to="/login" replace />;
-  };
 
   return (
     <BrowserRouter>
@@ -114,7 +108,9 @@ function App() {
   return (
     <LanguageProvider>
       <ThemeProvider>
-        <AppContent />
+        <AuthProvider>   {/* 👈 HIER */}
+          <AppContent />
+        </AuthProvider>
       </ThemeProvider>
     </LanguageProvider>
   );

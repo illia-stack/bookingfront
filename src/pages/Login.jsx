@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function Login() {
 
+  const { login } = useAuth();
   const { lang } = useLanguage();
 
   const [email, setEmail] = useState("");

@@ -1,7 +1,11 @@
 import api from "./client";
 
-export const createBooking = (data) => {
-  return api.post("/bookings", data);
+export const createBooking = async (data) => {
+  try {
+    return await api.post("/bookings", data);
+  } catch (err) {
+    throw err.response?.data || err;
+  }
 };
 
 export const getMyBookings = () => {
