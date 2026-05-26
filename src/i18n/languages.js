@@ -44,6 +44,7 @@ export const translations = {
     invalidDates: "Ungültige Datums",
 
     bookingSuccess: "Buchung erstellt!",
+    loginRequired: "Anmeldung erforderlich",
     bookingFailed: "Buchung fehlgeschlagen",
     alreadyBooked: "Schon belegt für diese Datums",
 
@@ -135,6 +136,7 @@ export const translations = {
     invalidDates: "Invalid dates",
 
     bookingSuccess: "Booking created!",
+    loginRequired: "Login required",
     bookingFailed: "Booking failed",
     alreadyBooked: "Already reserved for these dates",
 
@@ -227,6 +229,7 @@ export const translations = {
     invalidDates: "Fechas no validas",
 
     bookingSuccess: "¡Reserva creada!",
+    loginRequired: "Es necesario iniciar session",
     bookingFailed: "Reserva fallida",
     alreadyBooked: "Ya esta reservado para estas fechas",
 
