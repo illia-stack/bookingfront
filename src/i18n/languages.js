@@ -45,6 +45,7 @@ export const translations = {
 
     bookingSuccess: "Buchung erstellt!",
     bookingFailed: "Buchung fehlgeschlagen",
+    alreadyBooked: "Schon belegt für diese Datums",
 
     paymentSuccess: "Bezahlung erfolgreich",
     paymentFailed: "Bezahlung fehlgeschlagen",
@@ -135,6 +136,7 @@ export const translations = {
 
     bookingSuccess: "Booking created!",
     bookingFailed: "Booking failed",
+    alreadyBooked: "Already reserved for these dates",
 
     paymentSuccess: "Payment successful",
     paymentFailed: "Payment failed",
@@ -226,6 +228,7 @@ export const translations = {
 
     bookingSuccess: "¡Reserva creada!",
     bookingFailed: "Reserva fallida",
+    alreadyBooked: "Ya esta reservado para estas fechas",
 
     paymentSuccess: "Pago exitoso",
     paymentFailed: "Pago fallido",

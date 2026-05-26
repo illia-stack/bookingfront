@@ -96,13 +96,19 @@ export default function PropertyDetail() {
       window.location.href = url;
 
     } catch (err) {
-
       console.error(err);
 
-      alert(
-        err.response?.data?.message ||
-        translations[lang].bookingFailed
-      );
+      const message = err.message || "";
+
+    if (
+      message.toLowerCase().includes("not available") ||
+      message.toLowerCase().includes("already booked") ||
+      err.code === "BOOKING_CONFLICT"
+    ) {
+      alert(translations[lang].alreadyBooked);
+    } else {
+      alert(translations[lang].bookingFailed);
+    }
     }finally {
       setBookingLoading(false);
     };
