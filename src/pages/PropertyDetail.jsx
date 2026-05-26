@@ -46,7 +46,10 @@ export default function PropertyDetail() {
       alert(translations[lang].selectDates);
       return;
     }
-
+    if (new Date(checkOut) <= new Date(checkIn)) {
+      alert(translations[lang].invalidDates);
+      return;
+    }
     try {
 
       const res = await createBooking({

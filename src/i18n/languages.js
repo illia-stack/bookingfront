@@ -40,6 +40,7 @@ export const translations = {
     checkOutHint: "Wählen Sie das Datum Ihrer Abreise",
 
     bookingHint: "Bitte wählen Sie Ihre Reisedaten aus:",
+    invalidDates: "Ungültige Datums",
 
     bookingSuccess: "Buchung erstellt!",
     bookingFailed: "Buchung fehlgeschlagen",
@@ -128,6 +129,7 @@ export const translations = {
     checkOutHint: "Select your departure date",
 
     bookingHint: "Please select your travel dates:",
+    invalidDates: "Invalid dates",
 
     bookingSuccess: "Booking created!",
     bookingFailed: "Booking failed",
@@ -217,6 +219,7 @@ export const translations = {
     checkOutHint: "Seleccione su fecha de salida",
 
     bookingHint: "Por favor selecciona tus fechas de viaje:",
+    invalidDates: "Fechas no validas",
 
     bookingSuccess: "¡Reserva creada!",
     bookingFailed: "Reserva fallida",
