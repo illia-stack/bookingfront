@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, useRef } from "react";
-import { API_BASE_URL } from "../config";
+import { API_BASE_URL, BACKEND_URL } from "../config";
 
 export const AuthContext = createContext();
 
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
 
     csrfPromiseRef.current = fetch(
-      `${API_BASE_URL}/sanctum/csrf-cookie`,
+      `${BACKEND_URL}/sanctum/csrf-cookie`,
       {
         method: "GET",
         credentials: "include",
