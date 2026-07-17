@@ -1,102 +1,265 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useRef } from "react";
+import { API_BASE_URL } from "../config";
 
-import { login as apiLogin, register as apiRegister, logout as apiLogout } from "../api/auth";
+export const AuthContext = createContext();
 
-const AuthContext = createContext();
-
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔁 Initial Load (localStorage → state)
-  useEffect(() => {
-    try {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      const storedToken = localStorage.getItem("token");
+  const csrfPromiseRef = useRef(null);
 
-      if (storedUser && storedToken) {
-        setUser(storedUser);
-        setToken(storedToken);
-      }
-    } catch (err) {
-      console.error("Auth load error", err);
-    } finally {
-      setLoading(false);
+
+  function getCookie(name) {
+
+    return document.cookie
+      .split("; ")
+      .find(row => row.startsWith(name + "="))
+      ?.split("=")[1];
+
+  }
+
+
+  const fetchCsrfToken = async () => {
+
+    if (csrfPromiseRef.current) {
+      return csrfPromiseRef.current;
     }
-  }, []);
 
-  // 🔐 LOGIN
-    const login = async (email, password) => {
-        const res = await apiLogin(email, password);
 
-        if (!res.data?.token) {
-                throw new Error("Login failed - no token");
-            }
+    csrfPromiseRef.current = fetch(
+      `${API_BASE_URL}/sanctum/csrf-cookie`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    )
+    .then(res => {
 
-            const newUser = res.data.user;
-            const newToken = res.data.token;
+      if (!res.ok) {
+        throw new Error("CSRF request failed");
+      }
 
-            localStorage.setItem("user", JSON.stringify(newUser));
-            localStorage.setItem("token", newToken);
+      return true;
 
-            setUser(newUser);
-            setToken(newToken);
+    })
+    .finally(() => {
 
-            return res;
+      csrfPromiseRef.current = null;
+
+    });
+
+
+    return csrfPromiseRef.current;
+
+  };
+
+
+
+  const authFetch = async (
+    url,
+    options = {},
+    retry = true
+  ) => {
+
+    let xsrfToken = decodeURIComponent(
+      getCookie("XSRF-TOKEN") || ""
+    );
+
+    if (!xsrfToken) {
+      await fetchCsrfToken();
+
+      xsrfToken = decodeURIComponent(
+        getCookie("XSRF-TOKEN") || ""
+      );
+    }
+
+
+    const headers = {
+      ...(options.headers || {}),
+      "Accept": "application/json",
     };
 
-  // 📝 REGISTER
-  const register = async (form) => {
-    const res = await apiRegister(form);
-
-    const newUser = res.data.user;
-    const newToken = res.data.token;
-
-    localStorage.setItem("user", JSON.stringify(newUser));
-    localStorage.setItem("token", newToken);
-
-    setUser(newUser);
-    setToken(newToken);
-
-    return res;
-  };
-
-  // 🚪 LOGOUT
-  const logout = async () => {
-    try {
-      await apiLogout();
-    } catch (err) {
-      console.error(err);
+    if (xsrfToken) {
+      headers["X-XSRF-TOKEN"] = xsrfToken;
     }
 
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
 
-    setUser(null);
-    setToken(null);
+    if (
+      options.body &&
+      !(options.body instanceof FormData)
+    ) {
+      headers["Content-Type"] = "application/json";
+    }
+
+
+
+    const res = await fetch(url, {
+
+      ...options,
+
+      credentials: "include",
+
+      headers,
+
+    });
+
+
+
+    if (res.status === 419 && retry) {
+
+      await fetchCsrfToken();
+      return authFetch(url, options, false);
+
+    }
+
+
+
+    if (res.status === 401) {
+
+      setUser(null);
+
+      throw new Error("UNAUTHORIZED");
+
+    }
+
+
+
+    return res;
+
   };
 
+
+
+  const initializeAuth = async () => {
+
+    try {
+
+      const res = await authFetch(
+        `${API_BASE_URL}/me`
+      );
+
+
+      if (!res.ok) {
+
+        throw new Error(
+          "Not authenticated"
+        );
+
+      }
+
+
+      const data = await res.json();
+
+      setUser(data.user || null);
+
+
+    } catch (error) {
+
+      console.log(
+        "No active session"
+      );
+
+      setUser(null);
+
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
+  };
+
+
+
+  useEffect(() => {
+
+    initializeAuth();
+
+  }, []);
+
+
+
+  /*
+    This does not perform login itself.
+    Login.jsx already does POST /auth/login.
+    This only refreshes the current user.
+  */
+  const refreshUser = async () => {
+
+    try {
+
+      const res = await authFetch(
+        `${API_BASE_URL}/me`
+      );
+
+      if (!res.ok) {
+        throw new Error("Not authenticated");
+      }
+
+      const data = await res.json();
+
+      setUser(data.user || null);
+
+
+    } catch(error) {
+
+      setUser(null);
+
+    }
+
+  };
+
+
+
+  const logout = async () => {
+
+    try {
+
+      await authFetch(
+        `${API_BASE_URL}/auth/logout`,
+        {
+          method:"POST",
+        }
+      );
+
+
+    } catch(error) {
+
+      console.warn(
+        "Logout failed",
+        error
+      );
+
+    }
+    finally {
+
+      setUser(null);
+
+    }
+
+  };
+
+
+
   return (
+
     <AuthContext.Provider
       value={{
         user,
-        token,
         loading,
-        isAuthenticated: !!token,
-        isAdmin: user?.role === "admin",
-        login,
-        register,
-        logout
+        refreshUser,
+        logout,
+        authFetch,
       }}
     >
-      {children}
-    </AuthContext.Provider>
-  );
-}
 
-// Custom Hook
-export function useAuth() {
-  return useContext(AuthContext);
-}
+      {children}
+
+    </AuthContext.Provider>
+
+  );
+
+};

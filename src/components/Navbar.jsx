@@ -1,36 +1,26 @@
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 import { useTheme } from "../context/ThemeContext";
 
 export default function Navbar() {
 
-  const { isAdmin, isAuthenticated, logout } = useAuth();
+  const [loggingOut, setLoggingOut] = useState(false);
+  const { user, logout, loading } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { lang, changeLang } = useLanguage();  
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme(); 
+  const closeMenu = () => setMenuOpen(false);
 
-  const [mobileOpen, setMobileOpen] = useState(false);  
 
- 
-
-  const handleLogout = async () => {
-
-    try {
-      await logout();
-    } catch (err) {
-      console.error(err);
-    }
-
-    
-    
-    navigate("/");
-    setMobileOpen(false);
+  const handleNavigate = (path) => {
+    navigate(path);
+    setMenuOpen(false);
   };
 
-  const closeMobile = () => setMobileOpen(false);
 
   return (
     <nav className="navbar">
@@ -41,7 +31,7 @@ export default function Navbar() {
         <Link
           to="/"
           className="logo"
-          onClick={closeMobile}
+          onClick={closeMenu}
         >
           {translations[lang].logo}
         </Link>
@@ -57,27 +47,46 @@ export default function Navbar() {
             {translations[lang].contact}
           </Link>
 
-          {isAuthenticated ? (
-            <>
+                        
 
+              
+
+
+          {loading ? (
+            <span className="nav-link" style={{ opacity: 0.6 }}>
+              Loading...
+            </span>
+          ) : user ? (
+            <>
+              <span className="nav-link">👤 {user?.name || "User"}</span>
               <Link className="nav-link" to="/my-bookings">
                   {translations[lang].myBookings}
               </Link>
 
-              {isAdmin && (
-                  <Link
-                      className="nav-link"
-                      to="/admin"
-                  >
-                      Admin Dashboard
-                  </Link>
+              {user?.role === "admin" && (
+                <button className="nav-btn" onClick={() => handleNavigate("/admin")}>
+                  Admin
+                </button>
               )}
 
               <button
-                  className="btn-secondary"
-                  onClick={handleLogout}
+                className="nav-item"
+                disabled={loggingOut}
+                onClick={async () => {
+                  setLoggingOut(true);
+                  try {
+                    await logout();
+                    navigate("/", { replace: true });
+                    setMenuOpen(false);
+                  } catch (err) {
+                    console.error("Logout failed", err);
+                    alert("Logout failed. Please try again.");
+                  } finally {
+                    setLoggingOut(false);
+                  }
+                }}
               >
-                  {translations[lang].logout}
+                {loggingOut ? "..." : "Logout"}
               </button>
 
             </>
@@ -93,13 +102,14 @@ export default function Navbar() {
             </>
           )}
 
+
           {/* LANGUAGE SELECT */}
           <select
             className="lang-select"
             value={lang}
             onChange={(e) => {
               changeLang(e.target.value);
-              closeMobile();
+              closeMenu();
             }}
             aria-label="Language"
           >
@@ -120,9 +130,9 @@ export default function Navbar() {
         {/* MOBILE BUTTON */}
         <button
           className="mobile-btn"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => setMenuOpen(prev => !prev)}
           aria-label="Menu"
-          aria-expanded={mobileOpen}
+          aria-expanded={menuOpen}
         >
           ☰
         </button>
@@ -130,53 +140,68 @@ export default function Navbar() {
       </div>
 
       {/* MOBILE MENU */}
-      {mobileOpen && (
+      {menuOpen && (
         <div className="mobile-menu">
           <div className="nav-links">
 
-                <Link to="/" className="nav-item" onClick={closeMobile}>
+                <Link to="/" className="nav-item" onClick={closeMenu}>
                   {translations[lang].home}
                 </Link>
 
-                <Link to="/contact" className="nav-item" onClick={closeMobile}>
+                <Link to="/contact" className="nav-item" onClick={closeMenu}>
                   {translations[lang].contact}
                 </Link>
 
-                      {isAuthenticated ? (
-                <>
-
-                    <Link to="/my-bookings" className="nav-item" onClick={closeMobile}>
+                {loading ? (
+                  <span className="nav-link" style={{ opacity: 0.6 }}>
+                    Loading...
+                  </span>
+                ) : user ? (
+                  <>
+                    <span className="nav-link">👤 {user?.name || "User"}</span>
+                    <Link className="nav-link" to="/my-bookings">
                         {translations[lang].myBookings}
                     </Link>
 
-                    {isAdmin && (
-                        <Link
-                            to="/admin"
-                            className="nav-item"
-                            onClick={closeMobile}
-                        >
-                            Admin Dashboard
-                        </Link>
+                    {user?.role === "admin" && (
+                      <button className="nav-btn" onClick={() => handleNavigate("/admin")}>
+                        Admin
+                      </button>
                     )}
 
-                    <button className="nav-item" onClick={handleLogout}>
-                        {translations[lang].logout}
+                    <button
+                      className="nav-item"
+                      disabled={loggingOut}
+                      onClick={async () => {
+                        setLoggingOut(true);
+                        try {
+                          await logout();
+                          navigate("/", { replace: true });
+                          setMenuOpen(false);
+                        } catch (err) {
+                          console.error("Logout failed", err);
+                          alert("Logout failed. Please try again.");
+                        } finally {
+                          setLoggingOut(false);
+                        }
+                      }}
+                    >
+                      {loggingOut ? "..." : "Logout"}
                     </button>
-              
-                </>
-            ) : (
-                <>
 
-                    <Link to="/login" className="nav-item" onClick={closeMobile}>
-                        {translations[lang].login}
+                  </>
+                ) : (
+                  <>
+                    <Link className="nav-link" to="/login">
+                      {translations[lang].login}
                     </Link>
 
-                    <Link to="/register" className="nav-item" onClick={closeMobile}>
-                        {translations[lang].register}
+                    <Link className="nav-link" to="/register">
+                      {translations[lang].register}
                     </Link>
-                
-            </>
-          )}
+                  </>
+                )}
+
           </div>
 
 
@@ -199,6 +224,8 @@ export default function Navbar() {
               {theme === "light" ? "🌙" : "☀️"}
             </button>
           </div>
+
+          
         </div>
       )}
 

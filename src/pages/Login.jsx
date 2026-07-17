@@ -1,104 +1,156 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-
+import { API_BASE_URL } from "../config";
+import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
-export default function Login() {
-
-  const { login } = useAuth();
-  const { lang } = useLanguage();
-
+function Login() {
+  
+  const { refreshUser, authFetch, loading: authLoading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-    const navigate = useNavigate();
-    const handleLogin = async (e) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
-    e.preventDefault();
+  const handleLogin = async () => {
+
+    if (loading) return;
+
+    setLoading(true);
+
 
     try {
+      // ✅ Centralized fetch
+      const res = await authFetch(`${API_BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-      await login(email, password);
-      
-      navigate("/");
+      const contentType = res.headers.get("content-type");
+
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Unexpected server response");
+      }
+
+
+      const data = await res.json().catch(() => {
+        throw new Error("Invalid server response");
+      });
+
+      if (!res.ok || !data?.success) {
+        throw new Error(data?.message || "Login failed");
+      }
+
+      // ✅ Let AuthContext sync user
+      await refreshUser();
+
+      alert("Logged in!");
+      navigate("/", { replace: true });
+
 
     } catch (err) {
 
-      alert(
-        err.response?.data?.message ||
-        translations[lang].loginFailed
-      );
-    }
+        if (err.message === "SESSION_EXPIRED") {
+          alert("Session expired. Please try again.");
+          return;
+        }
+
+        if (err.message === "UNAUTHORIZED") {
+          alert("Login failed");
+          return;
+        }
+
+        alert(err.message || "Login failed");
+
+    } finally {
+      setLoading(false);
+      }
+
   };
+
 
   return (
     <div className="auth-page">
+      <div className="auth-container">
 
-      <div className="auth-card">
+        <h2>Login</h2>
 
-        {/* TITLE */}
-        <h1 className="auth-title">
-          {translations[lang].login}
-        </h1>
-
-        {/* SUBTITLE */}
-        <p className="auth-subtitle">
-          {translations[lang].loginWelcome}
-        </p>
-
-        {/* FORM */}
         <form
-          onSubmit={handleLogin}
           className="auth-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
         >
 
-          {/* EMAIL */}
-          <div className="form-group">
+          <input
+            type="email"
+            placeholder="Enter your e-mail"
+            value={email}
+            disabled={loading}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            required
+          />
 
-            <label>
-              {translations[lang].email}
-            </label>
+         
 
-            <input
-              type="email"
-              placeholder={translations[lang].email}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-
-          </div>
-
-          {/* PASSWORD */}
-          <div className="form-group">
-
-            <label>
-              {translations[lang].password}
-            </label>
+          <div className="password-field">
 
             <input
-              type="password"
-              placeholder={translations[lang].password}
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
               value={password}
+              disabled={loading}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="password"
               required
             />
 
+
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          
           </div>
 
-          {/* BUTTON */}
-          <button
-            type="submit"
-            className="primary-btn"
-          >
-            {translations[lang].login}
+
+
+          <button className="auth-btn" type="submit" disabled={loading}>
+            {loading ? "Loading..." : "Login"}
           </button>
+
+
 
         </form>
 
-      </div>
 
+
+
+        <div className="auth-switch">
+          {"No account?"}
+          <span
+            className="auth-link"
+            onClick={() => navigate("/register")}
+          >
+            Register
+          </span>
+        </div>
+
+      </div>
     </div>
+
   );
+  
 }
+
+export default Login; 

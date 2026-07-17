@@ -1,110 +1,205 @@
-import { useState } from "react";
-
-import { useAuth } from "../context/AuthContext";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
+import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
-export default function Register() {
-
-  const { register } = useAuth();
-  const { lang } = useLanguage();
-
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: ""
-  });
-
+function Register() {
+  
+  const { refreshUser, authFetch, loading: authLoading } = useContext(AuthContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-  };
   const navigate = useNavigate();
-
+  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = async () => {
+   if (loading) return;
+
     
-    setLoading(true); 
+    setLoading(true);
 
     try {
-      const res = await register(form);
+      // ✅ Use centralized fetch
+      const res = await authFetch(`${API_BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-      navigate("/");
+      const contentType = res.headers.get("content-type");
+
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Unexpected server response");
+      }
+
+      const data = await res.json().catch(() => {
+        throw new Error("Invalid server response");
+      });
+
+      if (!res.ok) {
+        if (data?.errors) {
+          setErrors(data.errors);
+          return;
+        }
+        throw new Error(data?.message || "Registration failed");
+      }
+      
+      setErrors({});
+
+
+      alert("Registration successful!");
+
+      // ✅ Let AuthContext re-sync from backend
+      await refreshUser();
+
+      navigate("/", { replace: true });
 
     } catch (err) {
-      alert("ERROR");
+
+        if (err.message === "SESSION_EXPIRED") {
+          alert("Session expired. Please refresh the page.");
+          window.location.reload();
+          return;
+        }
+
+        if (err.message === "UNAUTHORIZED") {
+          alert("Registration failed");
+          return;
+        }
+
+        // ✅ Fallback 
+        alert("Registration failed");
+        
     } finally {
-      setLoading(false); // 👈 wichtig
-    }
+          setLoading(false);
+      }
   };
 
   return (
     <div className="auth-page">
-      <div className="auth-card">
-          {/* TITLE */}
-          <h2 className="auth-title">
-            {translations[lang].register}
-          </h2>
-            <form className="auth-form" onSubmit={(e) => {
-              e.preventDefault();
-              handleRegister();
-            }}>
-                  {/* NAME */}
-                  <input
-                    name="name"
-                    value={form.name}
-                    placeholder={translations[lang].name}
-                    onChange={handleChange}
-                  />
+      <div className="auth-container">
 
-                  {/* EMAIL */}
-                  <input
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    placeholder={translations[lang].email}
-                    onChange={handleChange}
-                  />
+        <h2>Register</h2>
 
-                  {/* PASSWORD */}
-                  <input
-                    name="password"
-                    type="password"
-                    value={form.password}
-                    placeholder={translations[lang].password}
-                    onChange={handleChange}
-                  />
+        <form
+          className="auth-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleRegister();
+          }}
+        >
 
-                  {/* REPEAT PASSWORD */}
-                  <input
-                    name="password_confirmation"
-                    value={form.password_confirmation}
-                    type="password"
-                    placeholder={
-                      translations[lang].repeatPassword
-                    }
-                    onChange={handleChange}
-                  />
+          
+          {errors.general && (
+            <div className="error">
+              {errors.general.map((err, i) => <div key={i}>{err}</div>)}
+            </div>
+          )}
 
-                  {/* BUTTON */}
-                  <button
-                    type="submit"
-                    className="btn-full"
-                    disabled={loading}
-                  >
-                    {loading
-                      ? translations[lang].loading
-                      : translations[lang].register}
-                  </button>
-            </form>
-       </div>             
+
+
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setErrors((prev) => ({ ...prev, name: undefined, general: undefined }));
+            }}
+            required
+          />
+
+          {errors.name && (
+            <div className="error">
+              {errors.name.map((err, i) => <div key={i}>{err}</div>)}
+            </div>
+          )}
+
+
+
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setErrors((prev) => ({ ...prev, email: undefined, general: undefined }));
+            }}
+            required
+          />
+
+          {errors.email && (
+            <div className="error">
+              {errors.email.map((err, i) => <div key={i}>{err}</div>)}
+            </div>
+          )}
+
+
+
+
+          <div className="password-field">
+
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Create a password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrors((prev) => ({ ...prev, password: undefined, general: undefined }));
+              }}
+              required
+            />
+
+
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          
+          </div>
+
+          {errors.password && (
+            <div className="error">
+              {errors.password.map((err, i) => <div key={i}>{err}</div>)}
+            </div>
+          )}
+
+
+
+
+          <button className="auth-btn" type="submit"  disabled={loading}>
+            {loading ? "Loading..." : "Register"}
+          </button>
+
+
+        </form>
+
+
+
+        <div className="auth-switch">
+          {"Already have an account?"}
+          <span
+            className="auth-link"
+            onClick={() => navigate("/login")}
+          >
+            {"Login"}
+          </span>
+        </div>
+
+      </div>
     </div>
+
   );
+
 }
+
+export default Register;
