@@ -29,6 +29,11 @@ export const AuthProvider = ({ children }) => {
     .then(async res => {
 
       if (!res.ok) {
+        console.error("Status:", res.status);
+
+        const text = await res.text();
+        console.error("Server response:", text);
+
         throw new Error("CSRF request failed");
       }
 
@@ -76,22 +81,29 @@ export const AuthProvider = ({ children }) => {
     }
 
 
-    const res = await fetch(`${API_BASE_URL}/csrf`, {
-  method: "GET",
-  credentials: "include",
-});
+    const res = await fetch(url, {
 
-if (!res.ok) {
-  console.error("Status:", res.status);
+      ...options,
 
-  const text = await res.text();
-  console.error("Response:", text);
+      credentials: "include",
 
-  throw new Error("CSRF request failed");
-}
+      headers,
+
+    });
 
 
-   
+    if (res.status === 401) {
+
+      setUser(null);
+
+      throw new Error("UNAUTHORIZED");
+
+    }
+
+
+    return res;
+
+  };
 
 
 
