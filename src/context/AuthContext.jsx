@@ -91,9 +91,7 @@ if (!res.ok) {
 }
 
 
-    return res;
-
-  };
+   
 
 
 
