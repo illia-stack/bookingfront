@@ -76,24 +76,19 @@ export const AuthProvider = ({ children }) => {
     }
 
 
-    const res = await fetch(url, {
+    const res = await fetch(`${API_BASE_URL}/csrf`, {
+  method: "GET",
+  credentials: "include",
+});
 
-      ...options,
+if (!res.ok) {
+  console.error("Status:", res.status);
 
-      credentials: "include",
+  const text = await res.text();
+  console.error("Response:", text);
 
-      headers,
-
-    });
-
-
-    if (res.status === 401) {
-
-      setUser(null);
-
-      throw new Error("UNAUTHORIZED");
-
-    }
+  throw new Error("CSRF request failed");
+}
 
 
     return res;
