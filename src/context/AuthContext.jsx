@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, useRef } from "react";
-import { API_BASE_URL, BACKEND_URL } from "../config";
+import { API_BASE_URL } from "../config";
 
 export const AuthContext = createContext();
 
@@ -8,17 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const csrfTokenRef = useRef(null);
   const csrfPromiseRef = useRef(null);
-
-
-  function getCookie(name) {
-
-    return document.cookie
-      .split("; ")
-      .find(row => row.startsWith(name + "="))
-      ?.split("=")[1];
-
-  }
 
 
   const fetchCsrfToken = async () => {
@@ -29,19 +20,25 @@ export const AuthProvider = ({ children }) => {
 
 
     csrfPromiseRef.current = fetch(
-      `${BACKEND_URL}/sanctum/csrf-cookie`,
+      `${API_BASE_URL}/csrf`,
       {
         method: "GET",
         credentials: "include",
       }
     )
-    .then(res => {
+    .then(async res => {
 
       if (!res.ok) {
         throw new Error("CSRF request failed");
       }
 
-      return true;
+      const data = await res.json();
+
+      if (!data.csrfToken) {
+        throw new Error("Missing CSRF token");
+      }
+
+      csrfTokenRef.current = data.csrfToken;
 
     })
     .finally(() => {
@@ -59,40 +56,24 @@ export const AuthProvider = ({ children }) => {
 
   const authFetch = async (
     url,
-    options = {},
-    retry = true
+    options = {}
   ) => {
 
-    let xsrfToken = decodeURIComponent(
-      getCookie("XSRF-TOKEN") || ""
-    );
 
-    if (!xsrfToken) {
+    if (!csrfTokenRef.current) {
       await fetchCsrfToken();
-
-      xsrfToken = decodeURIComponent(
-        getCookie("XSRF-TOKEN") || ""
-      );
     }
 
 
     const headers = {
+      Accept: "application/json",
       ...(options.headers || {}),
-      "Accept": "application/json",
     };
 
-    if (xsrfToken) {
-      headers["X-XSRF-TOKEN"] = xsrfToken;
+
+    if (csrfTokenRef.current) {
+      headers["X-CSRF-TOKEN"] = csrfTokenRef.current;
     }
-
-
-    if (
-      options.body &&
-      !(options.body instanceof FormData)
-    ) {
-      headers["Content-Type"] = "application/json";
-    }
-
 
 
     const res = await fetch(url, {
@@ -106,16 +87,6 @@ export const AuthProvider = ({ children }) => {
     });
 
 
-
-    if (res.status === 419 && retry) {
-
-      await fetchCsrfToken();
-      return authFetch(url, options, false);
-
-    }
-
-
-
     if (res.status === 401) {
 
       setUser(null);
@@ -123,7 +94,6 @@ export const AuthProvider = ({ children }) => {
       throw new Error("UNAUTHORIZED");
 
     }
-
 
 
     return res;
@@ -187,6 +157,14 @@ export const AuthProvider = ({ children }) => {
     Login.jsx already does POST /auth/login.
     This only refreshes the current user.
   */
+  const refreshCsrf = async () => {
+
+    csrfTokenRef.current = null;
+
+    await fetchCsrfToken();
+
+  };
+
   const refreshUser = async () => {
 
     try {
@@ -226,6 +204,9 @@ export const AuthProvider = ({ children }) => {
       );
 
 
+      await refreshCsrf();
+
+
     } catch(error) {
 
       console.warn(
@@ -251,6 +232,7 @@ export const AuthProvider = ({ children }) => {
         user,
         loading,
         refreshUser,
+        refreshCsrf,
         logout,
         authFetch,
       }}

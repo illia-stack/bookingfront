@@ -7,7 +7,7 @@ import { translations } from "../i18n/languages";
 
 function Register() {
   
-  const { refreshUser, authFetch, loading: authLoading } = useContext(AuthContext);
+  const { refreshUser, authFetch, refreshCsrf, loading: authLoading } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,6 +56,7 @@ function Register() {
       alert("Registration successful!");
 
       // ✅ Let AuthContext re-sync from backend
+      await refreshCsrf();
       await refreshUser();
 
       navigate("/", { replace: true });
