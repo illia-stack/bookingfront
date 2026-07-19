@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
+import { translations } from "../i18n/languages";
 
 function Register() {
   
@@ -13,6 +15,8 @@ function Register() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+
+  const { lang } = useLanguage();
 
   const handleRegister = async () => {
    if (loading) return;
@@ -51,7 +55,7 @@ function Register() {
       setErrors({});
 
 
-      alert("Registration successful!");
+      alert(translations[lang].registrationSuccess);
 
       // ✅ Let AuthContext re-sync from backend
       await login();
@@ -67,13 +71,13 @@ function Register() {
         }
 
         if (err.message === "UNAUTHORIZED") {
-          alert("Registration failed");
+          alert(translations[lang].registrationFailed);
           return;
         }
 
         // ✅ Fallback 
-        alert("Registration failed");
-        
+        alert(translations[lang].registrationFailed);   
+
     } finally {
           setLoading(false);
       }
@@ -83,7 +87,7 @@ function Register() {
     <div className="auth-page">
       <div className="auth-container">
 
-        <h2>Register</h2>
+        <h2>{translations[lang].register}</h2>
 
         <form
           className="auth-form"
@@ -104,7 +108,7 @@ function Register() {
 
           <input
             type="text"
-            placeholder="Enter your name"
+            placeholder={translations[lang].namePlaceholder}
             value={name}
             disabled={loading}
             onChange={(e) => {
@@ -124,7 +128,7 @@ function Register() {
 
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder={translations[lang].emailPlaceholder}
             value={email}
             disabled={loading}
             onChange={(e) => {
@@ -147,7 +151,7 @@ function Register() {
 
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Create a password"
+              placeholder={translations[lang].passwordPlaceholder}
               value={password}
               disabled={loading}
               onChange={(e) => {
@@ -163,7 +167,9 @@ function Register() {
               className="toggle-password"
               onClick={() => setShowPassword((prev) => !prev)}
             >
-              {showPassword ? "Hide" : "Show"}
+            {showPassword
+              ? translations[lang].hide
+              : translations[lang].show}            
             </button>
           
           </div>
@@ -178,7 +184,9 @@ function Register() {
 
 
           <button className="auth-btn" type="submit"  disabled={loading}>
-            {loading ? "Loading..." : "Register"}
+            {loading
+              ? translations[lang].loading
+              : translations[lang].register}
           </button>
 
 
@@ -187,12 +195,12 @@ function Register() {
 
 
         <div className="auth-switch">
-          {"Already have an account?"}
+          {translations[lang].alreadyHaveAccount}
           <span
             className="auth-link"
             onClick={() => navigate("/login")}
           >
-            {"Login"}
+            {translations[lang].login}
           </span>
         </div>
 

@@ -13,6 +13,9 @@ import {
     addPropertyComment
 } from "./Comments.js";
 
+import { useLanguage } from "../context/LanguageContext";
+import { translations } from "../i18n/languages";
+
 
 
 export default function PropertyComments({
@@ -27,6 +30,7 @@ const [comments,setComments]=useState([]);
 
 const [text,setText]=useState("");
 
+const { lang } = useLanguage();
 
 
 async function loadComments(){
@@ -84,9 +88,8 @@ return (
 <div className="comments-section">
 
 
-<h2>
-Comments
-</h2>
+
+<h2>{translations[lang].comments}</h2>
 
 
 <div>
@@ -134,7 +137,7 @@ onChange={
 e=>setText(e.target.value)
 }
 
-placeholder="Write a comment..."
+placeholder={translations[lang].writeComment}
 
 >
 
@@ -148,7 +151,7 @@ placeholder="Write a comment..."
 onClick={sendComment}
 >
 
-Add comment
+{translations[lang].addComment}
 
 </button>
 

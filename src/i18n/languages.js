@@ -89,7 +89,30 @@ export const translations = {
     message: "Nachricht",
     send: "Senden",
     sendSuccess: "Ihre Nachricht wurde erfolgreich gesendet!",
-    sendError: "Fehler beim Senden. Bitte versuchen Sie es erneut."
+    sendError: "Fehler beim Senden. Bitte versuchen Sie es erneut.",
+
+
+
+    namePlaceholder: "Name eingeben",
+    emailPlaceholder: "E-Mail eingeben",
+    passwordPlaceholder: "Passwort erstellen",
+    loginPasswordPlaceholder: "Passwort eingeben",
+
+    show: "Anzeigen",
+    hide: "Ausblenden",
+
+    alreadyHaveAccount: "Bereits ein Konto?",
+    noAccount: "Noch kein Konto?",
+
+    loggedIn: "Erfolgreich angemeldet!",
+
+    comments: "Kommentare",
+    writeComment: "Kommentar schreiben...",
+    addComment: "Kommentar hinzufügen",
+
+    logoutFailed: "Abmeldung fehlgeschlagen. Bitte erneut versuchen.",
+    admin: "Administrator",
+    user: "Benutzer"
   },
 
   en: {
@@ -182,7 +205,30 @@ export const translations = {
     message: "Message",
     send: "Send",
     sendSuccess: "Your message was sent successfully!",
-    sendError: "Something went wrong. Please try again."
+    sendError: "Something went wrong. Please try again.",
+
+
+    namePlaceholder: "Enter your name",
+    emailPlaceholder: "Enter your email",
+    passwordPlaceholder: "Create a password",
+    loginPasswordPlaceholder: "Enter your password",
+
+    show: "Show",
+    hide: "Hide",
+
+    alreadyHaveAccount: "Already have an account?",
+    noAccount: "Don't have an account?",
+
+    loggedIn: "Logged in!",
+
+    comments: "Comments",
+    writeComment: "Write a comment...",
+    addComment: "Add Comment",
+
+    logoutFailed: "Logout failed. Please try again.",
+    admin: "Admin",
+    user: "User", 
+
   },
 
   es: {
@@ -274,7 +320,30 @@ export const translations = {
     message: "Mensaje",
     send: "Enviar",
     sendSuccess: "¡Tu mensaje ha sido enviado correctamente!",
-    sendError: "Algo salió mal. Por favor, inténtalo de nuevo."
+    sendError: "Algo salió mal. Por favor, inténtalo de nuevo.",
+
+
+
+    namePlaceholder: "Introduce tu nombre",
+    emailPlaceholder: "Introduce tu correo electrónico",
+    passwordPlaceholder: "Crea una contraseña",
+    loginPasswordPlaceholder: "Introduce tu contraseña",
+
+    show: "Mostrar",
+    hide: "Ocultar",
+
+    alreadyHaveAccount: "¿Ya tienes una cuenta?",
+    noAccount: "¿No tienes cuenta?",
+
+    loggedIn: "¡Sesión iniciada!",
+
+    comments: "Comentarios",
+    writeComment: "Escribe un comentario...",
+    addComment: "Añadir comentario",
+
+    logoutFailed: "Error al cerrar sesión. Inténtalo de nuevo.",
+    admin: "Administrador",
+    user: "Usuario"
   }
 
 };

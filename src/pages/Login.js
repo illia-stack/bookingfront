@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
+import { translations } from "../i18n/languages";
 
 
 function Login() {
@@ -12,6 +14,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { lang } = useLanguage();
 
   const handleLogin = async () => {
 
@@ -48,7 +51,7 @@ function Login() {
       // ✅ Let AuthContext sync user
       await login();
 
-      alert("Logged in!");
+      alert(translations[lang].loggedIn);
       navigate("/", { replace: true });
 
 
@@ -60,11 +63,11 @@ function Login() {
         }
 
         if (err.message === "UNAUTHORIZED") {
-          alert("Login failed");
+          alert(translations[lang].loginFailed);
           return;
         }
 
-        alert(err.message || "Login failed");
+        alert(err.message || alert(translations[lang].loginFailed););
 
     } finally {
       setLoading(false);
@@ -77,7 +80,7 @@ function Login() {
     <div className="auth-page">
       <div className="auth-container">
 
-        <h2>Login</h2>
+        <h2>{translations[lang].login}</h2>
 
         <form
           className="auth-form"
@@ -89,7 +92,7 @@ function Login() {
 
           <input
             type="email"
-            placeholder="Enter your e-mail"
+            placeholder={translations[lang].emailPlaceholder}
             value={email}
             disabled={loading}
             onChange={(e) => setEmail(e.target.value)}
@@ -103,7 +106,7 @@ function Login() {
 
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
+              placeholder={translations[lang].loginPasswordPlaceholder}
               value={password}
               disabled={loading}
               onChange={(e) => setPassword(e.target.value)}
@@ -117,7 +120,9 @@ function Login() {
               className="toggle-password"
               onClick={() => setShowPassword((prev) => !prev)}
             >
-              {showPassword ? "Hide" : "Show"}
+              {showPassword
+                ? translations[lang].hide
+                : translations[lang].show}
             </button>
           
           </div>
@@ -125,7 +130,9 @@ function Login() {
 
 
           <button className="auth-btn" type="submit" disabled={loading}>
-            {loading ? "Loading..." : "Login"}
+            {loading
+              ? translations[lang].loading
+              : translations[lang].login}
           </button>
 
 
@@ -136,12 +143,12 @@ function Login() {
 
 
         <div className="auth-switch">
-          {"No account?"}
+          {translations[lang].noAccount}
           <span
             className="auth-link"
             onClick={() => navigate("/register")}
           >
-            Register
+            {translations[lang].register}
           </span>
         </div>
 

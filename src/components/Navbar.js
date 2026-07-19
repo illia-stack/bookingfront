@@ -58,7 +58,7 @@ export default function Navbar() {
             </span>
           ) : user ? (
             <>
-              <span className="nav-link">👤 {user?.name || "User"}</span>
+              <span className="nav-link">👤 {user?.name || translations[lang].user}</span>
               <Link
                   className="nav-link"
                   to="/my-bookings"
@@ -69,7 +69,7 @@ export default function Navbar() {
 
               {user?.role === "admin" && (
                 <button className="nav-btn" onClick={() => handleNavigate("/admin")}>
-                  Admin
+                  {translations[lang].admin}
                 </button>
               )}
 
@@ -84,13 +84,13 @@ export default function Navbar() {
                     setMenuOpen(false);
                   } catch (err) {
                     console.error("Logout failed", err);
-                    alert("Logout failed. Please try again.");
+                    alert(translations[lang].logoutFailed);
                   } finally {
                     setLoggingOut(false);
                   }
                 }}
               >
-                {loggingOut ? "..." : "Logout"}
+                {loggingOut ? "..." : translations[lang].logout}
               </button>
 
             </>
@@ -162,14 +162,14 @@ export default function Navbar() {
                   </span>
                 ) : user ? (
                   <>
-                    <span className="nav-link">👤 {user?.name || "User"}</span>
+                    <span className="nav-link">👤 {user?.name || translations[lang].user}</span>
                     <Link className="nav-link" to="/my-bookings">
                         {translations[lang].myBookings}
                     </Link>
 
                     {user?.role === "admin" && (
                       <button className="nav-btn" onClick={() => handleNavigate("/admin")}>
-                        Admin
+                        {translations[lang].admin}
                       </button>
                     )}
 
@@ -184,13 +184,13 @@ export default function Navbar() {
                           setMenuOpen(false);
                         } catch (err) {
                           console.error("Logout failed", err);
-                          alert("Logout failed. Please try again.");
+                          alert(translations[lang].logoutFailed);
                         } finally {
                           setLoggingOut(false);
                         }
                       }}
                     >
-                      {loggingOut ? "..." : "Logout"}
+                      {loggingOut ? "..." : translations[lang].logout}
                     </button>
 
                   </>
