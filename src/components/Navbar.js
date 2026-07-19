@@ -59,8 +59,12 @@ export default function Navbar() {
           ) : user ? (
             <>
               <span className="nav-link">👤 {user?.name || "User"}</span>
-              <Link className="nav-link" to="/my-bookings">
-                  {translations[lang].myBookings}
+              <Link
+                  className="nav-link"
+                  to="/my-bookings"
+                  onClick={closeMenu}
+              >
+                {translations[lang].myBookings}
               </Link>
 
               {user?.role === "admin" && (
@@ -70,7 +74,7 @@ export default function Navbar() {
               )}
 
               <button
-                className="nav-item"
+                className="nav-btn"
                 disabled={loggingOut}
                 onClick={async () => {
                   setLoggingOut(true);
@@ -144,11 +148,11 @@ export default function Navbar() {
         <div className="mobile-menu">
           <div className="nav-links">
 
-                <Link to="/" className="nav-item" onClick={closeMenu}>
+                <Link to="/" className="nav-btn" onClick={closeMenu}>
                   {translations[lang].home}
                 </Link>
 
-                <Link to="/contact" className="nav-item" onClick={closeMenu}>
+                <Link to="/contact" className="nav-btn" onClick={closeMenu}>
                   {translations[lang].contact}
                 </Link>
 
@@ -170,7 +174,7 @@ export default function Navbar() {
                     )}
 
                     <button
-                      className="nav-item"
+                      className="nav-btn"
                       disabled={loggingOut}
                       onClick={async () => {
                         setLoggingOut(true);

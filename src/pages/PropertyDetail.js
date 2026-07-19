@@ -117,8 +117,7 @@ export default function PropertyDetail() {
             return;
         }
 
-        window.location.href = stripe.data.checkout_url;
-
+        window.location.assign(stripe.data.checkout_url);
       } catch (err) {
         console.error("BOOKING ERROR:", err);
 
@@ -237,6 +236,7 @@ export default function PropertyDetail() {
 
               <input
                 type="date"
+                min={checkIn || new Date().toISOString().split("T")[0]}
                 value={checkIn}
                 onChange={(e) => setCheckIn(e.target.value)}
               />
@@ -256,6 +256,7 @@ export default function PropertyDetail() {
 
               <input
                 type="date"
+                min={checkIn || new Date().toISOString().split("T")[0]}
                 value={checkOut}
                 onChange={(e) => setCheckOut(e.target.value)}
               />

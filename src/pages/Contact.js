@@ -21,6 +21,7 @@ export default function Contact() {
   };
 
   const handleSubmit = async (e) => {
+    if (submitLoading) return;
     e.preventDefault();
 
     setSubmitLoading(true);
@@ -70,6 +71,7 @@ export default function Contact() {
               name="name"
               placeholder={translations[lang].name}
               value={form.name}
+              disabled={submitLoading}
               onChange={handleChange}
               required
             />
@@ -79,6 +81,7 @@ export default function Contact() {
               name="email"
               placeholder={translations[lang].email}
               value={form.email}
+              disabled={submitLoading}
               onChange={handleChange}
               required
             />
@@ -88,6 +91,7 @@ export default function Contact() {
               name="subject"
               placeholder={translations[lang].subject}
               value={form.subject}
+              disabled={submitLoading}
               onChange={handleChange}
             />
 
@@ -97,6 +101,7 @@ export default function Contact() {
               <textarea
                 name="message"
                 value={form.message}
+                disabled={submitLoading}
                 onChange={handleChange}
                 rows="5"
                 required

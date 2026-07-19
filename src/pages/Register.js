@@ -2,12 +2,10 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
-import { useLanguage } from "../context/LanguageContext";
-import { translations } from "../i18n/languages";
 
 function Register() {
   
-  const { refreshUser, authFetch, refreshCsrf, loading: authLoading } = useContext(AuthContext);
+  const { login, authFetch, loading: authLoading } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +22,7 @@ function Register() {
 
     try {
       // ✅ Use centralized fetch
-      const res = await authFetch(`${API_BASE_URL}/auth/register`, {
+      const res = await authFetch(`${API_BASE_URL}/register.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -56,18 +54,27 @@ function Register() {
       alert("Registration successful!");
 
       // ✅ Let AuthContext re-sync from backend
-      await refreshCsrf();
-      await refreshUser();
+      await login();
 
       navigate("/", { replace: true });
 
     } catch (err) {
 
-    console.error(err);
+        if (err.message === "SESSION_EXPIRED") {
+          alert("Session expired. Please refresh the page.");
+          window.location.reload();
+          return;
+        }
 
-    alert(err.message);
+        if (err.message === "UNAUTHORIZED") {
+          alert("Registration failed");
+          return;
+        }
 
-} finally {
+        // ✅ Fallback 
+        alert("Registration failed");
+        
+    } finally {
           setLoading(false);
       }
   };
@@ -99,6 +106,7 @@ function Register() {
             type="text"
             placeholder="Enter your name"
             value={name}
+            disabled={loading}
             onChange={(e) => {
               setName(e.target.value);
               setErrors((prev) => ({ ...prev, name: undefined, general: undefined }));
@@ -118,6 +126,7 @@ function Register() {
             type="email"
             placeholder="Enter your email"
             value={email}
+            disabled={loading}
             onChange={(e) => {
               setEmail(e.target.value);
               setErrors((prev) => ({ ...prev, email: undefined, general: undefined }));
@@ -140,6 +149,7 @@ function Register() {
               type={showPassword ? "text" : "password"}
               placeholder="Create a password"
               value={password}
+              disabled={loading}
               onChange={(e) => {
                 setPassword(e.target.value);
                 setErrors((prev) => ({ ...prev, password: undefined, general: undefined }));

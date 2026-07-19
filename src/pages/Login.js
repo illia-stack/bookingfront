@@ -2,12 +2,11 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
-import { useLanguage } from "../context/LanguageContext";
-import { translations } from "../i18n/languages";
+
 
 function Login() {
   
-  const { refreshUser, authFetch, loading: authLoading } = useContext(AuthContext);
+  const { login, authFetch, loading: authLoading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,7 +22,7 @@ function Login() {
 
     try {
       // ✅ Centralized fetch
-      const res = await authFetch(`${API_BASE_URL}/auth/login`, {
+      const res = await authFetch(`${API_BASE_URL}/login.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -47,7 +46,7 @@ function Login() {
       }
 
       // ✅ Let AuthContext sync user
-      await refreshUser();
+      await login();
 
       alert("Logged in!");
       navigate("/", { replace: true });
@@ -55,11 +54,19 @@ function Login() {
 
     } catch (err) {
 
-    console.error(err);
+        if (err.message === "SESSION_EXPIRED") {
+          alert("Session expired. Please try again.");
+          return;
+        }
 
-    alert(err.message);
+        if (err.message === "UNAUTHORIZED") {
+          alert("Login failed");
+          return;
+        }
 
-} finally {
+        alert(err.message || "Login failed");
+
+    } finally {
       setLoading(false);
       }
 
@@ -100,7 +107,7 @@ function Login() {
               value={password}
               disabled={loading}
               onChange={(e) => setPassword(e.target.value)}
-              autoComplete="password"
+              autoComplete="current-password"
               required
             />
 
@@ -145,4 +152,4 @@ function Login() {
   
 }
 
-export default Login; 
+export default Login;
