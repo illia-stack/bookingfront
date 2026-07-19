@@ -1,20 +1,20 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { useEffect } from "react"; // ✅ useEffect importieren
+import { useEffect } from "react"; 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
 export default function Success() {
 
-  const { lang, changeLang } = useLanguage(); // ✅ changeLang hier holen
+  const { lang, changeLang } = useLanguage(); 
 
   const [searchParams] = useSearchParams();
 
   const bookingId = searchParams.get("booking_id");
-  const urlLang = searchParams.get("lang"); // Sprache aus URL
+  const urlLang = searchParams.get("lang"); 
 
   useEffect(() => {
     if (urlLang && urlLang !== lang) {
-      changeLang(urlLang); // Sprache aus URL setzen
+      changeLang(urlLang); 
     }
   }, [urlLang, lang, changeLang]);
 

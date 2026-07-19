@@ -286,4 +286,5 @@ export default function PropertyDetail() {
 
     </div>
   );
+  
 }

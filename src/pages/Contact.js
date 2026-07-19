@@ -96,7 +96,7 @@ export default function Contact() {
             />
 
 
-             {/* Textarea mit Wrapper für zentrierten Placeholder */}
+             
             <div className="textarea-wrapper">
               <textarea
                 name="message"
@@ -106,7 +106,7 @@ export default function Contact() {
                 rows="5"
                 required
               />
-              {/* Der span ersetzt den Platzhalter */}
+              
               {form.message === "" && (
                 <span className="textarea-placeholder">
                   {translations[lang].message}

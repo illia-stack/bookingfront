@@ -30,6 +30,8 @@ import {
   useLanguage
 } from "./context/LanguageContext";
 
+
+
 function AppContent() {
 
   const { lang } = useLanguage();
@@ -103,17 +105,19 @@ function AppContent() {
   );
 }
 
+
 function App() {
 
   return (
     <LanguageProvider>
       <ThemeProvider>
-        <AuthProvider>   {/* 👈 HIER */}
+        <AuthProvider>  
           <AppContent />
         </AuthProvider>
       </ThemeProvider>
     </LanguageProvider>
   );
 }
+
 
 export default App;
