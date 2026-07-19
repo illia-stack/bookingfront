@@ -5,7 +5,9 @@ export const getProperties = async () => {
     credentials: "include"
   });
 
-  const json = await res.json();
+  const text = await res.text();
+
+console.log(text);
 
   if (!res.ok) {
     json.status = res.status;
@@ -20,7 +22,9 @@ export const getProperty = async (id) => {
     credentials: "include"
   });
 
-  const json = await res.json();
+ const text = await res.text();
+
+console.log(text);
 
   if (!res.ok) {
     json.status = res.status;

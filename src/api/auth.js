@@ -12,7 +12,9 @@ export const login = async (authFetch, email, password) => {
     }
   );
 
-  const json = await res.json();
+  const text = await res.text();
+
+console.log(text);
 
   if (!res.ok) {
     json.status = res.status;
@@ -31,7 +33,9 @@ export const register = async (authFetch, data) => {
     }
   );
 
-  const json = await res.json();
+  const text = await res.text();
+
+  console.log(text);
 
   if (!res.ok) {
     json.status = res.status;
