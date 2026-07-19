@@ -58,7 +58,7 @@ function Login() {
     } catch (err) {
 
         if (err.message === "SESSION_EXPIRED") {
-          alert("Session expired. Please try again.");
+          alert(translations[lang].sessionExpired);
           return;
         }
 
@@ -67,7 +67,7 @@ function Login() {
           return;
         }
 
-        alert(err.message || alert(translations[lang].loginFailed););
+        alert(err.message ? err.message : translations[lang].loginFailed);
 
     } finally {
       setLoading(false);

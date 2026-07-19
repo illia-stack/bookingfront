@@ -111,6 +111,7 @@ export const translations = {
     addComment: "Kommentar hinzufügen",
 
     logoutFailed: "Abmeldung fehlgeschlagen. Bitte erneut versuchen.",
+    sessionExpired: "Ihre Sitzung ist abgelaufen. Bitte versuchen Sie es erneut.",
     admin: "Administrator",
     user: "Benutzer"
   },
@@ -206,6 +207,7 @@ export const translations = {
     send: "Send",
     sendSuccess: "Your message was sent successfully!",
     sendError: "Something went wrong. Please try again.",
+    sessionExpired: "Session expired. Please try again.",
 
 
     namePlaceholder: "Enter your name",
@@ -227,7 +229,7 @@ export const translations = {
 
     logoutFailed: "Logout failed. Please try again.",
     admin: "Admin",
-    user: "User", 
+    user: "User",
 
   },
 
@@ -342,6 +344,7 @@ export const translations = {
     addComment: "Añadir comentario",
 
     logoutFailed: "Error al cerrar sesión. Inténtalo de nuevo.",
+    sessionExpired: "La sesión ha caducado. Por favor, inténtalo de nuevo.",
     admin: "Administrador",
     user: "Usuario"
   }
