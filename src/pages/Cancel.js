@@ -5,16 +5,16 @@ import { translations } from "../i18n/languages";
 
 export default function Cancel() {
 
-  const { lang, changeLang } = useLanguage(); // ✅ changeLang hinzufügen
+  const { lang, changeLang } = useLanguage(); 
 
   const [searchParams] = useSearchParams();
 
   const bookingId = searchParams.get("booking_id");
-  const urlLang = searchParams.get("lang"); // Sprache aus URL
+  const urlLang = searchParams.get("lang"); 
 
   useEffect(() => {
     if (urlLang && urlLang !== lang) {
-      changeLang(urlLang); // Sprache aus URL setzen
+      changeLang(urlLang); 
     }
   }, [urlLang, lang, changeLang]);
 

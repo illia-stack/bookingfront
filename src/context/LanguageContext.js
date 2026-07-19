@@ -5,7 +5,7 @@ const LanguageContext = createContext();
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState("de");
 
-  // zentrale Sprachwechsel-Funktion, speichert direkt im localStorage
+
   const changeLang = (newLang) => {
     setLang(newLang);
     localStorage.setItem("lang", newLang);
