@@ -63,21 +63,11 @@ function Register() {
 
     } catch (err) {
 
-        if (err.message === "SESSION_EXPIRED") {
-          alert("Session expired. Please refresh the page.");
-          window.location.reload();
-          return;
-        }
+    console.error(err);
 
-        if (err.message === "UNAUTHORIZED") {
-          alert("Registration failed");
-          return;
-        }
+    alert(err.message);
 
-        // ✅ Fallback 
-        alert("Registration failed");
-        
-    } finally {
+} finally {
           setLoading(false);
       }
   };

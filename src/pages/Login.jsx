@@ -55,19 +55,11 @@ function Login() {
 
     } catch (err) {
 
-        if (err.message === "SESSION_EXPIRED") {
-          alert("Session expired. Please try again.");
-          return;
-        }
+    console.error(err);
 
-        if (err.message === "UNAUTHORIZED") {
-          alert("Login failed");
-          return;
-        }
+    alert(err.message);
 
-        alert(err.message || "Login failed");
-
-    } finally {
+} finally {
       setLoading(false);
       }
 
