@@ -13,6 +13,8 @@ import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
+import PropertyComments from "../components/PropertyComments";
+
 export default function PropertyDetail() {
 
   const { id } = useParams();
@@ -277,6 +279,10 @@ export default function PropertyDetail() {
         </div>
 
       </div>
+
+      <PropertyComments
+          propertyId={id}
+      />
 
     </div>
   );
