@@ -101,3 +101,198 @@ textarea:focus {
   border-radius: 8px;
   border: 1px solid #ddd;
 }
+
+
+
+
+
+
+
+
+
+/* =========================
+   PROPERTY COMMENTS
+========================= */
+
+.comments-section {
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+
+  background: #ffffff;
+  border-radius: 18px;
+
+  box-shadow: 0 10px 30px rgba(0, 80, 180, 0.12);
+
+  text-align: center;
+}
+
+
+.comments-section h2 {
+  color: #0b63ce;
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+
+/* ADD COMMENT FORM */
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 15px;
+}
+
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 120px;
+
+  padding: 15px;
+
+  border-radius: 12px;
+  border: 2px solid #d7e7ff;
+
+  resize: vertical;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition: 0.2s;
+}
+
+
+.comment-form textarea:focus {
+  border-color: #0b63ce;
+  box-shadow: 0 0 0 3px rgba(11,99,206,0.15);
+}
+
+
+.comment-form button {
+  width: 220px;
+
+  padding: 12px 25px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: #0b63ce;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+
+.comment-form button:hover {
+  background: #084a9b;
+  transform: translateY(-2px);
+}
+
+
+.comment-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* COMMENTS LIST */
+
+.comments-list {
+
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+
+}
+
+
+/* SINGLE COMMENT */
+
+.comment-card {
+
+  text-align: left;
+
+  background: #f5f9ff;
+
+  border-left: 5px solid #0b63ce;
+
+  padding: 18px;
+
+  border-radius: 12px;
+
+}
+
+
+.comment-card strong {
+
+  color: #0b63ce;
+
+  display: block;
+
+  margin-bottom: 8px;
+
+}
+
+
+.comment-card p {
+
+  color: #333;
+
+  margin: 0;
+
+  line-height: 1.5;
+
+}
+
+
+/* EMPTY STATE */
+
+.no-comments {
+
+  color: #777;
+
+  margin-top: 20px;
+
+}
+
+
+/* DARK MODE SUPPORT */
+
+body.dark .comments-section {
+
+  background: #1e293b;
+
+}
+
+
+body.dark .comment-card {
+
+  background: #26354d;
+
+}
+
+
+body.dark .comment-card p {
+
+  color: #e5e7eb;
+
+}
+
+
+body.dark .comment-card strong {
+
+  color: #60a5fa;
+
+}
