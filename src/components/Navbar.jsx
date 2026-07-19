@@ -54,7 +54,7 @@ export default function Navbar() {
 
           {loading ? (
             <span className="nav-link" style={{ opacity: 0.6 }}>
-              Loading...
+              {translations[lang].loading}
             </span>
           ) : user ? (
             <>
@@ -154,7 +154,7 @@ export default function Navbar() {
 
                 {loading ? (
                   <span className="nav-link" style={{ opacity: 0.6 }}>
-                    Loading...
+                    {translations[lang].loading}
                   </span>
                 ) : user ? (
                   <>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from "../api/client"; // Axios Client
+import { sendContact } from "../api/contact";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
@@ -22,24 +22,41 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setSubmitLoading(true);
     setStatus(null);
 
     try {
-      const res = await api.post("/contact", form);
 
-      if (res.data.success) {
+      const data = await sendContact(form);
+
+      if (data.success) {
+
         setStatus("success");
-        setForm({ name: "", email: "", subject: "", message: "" });
+
+        setForm({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+
       } else {
+
         setStatus("error");
+
       }
+
     } catch (err) {
+
       console.error(err);
       setStatus("error");
-    }
 
-    setSubmitLoading(false);
+    } finally {
+
+      setSubmitLoading(false);
+
+    }
   };
 
   return (

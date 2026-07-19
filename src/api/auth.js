@@ -1,13 +1,60 @@
-import api from "./client";
+import { API_BASE_URL } from "../config";
 
-export const login = async (email, password) => {
-  return api.post("/auth/login", { email, password });
+export const login = async (authFetch, email, password) => {
+  const res = await authFetch(
+    `${API_BASE_URL}/auth/login`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }
+  );
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    json.status = res.status;
+    throw json;
+  }
+
+  return json;
 };
 
-export const register = async (data) => {
-  return api.post("/auth/register", data);
+export const register = async (authFetch, data) => {
+  const res = await authFetch(
+    `${API_BASE_URL}/auth/register`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  );
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    json.status = res.status;
+    throw json;
+  }
+
+  return json;
 };
 
-export const logout = async () => {
-  return api.post("/auth/logout");
+export const logout = async (authFetch) => {
+  const res = await authFetch(
+    `${API_BASE_URL}/auth/logout`,
+    {
+      method: "POST",
+    }
+  );
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    json.status = res.status;
+    throw json;
+  }
+
+  return json;
 };

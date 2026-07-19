@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { getProperty } from "../api/property";
-import { createBooking } from "../api/booking";
+
+import {
+  createBooking,
+  createStripeSession
+} from "../api/booking";
+
+import { AuthContext } from "../context/AuthContext";
 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
@@ -12,6 +18,7 @@ export default function PropertyDetail() {
   const { id } = useParams();
   const { lang } = useLanguage();
   const navigate = useNavigate();
+  const { authFetch } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [bookingLoading, setBookingLoading] = useState(false);
   const [property, setProperty] = useState(null);
@@ -28,7 +35,8 @@ export default function PropertyDetail() {
       try {
 
         const res = await getProperty(id);
-        setProperty(res?.data?.data || null);
+
+        setProperty(res.data.data || null);
 
       } catch (err) {
 
@@ -78,34 +86,47 @@ export default function PropertyDetail() {
     
     setBookingLoading(true);
 
-       try {
+      try {
 
-      const res = await createBooking({
-        property_id: Number(id),
-        check_in: checkIn,
-        check_out: checkOut,
-        locale: lang
-      });
+            // 1. Create booking
+          const booking = await createBooking(
+            authFetch,
+            {
+              property_id: Number(id),
+              check_in: checkIn,
+              check_out: checkOut,
+              locale: lang
+            }
+          );
 
-      const url = res.data?.checkout_url || res.data?.data?.checkout_url;
+          const bookingId = booking?.data?.booking_id;
 
-      if (!url) {
-        alert(translations[lang].bookingFailed);
-        return;
-      }
+            if (!bookingId) {
+              alert(translations[lang].bookingFailed);
+              return;
+            }
 
-      window.location.href = url;
+            // 2. Create Stripe session
+        const stripe = await createStripeSession(
+            authFetch,
+            bookingId
+        );
 
-    } catch (err) {
+        if (!stripe.success) {
+            alert(translations[lang].bookingFailed);
+            return;
+        }
+
+        window.location.href = stripe.data.checkout_url;
+
+      } catch (err) {
         console.error("BOOKING ERROR:", err);
 
-        const status = err.response?.status;
+        const status = err?.status;
 
         const message =
           err?.message ||
           err?.error ||
-          err?.data?.message ||
-          err?.data?.error ||
           "";
 
         const msg = message.toLowerCase();
@@ -125,6 +146,8 @@ export default function PropertyDetail() {
         } else {
           alert(translations[lang].bookingFailed);
         }
+      } finally {
+        setBookingLoading(false);
       }
 
   };

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { getMyBookings } from "../api/booking";
 
 import { useLanguage } from "../context/LanguageContext";
@@ -6,7 +7,9 @@ import { translations } from "../i18n/languages";
 
 export default function MyBookings() {
 
+  const { authFetch } = useContext(AuthContext);
   const { lang } = useLanguage();
+
 
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,8 +25,9 @@ export default function MyBookings() {
 
   const loadBookings = async () => {
     try {
-      const res = await getMyBookings();
-      const data = res?.data?.data || [];
+      const res = await getMyBookings(authFetch);
+
+      const data = res.data || [];
       setBookings(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error(err);
@@ -98,12 +102,12 @@ export default function MyBookings() {
 
             {/* TITLE */}
             <h3>
-              {b.property.title}
+              {b.title}
             </h3>
 
             {/* CITY */}
             <p className="muted">
-              📍 {b.property.city}
+              📍 {b.city}
             </p>
 
             {/* DATES */}

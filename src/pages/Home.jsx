@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PropertyCard from "../components/PropertyCard";
-import api from "../api/client";
+import { getProperties } from "../api/property";
 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
@@ -14,26 +14,22 @@ export default function Home() {
 
   const [selectedCity, setSelectedCity] = useState("");
 
-  const getProperties = async () => {
-    try {
-      const res = await api.get("/properties");
-      setProperties(res.data.data.data || res.data.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const loadProperties = async () => {
+      try {
+          const res = await getProperties();
+          setProperties(res.data);
+      } catch (err) {
+          console.error(err);
+      } finally {
+          setLoading(false);
+      }
+  }; 
 
   useEffect(() => {
-    let mounted = true;
-    getProperties().then(() => {
-      if (!mounted) return;
-    });
-    return () => { mounted = false; };
+      loadProperties();
   }, []);
 
-  const cities = [...new Set(properties.map(p => p.city))];
+  const cities = [...new Set(properties.map(property => property.city))];
 
   // LOADING
   if (loading) {
