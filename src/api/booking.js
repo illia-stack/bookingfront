@@ -6,7 +6,7 @@ export const createBooking = async (
 ) => {
 
   const res = await authFetch(
-    `${API_BASE_URL}/bookings`,
+    `${API_BASE_URL}/bookings.php`,
     {
       method: "POST",
       body: JSON.stringify(data)

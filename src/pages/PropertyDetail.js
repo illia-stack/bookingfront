@@ -38,7 +38,7 @@ export default function PropertyDetail() {
 
         const res = await getProperty(id);
 
-        setProperty(res.data.data || null);
+        setProperty(res.data || null);
 
       } catch (err) {
 
