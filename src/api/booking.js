@@ -9,6 +9,9 @@ export const createBooking = async (
     `${API_BASE_URL}/bookings.php`,
     {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(data)
     }
   );
@@ -26,7 +29,7 @@ export const createBooking = async (
 export const getMyBookings = async (authFetch) => {
 
     const res = await authFetch(
-        `${API_BASE_URL}/my-bookings`
+        `${API_BASE_URL}/bookings.php`
     );
 
     const json = await res.json();
@@ -45,9 +48,12 @@ export const createStripeSession = async (
 ) => {
 
   const res = await authFetch(
-    `${API_BASE_URL}/stripe/create-session`,
+    `${API_BASE_URL}/stripe.php`,
     {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         booking_id: bookingId
       })
