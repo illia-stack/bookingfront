@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "../config";
 
 export const getProperties = async () => {
-  const res = await fetch(`${API_BASE_URL}/properties`, {
+  const res = await fetch(`${API_BASE_URL}/properties.php`, {
     credentials: "include"
   });
 
@@ -18,7 +18,7 @@ console.log(text);
 };
 
 export const getProperty = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/properties/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/properties.php/${id}`, {
     credentials: "include"
   });
 
