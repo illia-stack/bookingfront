@@ -85,6 +85,7 @@ export default function PropertyDetail() {
       return;
     }
 
+    const todayStr = new Date().toISOString().split("T")[0];
     
     setBookingLoading(true);
 
@@ -238,7 +239,7 @@ export default function PropertyDetail() {
 
               <input
                 type="date"
-                min={checkIn || new Date().toISOString().split("T")[0]}
+                min={todayStr}
                 value={checkIn}
                 onChange={(e) => setCheckIn(e.target.value)}
               />
@@ -258,7 +259,7 @@ export default function PropertyDetail() {
 
               <input
                 type="date"
-                min={checkIn || new Date().toISOString().split("T")[0]}
+                min={checkIn || todayStr}
                 value={checkOut}
                 onChange={(e) => setCheckOut(e.target.value)}
               />

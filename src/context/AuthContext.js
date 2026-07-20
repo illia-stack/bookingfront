@@ -59,10 +59,6 @@ export const AuthProvider = ({ children }) => {
 
     let body = options.body;
 
-    if (body && !(body instanceof FormData)) {
-      const parsed = JSON.parse(body);
-      body = JSON.stringify(parsed);
-    }
 
     const res = await fetch(url, {
       ...options,
@@ -82,14 +78,17 @@ export const AuthProvider = ({ children }) => {
     
     if (res.status === 403 && !retry) {
       setUser(null);
-
-      throw new Error("SESSION_EXPIRED");
+      const err = new Error("SESSION_EXPIRED");
+      err.status = 403;
+      throw err;
     }
 
     
-    if (res.status === 401) {
+   if (res.status === 401) {
       setUser(null);
-      throw new Error("UNAUTHORIZED");
+      const err = new Error("UNAUTHORIZED");
+      err.status = 401;
+      throw err;
     }
 
     return res;

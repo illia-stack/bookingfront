@@ -7,7 +7,7 @@ import { translations } from "../i18n/languages";
 
 export default function MyBookings() {
 
-  const { authFetch } = useContext(AuthContext);
+  const { authFetch, user } = useContext(AuthContext);
   const { lang } = useLanguage();
 
 
@@ -30,7 +30,13 @@ export default function MyBookings() {
       const data = res.data || [];
       setBookings(Array.isArray(data) ? data : []);
     } catch (err) {
-      console.error(err);
+      console.error("BOOKINGS ERROR:", err);
+
+      if (err?.status === 401) {
+        window.location.href = "/login";
+        return;
+      }
+
       setError("errorLoadingBookings");
     } finally {
       setLoading(false);
@@ -38,8 +44,9 @@ export default function MyBookings() {
   };
 
   useEffect(() => {
+    if (!user) return;
     loadBookings();
-  }, []);
+  }, [user]);
 
   const formatPrice = (price) =>
   new Intl.NumberFormat(lang, {
