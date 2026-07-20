@@ -80,81 +80,48 @@ async function sendComment(){
 
 
 return (
+  <div className="comments-section">
 
-<div className="comments-section">
+    <h2>{translations[lang].comments}</h2>
 
+    <div className="comments-list">
+      {comments.length > 0 ? (
+        comments.map((c) => (
+          <div
+            key={c.id}
+            className="comment-card"
+          >
+            <strong>{c.name}</strong>
 
+            <p>{c.comment}</p>
 
-<h2>{translations[lang].comments}</h2>
+            <small>
+              {new Date(c.created_at).toLocaleDateString()}
+            </small>
+          </div>
+        ))
+      ) : (
+        <p className="no-comments">
+          {translations[lang].noComments}
+        </p>
+      )}
+    </div>
 
+    <div className="comment-form">
 
-<div>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder={translations[lang].writeComment}
+      />
 
-{
-comments.map(c=>(
+      <button onClick={sendComment}>
+        {translations[lang].addComment}
+      </button>
 
-<div
-key={c.id}
-className="comment"
->
+    </div>
 
-<strong>
-{c.name}
-</strong>
-
-
-<p>
-{c.comment}
-</p>
-
-
-<small>
-{new Date(
-c.created_at
-).toLocaleDateString()}
-</small>
-
-
-</div>
-
-))
-
-}
-
-</div>
-
-
-
-<textarea
-
-value={text}
-
-onChange={
-e=>setText(e.target.value)
-}
-
-placeholder={translations[lang].writeComment}
-
->
-
-
-
-</textarea>
-
-
-
-<button
-onClick={sendComment}
->
-
-{translations[lang].addComment}
-
-</button>
-
-
-</div>
-
+  </div>
 );
-
 
 }

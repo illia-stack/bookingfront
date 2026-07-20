@@ -177,117 +177,121 @@ export default function PropertyDetail() {
   }
 
   return (
-    <div className="detail-page">
+  <div className="detail-page">
 
-      <div className="detail-card">
+    <div className="detail-card">
 
-        {/* IMAGE */}
-        <img
-          src={
-            property.image_url ||
-            "https://via.placeholder.com/800x400"
-          }
-          alt={property.title}
-          loading="lazy"
-          className="detail-image"
-        />
+      {/* IMAGE */}
+      <img
+        src={
+          property.image_url ||
+          "https://via.placeholder.com/800x400"
+        }
+        alt={property.title}
+        loading="lazy"
+        className="detail-image"
+      />
 
-        {/* TITLE */}
-        <h1 className="detail-title">
-          {property.title}
-        </h1>
+      {/* TITLE */}
+      <h1 className="detail-title">
+        {property.title}
+      </h1>
 
-        {/* INFO */}
-        <div className="detail-info">
+      {/* INFO */}
+      <div className="detail-info">
+        <p>📍 {property.city}</p>
 
-          <p>📍 {property.city}</p>
-
-          <p>
-            💰 {property.price_per_night} € / {translations[lang].night}
-          </p>
-
-          <p>
-            👥 {translations[lang].upTo}{" "}
-            {property.max_guests}{" "}
-            {translations[lang].guests}
-          </p>
-
-        </div>
-
-        {/* DESCRIPTION */}
-        <p className="detail-description">
-          {property.description}
+        <p>
+          💰 {property.price_per_night} € / {translations[lang].night}
         </p>
 
-        {/* BOOKING SECTION */}
-        <div className="booking-box">
+        <p>
+          👥 {translations[lang].upTo}{" "}
+          {property.max_guests}{" "}
+          {translations[lang].guests}
+        </p>
+      </div>
 
-          <h3>
-            {translations[lang].bookProperty}
-          </h3>
+      {/* DESCRIPTION */}
+      <p className="detail-description">
+        {property.description}
+      </p>
 
+      {/* BOOKING */}
+      <div className="booking-box">
 
-          <div className="booking-dates">
-            {/* CHECK-IN */}
-            <div className="form-group">
+        <h3>
+          {translations[lang].bookProperty}
+        </h3>
 
-              <label>
-                {translations[lang].checkInLabel}
-              </label>
+        <div className="booking-dates">
 
-              <p className="hint">
-                {translations[lang].checkInHint}
-              </p>
+          {/* CHECK-IN */}
+          <div className="form-group">
 
-              <input
-                type="date"
-                min={todayStr}
-                value={checkIn}
-                onChange={(e) => setCheckIn(e.target.value)}
-              />
+            <label>
+              {translations[lang].checkInLabel}
+            </label>
 
-            </div>
+            <p className="hint">
+              {translations[lang].checkInHint}
+            </p>
 
-            {/* CHECK-OUT */}
-            <div className="form-group">
+            <input
+              type="date"
+              min={todayStr}
+              value={checkIn}
+              onChange={(e) => setCheckIn(e.target.value)}
+            />
 
-              <label>
-                {translations[lang].checkOutLabel}
-              </label>
-
-              <p className="hint">
-                {translations[lang].checkOutHint}
-              </p>
-
-              <input
-                type="date"
-                min={checkIn || todayStr}
-                value={checkOut}
-                onChange={(e) => setCheckOut(e.target.value)}
-              />
-
-            </div>
           </div>
 
-          {/* BUTTON */}
-          <button
-            className="primary-btn full-btn"
-            disabled={bookingLoading}
-            onClick={handleBooking}
-          >{bookingLoading
-            ? translations[lang].loading
-            : translations[lang].createBooking}
-          </button>
+          {/* CHECK-OUT */}
+          <div className="form-group">
+
+            <label>
+              {translations[lang].checkOutLabel}
+            </label>
+
+            <p className="hint">
+              {translations[lang].checkOutHint}
+            </p>
+
+            <input
+              type="date"
+              min={checkIn || todayStr}
+              value={checkOut}
+              onChange={(e) => setCheckOut(e.target.value)}
+            />
+
+          </div>
 
         </div>
+
+        <button
+          className="primary-btn full-btn"
+          disabled={bookingLoading}
+          onClick={handleBooking}
+        >
+          {bookingLoading
+            ? translations[lang].loading
+            : translations[lang].createBooking}
+        </button>
+
+        {bookingId && (
+          <p className="booking-id">
+            {translations[lang].bookingId}: <strong>{bookingId}</strong>
+          </p>
+        )}
 
       </div>
 
-      <PropertyComments
-          propertyId={id}
-      />
-
     </div>
-  );
+
+    {/* COMMENTS */}
+    <PropertyComments propertyId={id} />
+
+  </div>
+);
   
 }
