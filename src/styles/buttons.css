@@ -68,3 +68,14 @@ button:hover {
   margin: 20px auto 0;
   display: block;
 }
+
+
+
+.toggle-password {
+  background: #2563eb;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 14px;
+}
