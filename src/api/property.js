@@ -5,9 +5,9 @@ export const getProperties = async () => {
     credentials: "include"
   });
 
-  const text = await res.text();
+  const json = await res.json();
 
-console.log(text);
+  console.log(json);
 
   if (!res.ok) {
     json.status = res.status;
@@ -18,13 +18,13 @@ console.log(text);
 };
 
 export const getProperty = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/properties.php/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/properties.php?id=${id}`, {
     credentials: "include"
   });
 
- const text = await res.text();
+  const json = await res.json();
 
-console.log(text);
+  console.log(json);
 
   if (!res.ok) {
     json.status = res.status;
