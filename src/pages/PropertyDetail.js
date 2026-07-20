@@ -199,6 +199,7 @@ export default function PropertyDetail() {
 
       {/* INFO */}
       <div className="detail-info">
+
         <p>📍 {property.city}</p>
 
         <p>
@@ -210,6 +211,7 @@ export default function PropertyDetail() {
           {property.max_guests}{" "}
           {translations[lang].guests}
         </p>
+
       </div>
 
       {/* DESCRIPTION */}
@@ -278,18 +280,14 @@ export default function PropertyDetail() {
             : translations[lang].createBooking}
         </button>
 
-        {bookingId && (
-          <p className="booking-id">
-            {translations[lang].bookingId}: <strong>{bookingId}</strong>
-          </p>
-        )}
-
       </div>
 
     </div>
 
     {/* COMMENTS */}
-    <PropertyComments propertyId={id} />
+    <PropertyComments
+      propertyId={id}
+    />
 
   </div>
 );
