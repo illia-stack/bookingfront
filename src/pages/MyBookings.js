@@ -27,7 +27,7 @@ export default function MyBookings() {
     try {
       const res = await getMyBookings(authFetch);
 
-      const data = res.data || [];
+      const data = Array.isArray(res.data) ? res.data : [];
       setBookings(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("BOOKINGS ERROR:", err);
@@ -44,9 +44,14 @@ export default function MyBookings() {
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (user === null) {
+      setLoading(false);
+      return;
+    }
+
     loadBookings();
   }, [user]);
+
 
   const formatPrice = (price) =>
   new Intl.NumberFormat(lang, {

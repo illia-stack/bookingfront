@@ -28,6 +28,8 @@ export default function PropertyDetail() {
   
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
+  const todayStr = new Date().toISOString().split("T")[0];
+
  
   
   useEffect(() => {
@@ -85,7 +87,6 @@ export default function PropertyDetail() {
       return;
     }
 
-    const todayStr = new Date().toISOString().split("T")[0];
     
     setBookingLoading(true);
 
