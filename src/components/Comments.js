@@ -2,18 +2,16 @@ import { API_BASE_URL } from "../config";
 
 
 
-export async function getPropertyComments(
-    authFetch,
-    propertyId
-){
+export async function getPropertyComments(propertyId) {
 
-    const res = await authFetch(
-        `${API_BASE_URL}/property_comments.php?property_id=${propertyId}`
+    const res = await fetch(
+        `${API_BASE_URL}/property_comments.php?property_id=${propertyId}`,
+        {
+            credentials: "include" // keep cookies if logged in
+        }
     );
 
-
     return await res.json();
-
 }
 
 

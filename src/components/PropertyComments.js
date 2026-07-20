@@ -35,11 +35,7 @@ const { lang } = useLanguage();
 
 async function loadComments(){
 
-    const res =
-        await getPropertyComments(
-            authFetch,
-            propertyId
-        );
+   const res = await getPropertyComments(propertyId);
 
 
     setComments(
