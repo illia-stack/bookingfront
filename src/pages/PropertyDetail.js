@@ -116,10 +116,11 @@ export default function PropertyDetail() {
             bookingId
         );
 
-        if (!stripe.success) {
-            alert(translations[lang].bookingFailed);
-            return;
-        }
+        if (!stripe.success || !stripe.data?.checkout_url) {
+    console.error("Stripe response:", stripe);
+    alert(translations[lang].bookingFailed);
+    return;
+}
 
         window.location.assign(stripe.data.checkout_url);
       } catch (err) {
