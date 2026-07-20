@@ -196,11 +196,11 @@ export default function Navbar() {
                   </>
                 ) : (
                   <>
-                    <Link className="nav-link" to="/login">
+                    <Link className="nav-link" to="/login" onClick={closeMenu}>
                       {translations[lang].login}
                     </Link>
 
-                    <Link className="nav-link" to="/register">
+                    <Link className="nav-link" to="/register" onClick={closeMenu}>
                       {translations[lang].register}
                     </Link>
                   </>
