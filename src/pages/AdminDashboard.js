@@ -48,12 +48,12 @@ export default function AdminDashboard() {
             <h1 className="center">Admin Dashboard</h1>
             <br></br>
             <p> Administrator dashbord is currently disabled for infrastructure restrictions</p>
-            <Link to="/" className="primary-btn btn-full">
+            <Link to="/">
                 Back to Home
             </Link>
             <br></br>
             <button className="primary-btn btn-full" onClick={exportBookings}>
-                Export Bookings (Excel)
+                Report service requires further infrastucture extensions
             </button>
 
             <div className="table-wrapper">
