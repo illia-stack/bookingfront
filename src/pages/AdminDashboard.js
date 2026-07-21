@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function AdminDashboard() {
@@ -45,7 +46,12 @@ export default function AdminDashboard() {
     return (
         <div className="container">
             <h1 className="center">Admin Dashboard</h1>
-
+            <br></br>
+            <p> Administrator dashbord is currently disabled for infrastructure restrictions</p>
+            <Link to="/" className="primary-btn btn-full">
+                Back to Home
+            </Link>
+            <br></br>
             <button className="primary-btn btn-full" onClick={exportBookings}>
                 Export Bookings (Excel)
             </button>

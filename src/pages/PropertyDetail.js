@@ -110,6 +110,7 @@ export default function PropertyDetail() {
               return;
             }
 
+
             // 2. Create Stripe session
         const stripe = await createStripeSession(
             authFetch,
@@ -117,13 +118,19 @@ export default function PropertyDetail() {
         );
 
         if (!stripe.success || !stripe.data?.checkout_url) {
-    console.error("Stripe response:", stripe);
-    alert(translations[lang].bookingFailed);
-    return;
-}
+
+            console.error("Stripe response:", stripe);
+
+            alert(translations[lang].bookingFailed);
+            return;
+        }
 
         window.location.assign(stripe.data.checkout_url);
+
+
       } catch (err) {
+
+
         console.error("BOOKING ERROR:", err);
 
         const status = err?.status;
@@ -147,6 +154,7 @@ export default function PropertyDetail() {
           err.code === "BOOKING_CONFLICT"
         ) {
           alert(translations[lang].alreadyBooked);
+          
         } else {
           alert(translations[lang].bookingFailed);
         }
