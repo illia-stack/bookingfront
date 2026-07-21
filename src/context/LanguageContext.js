@@ -11,6 +11,7 @@ export function LanguageProvider({ children }) {
     localStorage.setItem("lang", newLang);
   };
 
+
   useEffect(() => {
     const savedLang = localStorage.getItem("lang");
     if (savedLang) {
@@ -23,12 +24,15 @@ export function LanguageProvider({ children }) {
     }
   }, []);
 
+
   return (
     <LanguageContext.Provider value={{ lang, changeLang }}>
       {children}
     </LanguageContext.Provider>
   );
+
 }
+
 
 export function useLanguage() {
   return useContext(LanguageContext);

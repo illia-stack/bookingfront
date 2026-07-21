@@ -52,6 +52,7 @@ function Login() {
       await login();
 
       alert(translations[lang].loggedIn);
+      
       navigate("/", { replace: true });
 
 

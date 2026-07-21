@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
 import { getProperty } from "../api/property";
 
 import {
@@ -9,31 +8,38 @@ import {
 } from "../api/booking";
 
 import { AuthContext } from "../context/AuthContext";
-
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
-
 import PropertyComments from "../components/PropertyComments";
+
 
 export default function PropertyDetail() {
 
   const { id } = useParams();
-  const { lang } = useLanguage();
-  const navigate = useNavigate();
-  const { authFetch } = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
-  const [bookingLoading, setBookingLoading] = useState(false);
-  const [property, setProperty] = useState(null);
 
+  const navigate = useNavigate();
+
+  const { authFetch } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(true);
+
+  const [bookingLoading, setBookingLoading] = useState(false);
+
+  const [property, setProperty] = useState(null);
   
   const [checkIn, setCheckIn] = useState("");
+
   const [checkOut, setCheckOut] = useState("");
+
   const todayStr = new Date().toISOString().split("T")[0];
 
+  const { lang } = useLanguage();
  
   
   useEffect(() => {
+
     setLoading(true);
+
     const fetchProperty = async () => {
 
       try {
@@ -45,6 +51,7 @@ export default function PropertyDetail() {
       } catch (err) {
 
         console.error(err);
+
         alert(translations[lang].propertyNotFound);
 
       } finally {
@@ -67,9 +74,11 @@ export default function PropertyDetail() {
     }
 
     const today = new Date();
+
     today.setHours(0,0,0,0);
 
     const inDate = new Date(checkIn);
+
     const outDate = new Date(checkOut);
 
     if (isNaN(inDate) || isNaN(outDate)) {
@@ -164,6 +173,7 @@ export default function PropertyDetail() {
 
   };
 
+
   /* LOADING */
   if (loading) {
     return (
@@ -175,6 +185,7 @@ export default function PropertyDetail() {
     );
   }
 
+
   /* NOT FOUND */
   if (!property) {
     return (
@@ -183,6 +194,7 @@ export default function PropertyDetail() {
       </div>
     );
   }
+
 
     return (
       <div className="detail-page">

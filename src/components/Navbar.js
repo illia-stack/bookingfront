@@ -5,6 +5,8 @@ import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 import { useTheme } from "../context/ThemeContext";
 
+
+
 export default function Navbar() {
 
   const [loggingOut, setLoggingOut] = useState(false);
@@ -46,10 +48,7 @@ export default function Navbar() {
           <Link className="nav-link" to="/contact">
             {translations[lang].contact}
           </Link>
-
-                        
-
-              
+  
 
 
           {loading ? (
@@ -235,4 +234,5 @@ export default function Navbar() {
 
     </nav>
   );
+
 }

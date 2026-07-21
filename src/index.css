@@ -30,6 +30,7 @@ body.light {
   color: #111;
 }
 
+
 /* DARK */
 body.dark {
   --bg: #121212;
@@ -40,9 +41,6 @@ body.dark {
   background-color: var(--bg);
   color: var(--text);
 }
-
-/* Navbar */
-/* DARK MODE NAVBAR */
 
 
 

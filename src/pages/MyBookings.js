@@ -1,19 +1,22 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { getMyBookings } from "../api/booking";
-
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
+
 
 export default function MyBookings() {
 
   const { authFetch, user } = useContext(AuthContext);
+
   const { lang } = useLanguage();
 
-
   const [bookings, setBookings] = useState([]);
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState(null);
+
 
   // STATUS LABEL
   const statusLabel = (status) => {
@@ -22,6 +25,7 @@ export default function MyBookings() {
       `status${status.charAt(0).toUpperCase()}${status.slice(1)}`;
     return translations[lang][key] || status;
   };
+
 
   const loadBookings = async () => {
     try {
@@ -43,6 +47,7 @@ export default function MyBookings() {
     }
   };
 
+
   useEffect(() => {
     if (user === null) {
       setLoading(false);
@@ -53,17 +58,20 @@ export default function MyBookings() {
   }, [user]);
 
 
+
   const formatPrice = (price) =>
   new Intl.NumberFormat(lang, {
     style: "currency",
     currency: "EUR",
   }).format(price);
 
+
   const formatDate = (date) => {
     if (!date) return "-";
     const d = new Date(date);
     return isNaN(d) ? "-" : d.toLocaleDateString(lang);
   };
+
 
   /* LOADING */
   if (loading) {
@@ -98,6 +106,7 @@ export default function MyBookings() {
       </div>
     );
   }
+
 
   return (
     <div className="bookings-page">
@@ -155,4 +164,5 @@ export default function MyBookings() {
 
     </div>
   );
+
 }

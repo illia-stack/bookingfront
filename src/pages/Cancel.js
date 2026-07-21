@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
+
 export default function Cancel() {
 
   const { lang, changeLang } = useLanguage(); 
@@ -10,13 +11,16 @@ export default function Cancel() {
   const [searchParams] = useSearchParams();
 
   const bookingId = searchParams.get("booking_id");
+
   const urlLang = searchParams.get("lang"); 
 
+  
   useEffect(() => {
     if (urlLang && urlLang !== lang) {
       changeLang(urlLang); 
     }
   }, [urlLang, lang, changeLang]);
+
 
   return (
     <div className="page-center">
@@ -58,4 +62,5 @@ export default function Cancel() {
 
     </div>
   );
+
 }

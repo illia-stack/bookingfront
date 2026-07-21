@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-
 import Home from "./pages/Home";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -36,6 +35,7 @@ function AppContent() {
 
   const { lang } = useLanguage();
 
+  
   // HTML LANG ATTRIBUTE
   useEffect(() => {
     document.documentElement.lang = lang;

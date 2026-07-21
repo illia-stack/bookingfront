@@ -1,5 +1,6 @@
 import { API_BASE_URL } from "../config";
 
+
 export const getProperties = async () => {
   const res = await fetch(
     `${API_BASE_URL}/properties.php`,
@@ -15,6 +16,8 @@ export const getProperties = async () => {
 
   return json;
 };
+
+
 
 export const getProperty = async (id) => {
   const res = await fetch(

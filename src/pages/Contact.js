@@ -3,7 +3,9 @@ import { sendContact } from "../api/contact";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
+
 export default function Contact() {
+
   const { lang } = useLanguage();
 
   const [form, setForm] = useState({
@@ -14,18 +16,26 @@ export default function Contact() {
   });
 
   const [status, setStatus] = useState(null);
+
   const [submitLoading, setSubmitLoading] = useState(false);
+
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e) => {
+
     if (submitLoading) return;
+
     e.preventDefault();
 
     setSubmitLoading(true);
+
     setStatus(null);
+
+
 
     try {
 
@@ -59,6 +69,7 @@ export default function Contact() {
 
     }
   };
+
 
   return (
     <div className="contact-page">
@@ -129,6 +140,5 @@ export default function Contact() {
         </div>
     </div>
   );
-
 
 }

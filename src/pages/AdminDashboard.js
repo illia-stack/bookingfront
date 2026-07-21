@@ -24,7 +24,7 @@ export default function AdminDashboard() {
             const response = await axios.get(
                 "https://bookingback.onrender.com/api/admin/export-bookings",
                 {
-                    responseType: "blob", // sehr wichtig für Excel
+                    responseType: "blob",
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

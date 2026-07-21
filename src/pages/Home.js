@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import PropertyCard from "../components/PropertyCard";
 import { getProperties } from "../api/property";
-
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
@@ -10,9 +9,11 @@ export default function Home() {
   const { lang } = useLanguage();
 
   const [properties, setProperties] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   const [selectedCity, setSelectedCity] = useState("");
+
 
   const loadProperties = async () => {
       try {
@@ -28,6 +29,7 @@ export default function Home() {
   useEffect(() => {
       loadProperties();
   }, []);
+
 
   const cities = [...new Set(properties.map(property => property.city))];
 
@@ -48,6 +50,7 @@ export default function Home() {
       </div>
     );
   }
+
 
   return (
     <div>
@@ -83,4 +86,5 @@ export default function Home() {
       </div>
     </div>
   );
+
 }

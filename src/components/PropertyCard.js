@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
+
 
 export default function PropertyCard({ property }) {
 
@@ -65,4 +65,5 @@ export default function PropertyCard({ property }) {
 
     </div>
   );
+
 }

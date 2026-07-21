@@ -5,23 +5,33 @@ import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/languages";
 
+
 function Register() {
   
   const { login, authFetch, loading: authLoading } = useContext(AuthContext);
+
   const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
+
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
+
   const [errors, setErrors] = useState({});
+
   const [showPassword, setShowPassword] = useState(false);
 
   const { lang } = useLanguage();
 
+
+  
   const handleRegister = async () => {
+
    if (loading) return;
 
-    
     setLoading(true);
 
     try {
@@ -33,6 +43,7 @@ function Register() {
         },
         body: JSON.stringify({ name, email, password }),
       });
+
 
       const contentType = res.headers.get("content-type");
 
@@ -51,9 +62,9 @@ function Register() {
         }
         throw new Error(data?.message || "Registration failed");
       }
-      
-      setErrors({});
 
+
+      setErrors({});
 
       alert(translations[lang].registrationSuccess);
 
@@ -61,6 +72,7 @@ function Register() {
       await login();
 
       navigate("/", { replace: true });
+
 
     } catch (err) {
 
@@ -82,6 +94,7 @@ function Register() {
           setLoading(false);
       }
   };
+
 
   return (
     <div className="auth-page">

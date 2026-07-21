@@ -1,5 +1,6 @@
 import { API_BASE_URL } from "../config";
 
+
 export const createBooking = async (
   authFetch,
   data
@@ -26,6 +27,8 @@ export const createBooking = async (
   return json;
 };
 
+
+
 export const getMyBookings = async (authFetch) => {
 
     const res = await authFetch(
@@ -41,6 +44,8 @@ export const getMyBookings = async (authFetch) => {
 
     return json;
 };
+
+
 
 export const createStripeSession = async (
   authFetch,
